@@ -1,7 +1,7 @@
 #' @title HostSwitch
 #' @name HostSwitch
 #' @docType package
-#' @description Simulate and visualize the extent of host switching by a parasite
+#' @description Package info: Simulate and visualize the extent of host switching by a parasite
 #' @details See vignette for details
 #' @vignette("HostSwitch", package="HostSwitch")
 NULL
