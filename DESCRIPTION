@@ -1,11 +1,32 @@
 Package: HostSwitch
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Simulate the Extent of Host Switching by a Parasite
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: c(
+    person("Valeria", "Trivellone", email = "valeria.trivellone@gmail.com", role = c("aut")),
+    person(c("Sabrina", "B.L."), "Araujo", email = "araujosbl@gmail.com", role = c("aut")),
+    person("Bernd", "Panassiti", email = "bernd.panassiti@gmail.com", role = c("cre","aut"),comment=c(ORCID="0000-0002-5899-4584")))
+Maintainer: The package maintainer <bernd.panassiti@gamil.com>
+Description: The 'HostSwitch' package uses a simulation-based approach to investigate host switches by a parasite.
+    The individual based model is based on the concepts of Stockholm paradigm and ecological fitting.
+    The orginial model is published by Araujo et al. 2015. Understanding Host-Switching by Ecological Fitting (https://doi.org/10.1371/journal.pone.0139225).
+    The package provides an R-friendly and modified version of this model which can be applied to different host-parasite scenarios.
+License: GPL (>= 3)
+URL: https://github.com/berndpanassiti/HostSwitch
+BugReports: https://github.com/berndpanassiti/HostSwitch/issues
+Depends:
+    R (>= 3.0.2)
+Imports:
+    tidyverse,
+    tibble,
+    dplyr,
+    ggplot2
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder:
+    knitr
 Encoding: UTF-8
+Language: en-US
 LazyData: true
+RoxygenNote: 7.1.1
