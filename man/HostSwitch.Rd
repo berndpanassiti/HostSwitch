@@ -5,7 +5,7 @@
 \alias{HostSwitch}
 \title{HostSwitch}
 \description{
-Simulate and visualize the extent of host switching by a parasite
+Package info: Simulate and visualize the extent of host switching by a parasite
 }
 \details{
 See vignette for details
