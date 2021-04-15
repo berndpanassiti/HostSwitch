@@ -7,6 +7,6 @@ flatten2 <- function(x) {
   len <- sum(rapply(x, function(z) 1L))
   y <- vector('list', len)
   i <- 0L
-  rapply(z, function(z) { i <<- i+1L; y[[i]] <<- x })
+  rapply(x, function(x) { i <<- i+1L; y[[i]] <<- x })
   y
 }
