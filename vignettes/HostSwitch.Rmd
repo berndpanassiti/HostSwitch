@@ -1,6 +1,6 @@
 ---
 title: "HostSwitch"
-author: "Valeria Trivellona, Sabrina B.L. Araujo, Bernd Panassiti"
+author: "Valeria Trivellone, Sabrina B.L. Araujo, Bernd Panassiti"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -48,7 +48,7 @@ HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.001, sdm=0.2, 
 HostSwitch_simulated_quantities
 ```
 
-The function generates a list containing all quantities of intest which can be used for summary statistics or plots. Quantities of interests are **phenotpyes** of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These parameters are available for each generation step.
+The function generates a list containing all quantities of interest which can be used for summary statistics or plots. Quantities of interest are **phenotpyes** of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These parameters are available for each generation step.
 
 
 ## Plot the model

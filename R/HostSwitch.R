@@ -1,19 +1,28 @@
-#' @title HostSwitch
-#' @name HostSwitch
-#' @docType package
-#' @description Package info: Simulate and visualize the extent of host switching by a parasite
-#' @details See vignette for details
-#' @vignette("HostSwitch", package="HostSwitch")
-NULL
+#' Survival probability of parasite
+#'
+#' @param pInd Phenotype of parasite
+#' @param pHost Phenotype of resource
+#' @param sigma Selection intensity
+#' @details The use of this function is calculate the survival probability of the parasite. It is the core function of \code{\link{simHostSwitch}}.
+#' The function is based on the density of the normal destribution: Ignoring  (1/sqrt(2*pi)*sigma) from the density function of the normal distribution, provides us the survival probability.
+#' If both pInd and pHost are equal (pInd = pHost = 5) - as it is defined as being the inital condition of the simHostSwitch function with the parasite having the optimum phenotype - the survival probability equals 1.
+#' @return The survival probability of the parasite
+#' @examples
+#' survivalProbability(pInd=5,pHost=5,sigma=1)
+#' @export
+
+survivalProbability = function(pInd,pHost,sigma){
+  exp(-(pInd-pHost)^2/(2*sigma^2))
+}
 
 
 #' Simulate host switches by parasites
 #'
 #' @param K Carrying capacity
 #' @param b Birth rate
-#' @param mig Migration rate
-#' @param sdm Standard deviation
-#' @param sigma Sigma
+#' @param mig Migration probability
+#' @param sd Standard deviation
+#' @param sigma Selection intensity
 #' @param pRes_min Smallest phenotype of resource (original host)
 #' @param pRes_max Maximum phenotype of resource (original host)
 #' @param n_generation Number of generations
@@ -21,14 +30,13 @@ NULL
 #' @details The use of this function is to simulate host switches by parasites
 #' @return A list with simulated quantities of interest: which can be used for summary statistics or plots. Quantities of interests are phenotpyes of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These parameters are available for each generation step.
 #' @examples
-#' simHostSwitch(K=100,b=10, mig=0.01, sdm=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
+#' simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
 #' @import tidyverse
 #' @import tibble
-#' @import dplyr
 #' @export
 
 
-simHostSwitch=function (K,b, mig, sdm,sigma, pRes_min, pRes_max,n_generation,seed=123){
+simHostSwitch=function (K,b, mig, sd,sigma, pRes_min, pRes_max,n_generation,seed=123){
   #set.seed(seed)
   # record quantities of interest
   pRes_sim     = rep(NA,n_generation) # phenotype original host
@@ -45,13 +53,13 @@ simHostSwitch=function (K,b, mig, sdm,sigma, pRes_min, pRes_max,n_generation,see
   while(n<n_generation & length(pInd)>0){
     n=n+1
     # Host switch
-    pRes_new=pRes_min+(pRes_max-pRes_min)*runif(1) # fct creates phenotype for new host
-    which_jump=which(runif(length(pInd))<mig)
+    pRes_new=pRes_min+(pRes_max-pRes_min)*stats::runif(1) # fct creates phenotype for new host
+    which_jump=which(stats::runif(length(pInd))<mig)
     pInd_jump=pInd[which_jump]
 
     ## Selection in the new host
-    prob=exp(-(pInd_jump-pRes_new)^2/(2*sigma^2)) # survival pResobability of jumped individuals; eq. 1
-    pInd_new=pInd_jump[prob>runif(length(pInd_jump))]
+    prob=survivalProbability(pInd=pInd_jump,pHost=pRes_new,sigma=sigma) # survival probability of jumped individuals; eq. 1
+    pInd_new=pInd_jump[prob>stats::runif(length(pInd_jump))]
 
     if(length(pInd_new)>0){ # Host switch successful, at least 1 individual jumped & survived
       pRes=pRes_new
@@ -62,20 +70,20 @@ simHostSwitch=function (K,b, mig, sdm,sigma, pRes_min, pRes_max,n_generation,see
       # are further used to calculate survival pResobability on original host and generate new offspResing
       # Note: jumped individuals are not allowed come back!
       if(length(which_jump)>0){pInd=pInd[-which_jump]} # select remaining individuals of original host
-      prob=exp(-(pInd-pRes)^2/(2*sigma^2))
-      pInd=pInd[prob>runif(length(pInd))]
+      prob=survivalProbability(pInd=pInd,pHost=pRes,sigma=sigma)
+      pInd=pInd[prob>stats::runif(length(pInd))]
     }
 
 
-    # RepResoduction
+    # Reproduction
     descendants=b*length(pInd)
     if(descendants>K){descendants=K} # Carrying capacity = upper limit
     if(length(pInd)>1)   {
-      pi_desc=sample(pInd,descendants,replace=TRUE) # randomly select offspResing phenotype with replacement
+      pi_desc=sample(pInd,descendants,replace=TRUE) # randomly select offspring phenotype with replacement
     }else{
       pInd_desc=rep(pInd,descendants)
     }
-    pInd=pInd_desc+rnorm(descendants, mean=0, sd=sdm) # fct adds variation to offspResing phenotype
+    pInd=pInd_desc+stats::rnorm(descendants, mean=0, sd=sd) # fct adds variation to offspring phenotype
 
     pRes_sim[n+1]     = pRes
     pRes_new_sim[n+1] = pRes_new

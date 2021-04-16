@@ -4,10 +4,10 @@
 \alias{plotHostSwitch}
 \title{HostSwitch standard plot}
 \usage{
-plotHostSwitch(x)
+plotHostSwitch(HostSwitch_simulated_quantities)
 }
 \arguments{
-\item{x}{an object of created by \code{\link{simHostSwitch}}}
+\item{HostSwitch_simulated_quantities}{an object created by \code{\link{simHostSwitch}}}
 }
 \description{
 This function creates a standard plot for the simulated host switches

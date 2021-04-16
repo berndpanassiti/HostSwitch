@@ -8,7 +8,7 @@ simHostSwitch(
   K,
   b,
   mig,
-  sdm,
+  sd,
   sigma,
   pRes_min,
   pRes_max,
@@ -21,11 +21,11 @@ simHostSwitch(
 
 \item{b}{Birth rate}
 
-\item{mig}{Migration rate}
+\item{mig}{Migration probability}
 
-\item{sdm}{Standard deviation}
+\item{sd}{Standard deviation}
 
-\item{sigma}{Sigma}
+\item{sigma}{Selection intensity}
 
 \item{pRes_min}{Smallest phenotype of resource (original host)}
 
@@ -45,5 +45,5 @@ Simulate host switches by parasites
 The use of this function is to simulate host switches by parasites
 }
 \examples{
-simHostSwitch(K=100,b=10, mig=0.01, sdm=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
+simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
 }
