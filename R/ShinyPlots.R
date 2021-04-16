@@ -1,4 +1,4 @@
-#' Survival probability of parasite
+#' Shiny plot of survival probability of parasite after host switch
 #'
 #' @details The function creates a shiny plot with host switches by a parasite.
 #'

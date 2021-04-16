@@ -15,7 +15,7 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities){
 
   n_generations <- pRes_max <- pRes_min <- x <- y <- NULL # global variables
 
-  mytheme <-  theme(axis.title = element_text(size =24),
+  mytheme <-  ggplot2::theme(axis.title = element_text(size =24),
                     axis.text = element_text(size =25),
                     strip.text= element_text(size = 30),
                     legend.position = "none",
@@ -27,10 +27,13 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities){
 
   pInd_sim = createPlotInput_sim_pInd(dat$metadata[[3]])
 
+  n_generations = dat$metadata[[4]]
+  pRes_min = dat$metadata[[5]]; pRes_max = dat$metadata[[6]]
+
     ggplot2::ggplot(data=pRes_sim,aes(x,y)) + geom_point(fill = 'red',shape=22,size=3) +               # plot resourcce
       xlim(0, n_generations) + ylim(pRes_min,pRes_max)+
       geom_point(data = pRes_new_sim, aes(x,y), col = 'green',size=2) +  # plot new resource
       geom_point(data =  pInd_sim, aes(x,y))+
       labs(y = "Phenotype", x = "Number of generations") +# rename y-axis
-      theme_bw() + mytheme
+      ggplot2::theme_bw() + mytheme
   }

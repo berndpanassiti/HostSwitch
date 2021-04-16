@@ -2,12 +2,12 @@
 % Please edit documentation in R/ShinyPlots.R
 \name{shinyHostSwitch}
 \alias{shinyHostSwitch}
-\title{Survival probability of parasite}
+\title{Shiny plot of survival probability of parasite after host switch}
 \usage{
 shinyHostSwitch()
 }
 \description{
-Survival probability of parasite
+Shiny plot of survival probability of parasite after host switch
 }
 \details{
 The function creates a shiny plot with host switches by a parasite.
