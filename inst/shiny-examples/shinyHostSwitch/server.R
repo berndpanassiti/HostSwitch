@@ -9,14 +9,11 @@ server <- function(input, output) {
   # 1. It is "reactive" and therefore should be automatically
   #    re-executed when inputs (input$bins) change
   # 2. Its output type is a plot
-  output$distPlot <- renderPlot({
+  output$HostSwitchPlot <- renderPlot({
 
-    x    <- faithful$waiting
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    HostSwitch_simulated_quantities= HostSwitch::simHostSwitch(K=input$K,b=input$b, mig=input$mig, sd=input$sd, sigma=1, pRes_min=1, pRes_max=10, n_generation=input$n_generation)
 
-    hist(x, breaks = bins, col = "#75AADB", border = "white",
-         xlab = "Waiting time to next eruption (in mins)",
-         main = "Histogram of waiting times")
+    HostSwitch::plotHostSwitch(HostSwitch_simulated_quantities)
 
   })
 

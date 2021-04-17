@@ -2,7 +2,7 @@
 ui <- fluidPage(
 
   # App title ----
-  titlePanel("Hello Shiny!"),
+  titlePanel("Simulate parasite host switching"),
 
   # Sidebar layout with input and output definitions ----
   sidebarLayout(
@@ -11,19 +11,38 @@ ui <- fluidPage(
     sidebarPanel(
 
       # Input: Slider for the number of bins ----
-      sliderInput(inputId = "bins",
-                  label = "Number of bins:",
-                  min = 1,
+      sliderInput(inputId = "mig",
+                  label = "Migration probability:",
+                  min = 0,
+                  max = 1,
+                  value = 0.01),
+      sliderInput(inputId = "b",
+                  label = "Birth rate:",
+                  min = 0,
                   max = 50,
-                  value = 30)
-
+                  value = 10),
+      sliderInput(inputId = "n_generation",
+                  label = "Number of generations:",
+                  min = 0,
+                  max = 1000,
+                  value = 200),
+      sliderInput(inputId = "K",
+                  label = "Carrying capacity:",
+                  min = 0,
+                  max = 1000,
+                  value = 100),
+      sliderInput(inputId = "sd",
+                  label = "Selection intensity:",
+                  min = 0,
+                  max = 1,
+                  value = 0.2)
     ),
 
     # Main panel for displaying outputs ----
     mainPanel(
 
-      # Output: Histogram ----
-      plotOutput(outputId = "distPlot")
+      # Output: Shiny plot of host switches by parasites ----
+      plotOutput(outputId = "HostSwitchPlot")
 
     )
   )

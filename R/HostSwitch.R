@@ -79,7 +79,7 @@ simHostSwitch=function (K,b, mig, sd,sigma, pRes_min, pRes_max,n_generation,seed
     descendants=b*length(pInd)
     if(descendants>K){descendants=K} # Carrying capacity = upper limit
     if(length(pInd)>1)   {
-      pi_desc=sample(pInd,descendants,replace=TRUE) # randomly select offspring phenotype with replacement
+      pInd_desc=sample(pInd,descendants,replace=TRUE) # randomly select offspring phenotype with replacement
     }else{
       pInd_desc=rep(pInd,descendants)
     }
