@@ -7,7 +7,7 @@ vignette: >
   %\VignetteIndexEntry{Vignette for the HostSwitch package}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-abstract: "The 'HostSwitch' package uses a simulation-based approach to investigate host switches by a parasite. The individual based model is based on the concepts of Stockholm paradigm and ecological fitting. The orginial model is published by Araujo et al. 2015. Understanding Host-Switching by Ecological Fitting [https://doi.org/10.1371/journal.pone.0139225](https://doi.org/10.1371/journal.pone.0139225). The package provides an R-friendly and modified version of this model which can be applied to different host-parasite scenarios. \n \n \n"
+abstract: "The 'HostSwitch' package uses a individual-based model to simulate the parasite's successful invasion and survival on a new host. As a consequence of such colonization, the parasite acquiring a new host adapts to a different resource which becomes an actual host. Recently, Araujo et al. (2015) introduced a mathematical model that evaluates the host switch of a parasite. The authors conceived the initial model to test the ...Here, we introduce the R package, HostSwitch which formalizes and extends the original model built on Fortran provided by Araujo et al. (2015). We describe the areas of application to increase the utility of the present simulation of the host switch under the ecological fitting hypotheses. Understanding Host-Switching by Ecological Fitting [https://doi.org/10.1371/journal.pone.0139225](https://doi.org/10.1371/journal.pone.0139225). The package provides an R-friendly and modified version of this model which can be applied to different host-parasite scenarios. \n \n \n"
 ---
 
 ```{r global_options, include=FALSE}
@@ -19,8 +19,11 @@ library(HostSwitch)
 ```
 
 # Motivation 
+The HostSwitch package offers simple functions to evaluate the role of the single parameters included in the model in defining the probability and the amplitude of the host switch. The extension in R code allows the users to choose among different host-parasite scenarios (S0, S1) described by the usage examples in this vignette.
 
-The vector-born pathogens are part of a complex interaction between vector-pathogen-host. This package focues on the 
+HostSwitch has dependencies .....
+
+This package will be expanded with furthers scenarios of species interaction. Please feel free to contact the authors to contribute by making suggestions, or sending bug fixes or extension proposals. 
 
 
 # Using HostSwitch

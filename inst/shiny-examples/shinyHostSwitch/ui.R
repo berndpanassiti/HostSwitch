@@ -9,8 +9,9 @@ ui <- fluidPage(
 
     # Sidebar panel for inputs ----
     sidebarPanel(
+      actionButton(inputId = "refresh",
+                   label = "Refresh simulation", icon = icon("fa fa-refresh")),
 
-      # Input: Slider for the number of bins ----
       sliderInput(inputId = "mig",
                   label = "Migration probability:",
                   min = 0,
@@ -43,7 +44,6 @@ ui <- fluidPage(
 
       # Output: Shiny plot of host switches by parasites ----
       plotOutput(outputId = "HostSwitchPlot")
-
     )
   )
 )
