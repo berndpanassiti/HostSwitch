@@ -33,12 +33,12 @@ This package will be expanded with furthers scenarios of species interaction. Pl
 If you haven't installed the package yet, please install the recent release using GitHub
 
 ```{r, eval = F}
-devtools::install_github(repo = "berndpanassiti/HostSwitch")
+devtools::install_github(repo = "berndpanassiti/HostSwitch",build_vignettes = TRUE)
 ```
 
 Loading and citation
 
-```{r}
+```{r,eval=F}
 library(HostSwitch)
 citation("HostSwitch")
 ```
@@ -54,10 +54,17 @@ HostSwitch_simulated_quantities
 The function generates a list containing all quantities of interest which can be used for summary statistics or plots. Quantities of interest are **phenotpyes** of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These parameters are available for each generation step.
 
 
-## Plot the model
+## Plot the simulation of parasite host switches
 ```{r,eval=F}
 gg1 = plotHostSwitch(HostSwitch_simulated_quantities)
 gg1
 #gg1 + xlim(0,10) # limit x-axis from 0 to 10 generations
 ```
 
+
+## Interactive plot using Shiny
+```{r, eval=F}
+shinyHostSwitch()
+```
+
+This function opens a new window with an interactive plot of the HostSwitch simulation model. This plot can be used to interact with the model and explore how different settings affect the host switches by a parasite.
