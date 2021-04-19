@@ -36,7 +36,7 @@ simHostSwitch(
 \item{seed}{Random number to ensure reproducible plots}
 }
 \value{
-A list with simulated quantities of interest: which can be used for summary statistics or plots. Quantities of interests are phenotpyes of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These parameters are available for each generation step.
+A list with simulated quantities of interest: which can be used for summary statistics or plots. Quantities of interests are phenotpyes of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These simulated quantities of interest are available for each generation step.
 }
 \description{
 Simulate host switches by parasites

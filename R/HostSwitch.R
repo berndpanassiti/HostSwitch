@@ -28,7 +28,7 @@ survivalProbability = function(pInd,pHost,sigma){
 #' @param n_generation Number of generations
 #' @param seed Random number to ensure reproducible plots
 #' @details The use of this function is to simulate host switches by parasites
-#' @return A list with simulated quantities of interest: which can be used for summary statistics or plots. Quantities of interests are phenotpyes of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These parameters are available for each generation step.
+#' @return A list with simulated quantities of interest: which can be used for summary statistics or plots. Quantities of interests are phenotpyes of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These simulated quantities of interest are available for each generation step.
 #' @examples
 #' simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
 #' @import tidyverse
