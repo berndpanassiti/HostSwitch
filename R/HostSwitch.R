@@ -36,6 +36,7 @@ survivalProbability = function(pInd,pHost,sigma){
 #' HostSwitch_simulated_quantities
 #' @import tidyverse
 #' @import tibble
+#' @import ArgumentCheck
 #' @export
 
 

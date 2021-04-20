@@ -13,8 +13,8 @@ server <- function(input, output, session) {
     HostSwitch::plotHostSwitch(HostSwitch_simulated_quantities())
     })
   output$HostSwitchSummary = renderTable({
-    data.frame("Number of host switches" = c(length(which(HostSwitch_simulated_quantities()$metadata[[1]][-1]==HostSwitch_simulated_quantities()$metadata[[2]]))),
-               "Number of parasite jumps"= length(which(HostSwitch_simulated_quantities()$metadata[[7]]>0))
+    data.frame("Number of parasite jumps"= length(which(HostSwitch_simulated_quantities()$metadata[[7]]>0)),
+                "Number of successful host switches" = c(length(which(HostSwitch_simulated_quantities()$metadata[[1]][-1]==HostSwitch_simulated_quantities()$metadata[[2]])))
                                             , check.names=FALSE)
     },colnames = "TRUE")
 
