@@ -1,11 +1,11 @@
-#' Survival probability of parasite
+#' Survival probability of the parasite
 #'
-#' @param pInd Phenotype of parasite
-#' @param pHost Phenotype of resource
+#' @param pInd Phenotype of parasite #(optimum phenotype of parasite on the current host)
+#' @param pHost Phenotype of resource #(optimum phenotype of parasite on the new host)
 #' @param sigma Selection intensity
 #' @details The use of this function is calculate the survival probability of the parasite. It is the core function of \code{\link{simHostSwitch}}.
-#' The function is based on the density of the normal destribution: Ignoring  (1/sqrt(2*pi)*sigma) from the density function of the normal distribution, provides us the survival probability.
-#' If both pInd and pHost are equal (pInd = pHost = 5) - as it is defined as being the inital condition of the simHostSwitch function with the parasite having the optimum phenotype - the survival probability equals 1.
+#' The function is based on the density of the normal distribution: Ignoring  (1/sqrt(2*pi)*sigma) from the density function of the normal distribution, provides us the survival probability.
+#' If both pInd and pHost are equal (pInd = pHost = 5) - as it is defined as being the initial condition of the simHostSwitch function with the parasite having the optimum phenotype - the survival probability equals 1.
 #' @return The survival probability of the parasite
 #' @examples
 #' survivalProbability(pInd=5,pHost=5,sigma=1)
@@ -21,11 +21,12 @@ survivalProbability = function(pInd,pHost,sigma){
 #' @param K Carrying capacity
 #' @param b Birth rate
 #' @param mig Migration probability
-#' @param sd Standard deviation
-#' @param sigma Selection intensity
-#' @param pRes_min Smallest phenotype of resource (original host)
-#' @param pRes_max Maximum phenotype of resource (original host)
+#' @param sd Standard deviation for mutation
+#' @param sigma Standard deviation for selection
+#' @param pRes_min Initial value, smallest phenotype of resource (original host) and parasite
+#' @param pRes_max Initial value, maximum phenotype of resource (original host) and parasite
 #' @param n_generation Number of generations
+#' @param jump_back Allow parasites to jump back to previous resource
 #' @param seed Random number to ensure reproducible plots
 #' @details The use of this function is to simulate host switches by parasites
 #' @return A list with simulated quantities of interest: which can be used for summary statistics or plots. Quantities of interests are phenotpyes of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These simulated quantities of interest are available for each generation step.
@@ -33,11 +34,21 @@ survivalProbability = function(pInd,pHost,sigma){
 #' simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
 #' @import tidyverse
 #' @import tibble
+#' @import ArgumentCheck
 #' @export
 
 
-simHostSwitch=function (K,b, mig, sd,sigma, pRes_min, pRes_max,n_generation,seed=NULL){
+simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generation=200,jump_back='no',seed=NULL){
   set.seed(seed)
+  #* Establish a new 'ArgCheck' object
+  Check <- ArgumentCheck::newArgCheck()
+
+  #* Add a warning
+  if (!jump_back %in% c("no","yes")){
+  ArgumentCheck::addWarning(
+    msg = "'jump_back' must be either 'no' or 'yes'! 'jump_back has been set to 'yes'.",
+    argcheck = Check)}
+
   # record quantities of interest
   pRes_sim     = rep(NA,n_generation) # phenotype original host
   pRes_new_sim = rep(NA,n_generation) # phenotype new host
@@ -69,7 +80,7 @@ simHostSwitch=function (K,b, mig, sd,sigma, pRes_min, pRes_max,n_generation,seed
       # If SOME INDIVIDUALS JUMPED BUT DID NOT SURVIVE, remaining! individuals on original host
       # are further used to calculate survival probability on original host and generate new offspring
       # Note: jumped individuals are not allowed come back!
-      if(length(which_jump)>0){pInd=pInd[-which_jump]} # select remaining individuals of original host
+      if(length(which_jump)>0 & jump_back=="no"){pInd=pInd[-which_jump]} # select remaining individuals of original host
       prob=survivalProbability(pInd=pInd,pHost=pRes,sigma=sigma)
       pInd=pInd[prob>stats::runif(length(pInd))]
     }
@@ -99,5 +110,9 @@ simHostSwitch=function (K,b, mig, sd,sigma, pRes_min, pRes_max,n_generation,seed
     tibble::tibble(
       character = c("pRes_sim", "pRes_new_sim","pInd_sim","n_generation","pRes_min","pRes_max"),
       metadata = list(pRes_sim,pRes_new_sim,pInd_sim,n_generation,pRes_min,pRes_max))
+
+  #* Return errors and warnings (if any)
+  ArgumentCheck::finishArgCheck(Check)
+
   return(HostSwitch_simulated_quantities)
 }

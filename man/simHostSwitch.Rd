@@ -5,14 +5,15 @@
 \title{Simulate host switches by parasites}
 \usage{
 simHostSwitch(
-  K,
-  b,
-  mig,
-  sd,
-  sigma,
-  pRes_min,
-  pRes_max,
-  n_generation,
+  K = 100,
+  b = 10,
+  mig = 0.01,
+  sd = 0.2,
+  sigma = 1,
+  pRes_min = 1,
+  pRes_max = 10,
+  n_generation = 200,
+  jump_back = "no",
   seed = NULL
 )
 }
@@ -23,15 +24,17 @@ simHostSwitch(
 
 \item{mig}{Migration probability}
 
-\item{sd}{Standard deviation}
+\item{sd}{Standard deviation for mutation}
 
-\item{sigma}{Selection intensity}
+\item{sigma}{Standard deviation for selection}
 
-\item{pRes_min}{Smallest phenotype of resource (original host)}
+\item{pRes_min}{Initial value, smallest phenotype of resource (original host) and parasite}
 
-\item{pRes_max}{Maximum phenotype of resource (original host)}
+\item{pRes_max}{Initial value, maximum phenotype of resource (original host) and parasite}
 
 \item{n_generation}{Number of generations}
+
+\item{jump_back}{Allow parasites to jump back to previous resource}
 
 \item{seed}{Random number to ensure reproducible plots}
 }

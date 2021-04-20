@@ -23,7 +23,8 @@ Imports:
     tibble,
     ggplot2,
     stats,
-    utils
+    utils,
+    ArgumentCheck
 Suggests:
     knitr,
     rmarkdown

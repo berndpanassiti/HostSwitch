@@ -33,9 +33,9 @@ ui <- fluidPage(
                   max = 1000,
                   value = 100),
       sliderInput(inputId = "sd",
-                  label = "Selection intensity:",
+                  label = "Standard deviation for mutation:",
                   min = 0,
-                  max = 1,
+                  max = 50,
                   value = 0.2)
     ),
 

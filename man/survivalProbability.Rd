@@ -2,14 +2,14 @@
 % Please edit documentation in R/HostSwitch.R
 \name{survivalProbability}
 \alias{survivalProbability}
-\title{Survival probability of parasite}
+\title{Survival probability of the parasite}
 \usage{
 survivalProbability(pInd, pHost, sigma)
 }
 \arguments{
-\item{pInd}{Phenotype of parasite}
+\item{pInd}{Phenotype of parasite #(optimum phenotype of parasite on the current host)}
 
-\item{pHost}{Phenotype of resource}
+\item{pHost}{Phenotype of resource #(optimum phenotype of parasite on the new host)}
 
 \item{sigma}{Selection intensity}
 }
@@ -17,12 +17,12 @@ survivalProbability(pInd, pHost, sigma)
 The survival probability of the parasite
 }
 \description{
-Survival probability of parasite
+Survival probability of the parasite
 }
 \details{
 The use of this function is calculate the survival probability of the parasite. It is the core function of \code{\link{simHostSwitch}}.
-The function is based on the density of the normal destribution: Ignoring  (1/sqrt(2*pi)*sigma) from the density function of the normal distribution, provides us the survival probability.
-If both pInd and pHost are equal (pInd = pHost = 5) - as it is defined as being the inital condition of the simHostSwitch function with the parasite having the optimum phenotype - the survival probability equals 1.
+The function is based on the density of the normal distribution: Ignoring  (1/sqrt(2*pi)*sigma) from the density function of the normal distribution, provides us the survival probability.
+If both pInd and pHost are equal (pInd = pHost = 5) - as it is defined as being the initial condition of the simHostSwitch function with the parasite having the optimum phenotype - the survival probability equals 1.
 }
 \examples{
 survivalProbability(pInd=5,pHost=5,sigma=1)
