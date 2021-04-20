@@ -22,6 +22,7 @@ Survival probability of the parasite
 \details{
 The use of this function is calculate the survival probability of the parasite. It is the core function of \code{\link{simHostSwitch}}.
 The function is based on the density of the normal distribution: Ignoring  (1/sqrt(2*pi)*sigma) from the density function of the normal distribution, provides us the survival probability.
+()
 If both pInd and pHost are equal (pInd = pHost = 5) - as it is defined as being the initial condition of the simHostSwitch function with the parasite having the optimum phenotype - the survival probability equals 1.
 }
 \examples{

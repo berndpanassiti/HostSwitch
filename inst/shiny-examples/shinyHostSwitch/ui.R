@@ -35,15 +35,23 @@ ui <- fluidPage(
       sliderInput(inputId = "sd",
                   label = "Standard deviation for mutation:",
                   min = 0,
-                  max = 50,
-                  value = 0.2)
+                  max = 10,
+                  value = 0.2,
+                  step= 0.1),
+      sliderInput(inputId = "sigma",
+                  label = "Standard deviation for selection:",
+                  min = 0,
+                  max = 10,
+                  value = 1,
+                  step=0.1)
     ),
 
     # Main panel for displaying outputs ----
     mainPanel(
 
       # Output: Shiny plot of host switches by parasites ----
-      plotOutput(outputId = "HostSwitchPlot")
+      plotOutput(outputId = "HostSwitchPlot"),
+      tableOutput("HostSwitchSummary")
     )
   )
 )

@@ -5,6 +5,7 @@
 #' @param sigma Selection intensity
 #' @details The use of this function is calculate the survival probability of the parasite. It is the core function of \code{\link{simHostSwitch}}.
 #' The function is based on the density of the normal distribution: Ignoring  (1/sqrt(2*pi)*sigma) from the density function of the normal distribution, provides us the survival probability.
+#' ()
 #' If both pInd and pHost are equal (pInd = pHost = 5) - as it is defined as being the initial condition of the simHostSwitch function with the parasite having the optimum phenotype - the survival probability equals 1.
 #' @return The survival probability of the parasite
 #' @examples
@@ -31,29 +32,32 @@ survivalProbability = function(pInd,pHost,sigma){
 #' @details The use of this function is to simulate host switches by parasites
 #' @return A list with simulated quantities of interest: which can be used for summary statistics or plots. Quantities of interests are phenotpyes of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These simulated quantities of interest are available for each generation step.
 #' @examples
-#' simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
+#' HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
+#' HostSwitch_simulated_quantities
 #' @import tidyverse
 #' @import tibble
-#' @import ArgumentCheck
 #' @export
 
 
 simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generation=200,jump_back='no',seed=NULL){
   set.seed(seed)
+
   #* Establish a new 'ArgCheck' object
   Check <- ArgumentCheck::newArgCheck()
 
   #* Add a warning
   if (!jump_back %in% c("no","yes")){
-  ArgumentCheck::addWarning(
-    msg = "'jump_back' must be either 'no' or 'yes'! 'jump_back has been set to 'yes'.",
-    argcheck = Check)}
+    ArgumentCheck::addWarning(
+      msg = "'jump_back' must be either 'no' or 'yes'! 'jump_back has been set to 'yes'.",
+      argcheck = Check)}
+
+
 
   # record quantities of interest
-  pRes_sim     = rep(NA,n_generation) # phenotype original host
-  pRes_new_sim = rep(NA,n_generation) # phenotype new host
-  pInd_sim     = list()               # phenotype of individuals
-
+  pRes_sim      = rep(NA,n_generation) # phenotype original host
+  pRes_new_sim  = rep(NA,n_generation) # phenotype new host
+  pInd_sim      = list()               # phenotype of individuals
+  pInd_jump_sim = rep(0,n_generation) # jumped parasites
 
   pInitial=mean(c(pRes_min,pRes_max)) # Initial phenotype equal for host and individual
   pRes=pInitial; pRes_sim[1]  = pInitial
@@ -67,7 +71,7 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
     pRes_new=pRes_min+(pRes_max-pRes_min)*stats::runif(1) # fct creates phenotype for new host
     which_jump=which(stats::runif(length(pInd))<mig)
     pInd_jump=pInd[which_jump]
-
+    pInd_jump_sim[n+1] = length(pInd_jump)
     ## Selection in the new host
     prob=survivalProbability(pInd=pInd_jump,pHost=pRes_new,sigma=sigma) # survival probability of jumped individuals; eq. 1
     pInd_new=pInd_jump[prob>stats::runif(length(pInd_jump))]
@@ -108,8 +112,8 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
 
   HostSwitch_simulated_quantities =
     tibble::tibble(
-      character = c("pRes_sim", "pRes_new_sim","pInd_sim","n_generation","pRes_min","pRes_max"),
-      metadata = list(pRes_sim,pRes_new_sim,pInd_sim,n_generation,pRes_min,pRes_max))
+      character = c("pRes_sim", "pRes_new_sim","pInd_sim","n_generation","pRes_min","pRes_max","pInd_jump_sim"),
+      metadata = list(pRes_sim,pRes_new_sim,pInd_sim,n_generation,pRes_min,pRes_max,pInd_jump_sim))
 
   #* Return errors and warnings (if any)
   ArgumentCheck::finishArgCheck(Check)

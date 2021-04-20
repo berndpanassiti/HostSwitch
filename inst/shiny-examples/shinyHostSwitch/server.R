@@ -5,13 +5,17 @@ server <- function(input, output, session) {
     # Make action button dependency
     input$refresh
     # but isolate input$sample
-    isolate(HostSwitch::simHostSwitch(K=input$K,b=input$b, mig=input$mig, sd=input$sd, sigma=1, pRes_min=1, pRes_max=10, n_generation=input$n_generation))
+    isolate(HostSwitch::simHostSwitch(K=input$K,b=input$b, mig=input$mig, sd=input$sd, sigma=input$sigma, pRes_min=1, pRes_max=10, n_generation=input$n_generation))
 
   })
-
 
   output$HostSwitchPlot <- renderPlot({
     HostSwitch::plotHostSwitch(HostSwitch_simulated_quantities())
     })
+  output$HostSwitchSummary = renderTable({
+    data.frame("Number of host switches" = c(length(which(HostSwitch_simulated_quantities()$metadata[[1]][-1]==HostSwitch_simulated_quantities()$metadata[[2]]))),
+               "Number of parasite jumps"= length(which(HostSwitch_simulated_quantities()$metadata[[7]]>0))
+                                            , check.names=FALSE)
+    },colnames = "TRUE")
 
 }
