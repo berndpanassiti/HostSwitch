@@ -36,8 +36,8 @@ survivalProbability = function(pInd,pHost,sigma){
 #' @export
 
 
-simHostSwitch=function (K,b, mig, sd,sigma, pRes_min, pRes_max,n_generation,seed=123){
-  #set.seed(seed)
+simHostSwitch=function (K,b, mig, sd,sigma, pRes_min, pRes_max,n_generation,seed=NULL){
+  set.seed(seed)
   # record quantities of interest
   pRes_sim     = rep(NA,n_generation) # phenotype original host
   pRes_new_sim = rep(NA,n_generation) # phenotype new host

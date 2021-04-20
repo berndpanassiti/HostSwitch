@@ -13,7 +13,7 @@ simHostSwitch(
   pRes_min,
   pRes_max,
   n_generation,
-  seed = 123
+  seed = NULL
 )
 }
 \arguments{
