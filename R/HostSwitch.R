@@ -67,7 +67,7 @@ simHostSwitch=function (K,b, mig, sd,sigma, pRes_min, pRes_max,n_generation,seed
     }
     else{
       # If SOME INDIVIDUALS JUMPED BUT DID NOT SURVIVE, remaining! individuals on original host
-      # are further used to calculate survival pResobability on original host and generate new offspResing
+      # are further used to calculate survival probability on original host and generate new offspring
       # Note: jumped individuals are not allowed come back!
       if(length(which_jump)>0){pInd=pInd[-which_jump]} # select remaining individuals of original host
       prob=survivalProbability(pInd=pInd,pHost=pRes,sigma=sigma)
