@@ -1,15 +1,23 @@
-#' Survival probability of the parasite
+#' Survival probability of the parasite in a new host (novel resource)
 #'
-#' @param pInd Phenotype of parasite #(optimum phenotype of parasite on the current host)
-#' @param pHost Phenotype of resource #(optimum phenotype of parasite on the new host)
-#' @param sigma Selection intensity
-#' @details The use of this function is calculate the survival probability of the parasite. It is the core function of \code{\link{simHostSwitch}}.
-#' The function is based on the density of the normal distribution: Ignoring  (1/sqrt(2*pi)*sigma) from the density function of the normal distribution, provides us the survival probability.
-#' ()
-#' If both pInd and pHost are equal (pInd = pHost = 5) - as it is defined as being the initial condition of the simHostSwitch function with the parasite having the optimum phenotype - the survival probability equals 1.
+#' @param pInd Phenotype of parasite #(Phenotype of ith parasite attempting to disperse in a new host)
+#' @param pHost Phenotype of resource #(The optimum phenotype the parasite should have to maximize the colonization success)
+#' @param sigma Selection intensity #(standard deviation of selection intensity)
+#' @details This function calculates the survival probability of individual parasites that attempt dispersal in a new host. It is the core function of \code{\link{simHostSwitch}}.
+#' The function is based on the probability density function of a normal distribution. By ignoring the  normalization constant \eqn{(1/sqrt(2*pi)*sigma)}, it provides then the survival probability.
+#'
 #' @return The survival probability of the parasite
 #' @examples
+#' ## Example 1a - The ith parasite has the phenotype that maximize its colonization success on the new host, then pInd is equal to pHost (pInd = pHost), and the survival probability is 1.
 #' survivalProbability(pInd=5,pHost=5,sigma=1)
+#'
+#' ## Example 1b - Increasing |pInd-pHost| the survival probability decreases
+#' survivalProbability(pInd=5,pHost=30,sigma=1)
+#'
+#' ## Example 1c - Give a |pInd-pHost|> 1, increases sigma the survival probability increases
+#' survivalProbability(pInd=5,pHost=30,sigma=1)
+#'
+#'
 #' @export
 
 survivalProbability = function(pInd,pHost,sigma){
@@ -21,21 +29,19 @@ survivalProbability = function(pInd,pHost,sigma){
 #'
 #' @param K Carrying capacity
 #' @param b Birth rate
-#' @param mig Migration probability
+#' @param mig Migration rate
 #' @param sd Standard deviation for mutation
 #' @param sigma Standard deviation for selection
 #' @param pRes_min Initial value, smallest phenotype of resource (original host) and parasite
 #' @param pRes_max Initial value, maximum phenotype of resource (original host) and parasite
 #' @param n_generation Number of generations
-#' @param jump_back Allow parasites to jump back to previous resource
-#' @param seed Random number to ensure reproducible plots
-#' @details The use of this function is to simulate host switches by parasites
-#' @return A list with simulated quantities of interest: which can be used for summary statistics or plots. Quantities of interests are phenotpyes of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These simulated quantities of interest are available for each generation step.
+#' @param jump_back Options for parasites that do not survive on the new host. If "yes" the parasite(s) jump back to the current host and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.
+#' @param seed Random number to ensure reproducible plots.
+#' @details This function simulates the number of host switches by the population of a parasite. Results are stored to a HostSwitch object, to make use of summary and plotting functions in the HostSwitch package. The HostSwitch object includes the following simulated quantities are: $pRes_sim (all the optimal phenotypes favored by the selected new hosts), $pRes_new_sim (new resource), $pInd and of individual parasite. These simulated quantities of interest are available for each generation step and can be used for summary statistics or plots.
+#' @return An object of class HostSwitch
 #' @examples
 #' HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
 #' HostSwitch_simulated_quantities
-#' @import tidyverse
-#' @import tibble
 #' @import ArgumentCheck
 #' @export
 
@@ -55,22 +61,22 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
 
 
   # record quantities of interest
-  pRes_sim      = rep(NA,n_generation) # phenotype original host
-  pRes_new_sim  = rep(NA,n_generation) # phenotype new host
-  pInd_sim      = list()               # phenotype of individuals
-  pInd_jump_sim = rep(0,n_generation) # jumped parasites
+  pRes_sim      = rep(NA,n_generation) ### phenotype original host (Valeria: vector of optimum phenotypes favored by the new host)
+  pRes_new_sim  = rep(NA,n_generation) ### phenotype new host (Valeria: ???)
+  pInd_sim      = list()               # phenotype of individuals (valeria: phenotype of individuals at each generation)
+  pInd_jump_sim = rep(0,n_generation) # jumped parasites (Valeria: vector of number of parasites that disperse/colonized??  )
 
-  pInitial=mean(c(pRes_min,pRes_max)) # Initial phenotype equal for host and individual
-  pRes=pInitial; pRes_sim[1]  = pInitial
-  pInd=pInitial; pInd_sim[[1]]= pInitial
+  pInitial=mean(c(pRes_min,pRes_max)) ### Initial phenotype equal for host and individual (Valeria: the Initial phenotype for the parasite at n=0 is the average value of the IS)
+  pRes=pInitial; pRes_sim[1]  = pInitial # The sine qua non condition for the simulation to starts is to have the first individual parasite having the phenotype equal to optimum favored by the current host.
+  pInd=pInitial; pInd_sim[[1]]= pInitial # ....
 
   n=0
 
   while(n<n_generation & length(pInd)>0){
     n=n+1
     # Host switch
-    pRes_new=pRes_min+(pRes_max-pRes_min)*stats::runif(1) # fct creates phenotype for new host
-    which_jump=which(stats::runif(length(pInd))<mig)
+    pRes_new=pRes_min+(pRes_max-pRes_min)*stats::runif(1) ### fct creates phenotype for new host
+    which_jump=which(stats::runif(length(pInd))<mig) #
     pInd_jump=pInd[which_jump]
     pInd_jump_sim[n+1] = length(pInd_jump)
     ## Selection in the new host
@@ -107,17 +113,25 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
   }
 
 
+
   # Store parameters and arguments of interst
   pRes_sim     = pRes_sim[!is.na(pRes_sim)]         # remove NA
   pRes_new_sim = pRes_new_sim[!is.na(pRes_new_sim)] # remove NA
 
-  HostSwitch_simulated_quantities =
-    tibble::tibble(
-      character = c("pRes_sim", "pRes_new_sim","pInd_sim","n_generation","pRes_min","pRes_max","pInd_jump_sim"),
-      metadata = list(pRes_sim,pRes_new_sim,pInd_sim,n_generation,pRes_min,pRes_max,pInd_jump_sim))
+  out = list()
+  out$pRes_sim = pRes_sim
+  out$pRes_new_sim = pRes_new_sim
+  out$pInd_sim = pInd_sim
+  out$n_generation = n_generation
+  out$pRes_min= pRes_min
+  out$pRes_max= pRes_max
+  out$pInd_jump_sim= pInd_jump_sim
+  class(out) = "HostSwitch"
 
   #* Return errors and warnings (if any)
   ArgumentCheck::finishArgCheck(Check)
 
-  return(HostSwitch_simulated_quantities)
+
+  return(out)
+
 }

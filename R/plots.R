@@ -9,7 +9,6 @@
 #' Red squares show the phenotype of the resource (original host), green squares the phenotype of the new host and black dots individual parasites.
 #'
 #' @import ggplot2
-#' @import tidyverse
 #' @export
 plotHostSwitch <- function(HostSwitch_simulated_quantities){
 
@@ -21,13 +20,13 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities){
                     plot.title = element_text(hjust = 0.5))
 
   dat= HostSwitch_simulated_quantities
-  pRes_sim     = data.frame(x=0:(length(dat$metadata[[1]])-1),y=dat$metadata[[1]])
-  pRes_new_sim = data.frame(x=1:(length(dat$metadata[[2]])),y=dat$metadata[[2]])
+  pRes_sim     = data.frame(x=0:(length(dat$pRes_sim)-1),y=dat$pRes_sim)
+  pRes_new_sim = data.frame(x=1:length(dat$pRes_new_sim),y=dat$pRes_new_sim)
 
-  pInd_sim = createPlotInput_sim_pInd(dat$metadata[[3]])
+  pInd_sim = createPlotInput_sim_pInd(dat$pInd_sim)
 
-  n_generations = dat$metadata[[4]]
-  pRes_min = dat$metadata[[5]]; pRes_max = dat$metadata[[6]]
+  n_generations = dat$n_generation
+  pRes_min = dat$pRes_min; pRes_max = dat$pRes_max
 
     ggplot2::ggplot() +
       xlim(0, n_generations) + ylim(pRes_min,pRes_max)+

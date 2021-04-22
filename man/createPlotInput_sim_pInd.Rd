@@ -7,12 +7,12 @@
 createPlotInput_sim_pInd(x)
 }
 \arguments{
-\item{x}{A nested list}
+\item{x}{A list of simulated parasite phenotypes for each generation}
 }
 \description{
 Create input data of simulated individuals for plots
 }
 \details{
-Flattens a nested list; https://stackoverflow.com/questions/8139677/how-to-flatten-a-list-to-a-list-without-coercion
+Converts list to dataframe and stack it
 }
 \keyword{internal}
