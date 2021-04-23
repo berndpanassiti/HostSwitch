@@ -3,6 +3,7 @@
 export(plotHostSwitch)
 export(shinyHostSwitch)
 export(simHostSwitch)
+export(summaryHostSwitch)
 export(survivalProbability)
 import(ArgumentCheck)
 import(ggplot2)

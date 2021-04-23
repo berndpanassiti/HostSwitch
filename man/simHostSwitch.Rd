@@ -14,7 +14,8 @@ simHostSwitch(
   pRes_max = 10,
   n_generation = 200,
   jump_back = "no",
-  seed = NULL
+  seed = NULL,
+  iter = 0
 )
 }
 \arguments{
@@ -22,7 +23,7 @@ simHostSwitch(
 
 \item{b}{Birth rate}
 
-\item{mig}{Migration rate}
+\item{mig}{Cut off for migration, individuals below cutoff jump}
 
 \item{sd}{Standard deviation for mutation}
 
@@ -36,7 +37,9 @@ simHostSwitch(
 
 \item{jump_back}{Options for parasites that do not survive on the new host. If "yes" the parasite(s) jump back to the current host and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.}
 
-\item{seed}{Random number to ensure reproducible plots.}
+\item{seed}{Random number to ensure reproducible plots}
+
+\item{iter}{Number of iterations}
 }
 \value{
 An object of class HostSwitch

@@ -4,10 +4,12 @@
 \alias{plotHostSwitch}
 \title{HostSwitch standard plot}
 \usage{
-plotHostSwitch(HostSwitch_simulated_quantities)
+plotHostSwitch(HostSwitch_simulated_quantities, iter = 1)
 }
 \arguments{
-\item{HostSwitch_simulated_quantities}{an object created by \code{\link{simHostSwitch}}}
+\item{HostSwitch_simulated_quantities}{An object created by \code{\link{simHostSwitch}}}
+
+\item{iter}{Iteration of simulation that is plotted}
 }
 \description{
 This function creates a standard plot for the simulated host switches
@@ -16,4 +18,8 @@ This function creates a standard plot for the simulated host switches
 The function creates a plot with host switches by a parasite. X axis shows the number of generations, y axis the considered phenotpye range.
 
 Red squares show the phenotype of the resource (original host), green squares the phenotype of the new host and black dots individual parasites.
+}
+\examples{
+HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200,iter=100)
+plotHostSwitch(HostSwitch_simulated_quantities,iter=1)
 }

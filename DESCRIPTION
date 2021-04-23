@@ -22,7 +22,8 @@ Imports:
     ggplot2,
     stats,
     utils,
-    ArgumentCheck
+    ArgumentCheck,
+    methods
 Suggests:
     knitr,
     rmarkdown

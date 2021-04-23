@@ -29,14 +29,15 @@ survivalProbability = function(pInd,pHost,sigma){
 #'
 #' @param K Carrying capacity
 #' @param b Birth rate
-#' @param mig Migration rate
+#' @param mig Cut off for migration, individuals below cutoff jump
 #' @param sd Standard deviation for mutation
 #' @param sigma Standard deviation for selection
 #' @param pRes_min Initial value, smallest phenotype of resource (original host) and parasite
 #' @param pRes_max Initial value, maximum phenotype of resource (original host) and parasite
 #' @param n_generation Number of generations
 #' @param jump_back Options for parasites that do not survive on the new host. If "yes" the parasite(s) jump back to the current host and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.
-#' @param seed Random number to ensure reproducible plots.
+#' @param seed Random number to ensure reproducible plots
+#' @param iter Number of iterations
 #' @details This function simulates the number of host switches by the population of a parasite. Results are stored to a HostSwitch object, to make use of summary and plotting functions in the HostSwitch package. The HostSwitch object includes the following simulated quantities are: $pRes_sim (all the optimal phenotypes favored by the selected new hosts), $pRes_new_sim (new resource), $pInd and of individual parasite. These simulated quantities of interest are available for each generation step and can be used for summary statistics or plots.
 #' @return An object of class HostSwitch
 #' @examples
@@ -46,7 +47,7 @@ survivalProbability = function(pInd,pHost,sigma){
 #' @export
 
 
-simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generation=200,jump_back='no',seed=NULL){
+simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generation=200,jump_back='no',seed=NULL, iter=0){
   set.seed(seed)
 
   #* Establish a new 'ArgCheck' object
@@ -59,6 +60,12 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
       argcheck = Check)}
 
 
+  pRes_sim_list      = list()
+  pRes_new_sim_list  = list()
+  pInd_sim_list      = list()
+  pInd_jump_sim_list = list()
+
+  for (i in 1:iter){
 
   # record quantities of interest
   pRes_sim      = rep(NA,n_generation) ### phenotype original host (Valeria: vector of optimum phenotypes favored by the new host)
@@ -76,16 +83,16 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
     n=n+1
     # Host switch
     pRes_new=pRes_min+(pRes_max-pRes_min)*stats::runif(1) ### fct creates phenotype for new host
-    which_jump=which(stats::runif(length(pInd))<mig) #
-    pInd_jump=pInd[which_jump]
-    pInd_jump_sim[n+1] = length(pInd_jump)
+    which_jump=which(stats::runif(length(pInd))<mig) # position of individuals
+    pInd_jump=pInd[which_jump] # selected phenotype depending on poision
+    pInd_jump_sim[n+1] = length(pInd_jump) # how many individuals jumped?
     ## Selection in the new host
     prob=survivalProbability(pInd=pInd_jump,pHost=pRes_new,sigma=sigma) # survival probability of jumped individuals; eq. 1
     pInd_new=pInd_jump[prob>stats::runif(length(pInd_jump))]
 
     if(length(pInd_new)>0){ # Host switch successful, at least 1 individual jumped & survived
       pRes=pRes_new
-      pInd=pInd_new
+      pInd=pInd_new # survivded individuals on new plant
     }
     else{
       # If SOME INDIVIDUALS JUMPED BUT DID NOT SURVIVE, remaining! individuals on original host
@@ -118,20 +125,109 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
   pRes_sim     = pRes_sim[!is.na(pRes_sim)]         # remove NA
   pRes_new_sim = pRes_new_sim[!is.na(pRes_new_sim)] # remove NA
 
-  out = list()
-  out$pRes_sim = pRes_sim
-  out$pRes_new_sim = pRes_new_sim
-  out$pInd_sim = pInd_sim
-  out$n_generation = n_generation
-  out$pRes_min= pRes_min
-  out$pRes_max= pRes_max
-  out$pInd_jump_sim= pInd_jump_sim
-  class(out) = "HostSwitch"
+  pRes_sim_list[[length(pRes_sim_list) + 1]]           = pRes_sim
+  pRes_new_sim_list[[length(pRes_new_sim_list) + 1]]   = pRes_new_sim
+  pInd_sim_list[[i]]                                   = pInd_sim
+  pInd_jump_sim_list[[length(pInd_jump_sim_list) + 1]] = pInd_jump_sim
 
-  #* Return errors and warnings (if any)
-  ArgumentCheck::finishArgCheck(Check)
-
-
-  return(out)
 
 }
+
+
+
+
+
+out = list()
+out$pRes_sim      = pRes_sim_list
+out$pRes_new_sim  = pRes_new_sim_list
+out$pInd_sim      = pInd_sim_list
+out$n_generation  = n_generation
+out$pRes_min      = pRes_min
+out$pRes_max      = pRes_max
+out$pInd_jump_sim = pInd_jump_sim_list
+out$K=K;out$b=b; out$mig=mig; out$sd=sd;out$sigma=sigma;out$iter=iter
+class(out) = "HostSwitch"
+
+#* Return errors and warnings (if any)
+ArgumentCheck::finishArgCheck(Check)
+
+
+return(out)
+
+}
+
+
+
+#' Summary statistics of HostSwitch simulation
+#'
+#' @param HostSwitch_simulated_quantities An object created by \code{\link{simHostSwitch}}
+#' @details This function generates summary statistcs for HostSwitch simulations.
+#' @return An object of class HostSwitch
+#' @examples
+#' HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200,iter=100)
+#' summaryHostSwitch(HostSwitch_simulated_quantities)
+#' @import ArgumentCheck
+#' @export
+
+
+
+
+summaryHostSwitch = function(HostSwitch_simulated_quantities){
+
+  methods::setClass("HostSwitch", representation("list"))
+  methods::setMethod("show",signature = "HostSwitch", definition = function(object) {
+    cat("An object of class ", class(object), "\n", sep = "")
+    cat("Summary of HostSwitch simulations\n\n")
+    cat("Settings of Simulation:\n")
+    cat("iter:",object$iter,", n_generations:",object$n_generation,", pRes_min:",object$pRes_min,", pRes_max:",object$pRes_max,"\n",sep="")
+    cat("K:",object$K,", sd:",object$sd,", sigma:",object$sigma,"\n\n",sep="")
+    cat("Summary of phenotypes:\n")
+    print(object$summaryP)
+    cat("\nSummary of host switches by parasites:\n")
+    print(object$summaryHS)
+    invisible(NULL)
+  })
+
+  # compute mean for each iteration
+  out=list()
+  out$n_generation = HostSwitch_simulated_quantities$n_generation
+  out$pRes_min     = HostSwitch_simulated_quantities$pRes_min
+  out$pRes_max     = HostSwitch_simulated_quantities$pRes_max
+  out$K            = HostSwitch_simulated_quantities$K
+  out$b            = HostSwitch_simulated_quantities$b
+  out$mig          = HostSwitch_simulated_quantities$mig
+  out$sd           = HostSwitch_simulated_quantities$sd
+  out$sigma        = HostSwitch_simulated_quantities$sigma
+  out$iter         = HostSwitch_simulated_quantities$iter
+
+
+
+  summaryP = data.frame(matrix(NA, ncol = 6, nrow = 3))
+  rownames(summaryP) = c("pRes","pRes_new","pInd")
+  colnames(summaryP) = c("Min.", "1st Qu.",  "Median" ,   "Mean", "3rd Qu.",    "Max.")
+  summaryP[1,] = round(summary(plyr::laply(HostSwitch_simulated_quantities$pRes_sim,mean)),2)
+  summaryP[2,] = round(summary(plyr::laply(HostSwitch_simulated_quantities$pRes_new_sim,mean)),2)
+  summaryP[3,] = round(summary(plyr::laply(HostSwitch_simulated_quantities$pInd_sim, function(x) mean(unlist(x)))),2)
+  out$summaryP=summaryP
+
+  summaryHS = data.frame(matrix(NA, ncol = 2, nrow = 2))
+  rownames(summaryHS) = c("Number of parasite jumps:","Number of successful host switches:")
+  colnames(summaryHS) = c("Mean", "Max")
+  summaryHS[1,] = c(round(mean(plyr::laply(HostSwitch_simulated_quantities$pInd_jump_sim,function(x) length(which(x>0)))),2),
+                    round(max(plyr::laply(HostSwitch_simulated_quantities$pInd_jump_sim,function(x) length(which(x>0)))),2))
+
+  sucessfullHS = rep(0,HostSwitch_simulated_quantities$iter)
+
+  for (i in 1:HostSwitch_simulated_quantities$iter){
+    dat = lapply(df[c(1,2)], `[[`, i)
+    sucessfullHS[i] = length(which(dat$pRes_sim[-1]==dat$pRes_new_sim))
+  }
+
+  summaryHS[2,] = c(mean(sucessfullHS),max(sucessfullHS))
+
+  out$summaryHS = summaryHS
+
+  methods::new("HostSwitch", out)
+}
+
+
