@@ -60,18 +60,22 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
       argcheck = Check)}
 
 
-  pRes_sim_list      = list()
-  pRes_new_sim_list  = list()
-  pInd_sim_list      = list()
-  pInd_jump_sim_list = list()
+  pRes_sim_list           = list()
+  pRes_new_sim_list       = list()
+  pInd_sim_list           = list()
+  pInd_jump_sim_list      = list()
+  pInd_whichjump_sim_list = list()
+  pInd_whichsurv_sim_list = list()
 
   for (i in 1:iter){
 
   # record quantities of interest
-  pRes_sim      = rep(NA,n_generation) ### phenotype original host (Valeria: vector of optimum phenotypes favored by the new host)
-  pRes_new_sim  = rep(NA,n_generation) ### phenotype new host (Valeria: ???)
-  pInd_sim      = list()               # phenotype of individuals (valeria: phenotype of individuals at each generation)
-  pInd_jump_sim = rep(0,n_generation) # jumped parasites (Valeria: vector of number of parasites that disperse/colonized??  )
+  pRes_sim           = rep(NA,n_generation) ### phenotype original host (Valeria: vector of optimum phenotypes favored by the new host)
+  pRes_new_sim       = rep(NA,n_generation) ### phenotype new host (Valeria: ???)
+  pInd_sim           = list()               # phenotype of individuals (valeria: phenotype of individuals at each generation)
+  pInd_jump_sim      = rep(0,n_generation)  # vector of number of parasites that disperse (jumped)
+  pInd_whichjump_sim = list()  # which parasites jumped
+  pInd_whichsurv_sim = list()  # which parasites survived
 
   pInitial=mean(c(pRes_min,pRes_max)) ### Initial phenotype equal for host and individual (Valeria: the Initial phenotype for the parasite at n=0 is the average value of the IS)
   pRes=pInitial; pRes_sim[1]  = pInitial # The sine qua non condition for the simulation to starts is to have the first individual parasite having the phenotype equal to optimum favored by the current host.
@@ -85,7 +89,10 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
     pRes_new=pRes_min+(pRes_max-pRes_min)*stats::runif(1) ### fct creates phenotype for new host
     which_jump=which(stats::runif(length(pInd))<mig) # position of individuals
     pInd_jump=pInd[which_jump] # selected phenotype depending on poision
-    pInd_jump_sim[n+1] = length(pInd_jump) # how many individuals jumped?
+
+    pInd_jump_sim[n+1]        = length(pInd_jump) # record how many individuals jumped
+    pInd_whichjump_sim[[n+1]] = pInd_jump         # record which individuals jumped
+
     ## Selection in the new host
     prob=survivalProbability(pInd=pInd_jump,pHost=pRes_new,sigma=sigma) # survival probability of jumped individuals; eq. 1
     pInd_new=pInd_jump[prob>stats::runif(length(pInd_jump))]
@@ -93,6 +100,7 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
     if(length(pInd_new)>0){ # Host switch successful, at least 1 individual jumped & survived
       pRes=pRes_new
       pInd=pInd_new # survivded individuals on new plant
+      pInd_whichsurv_sim[[n+1]] = pInd            # record which individuals survived
     }
     else{
       # If SOME INDIVIDUALS JUMPED BUT DID NOT SURVIVE, remaining! individuals on original host
@@ -125,11 +133,13 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
   pRes_sim     = pRes_sim[!is.na(pRes_sim)]         # remove NA
   pRes_new_sim = pRes_new_sim[!is.na(pRes_new_sim)] # remove NA
 
-  pRes_sim_list[[length(pRes_sim_list) + 1]]           = pRes_sim
-  pRes_new_sim_list[[length(pRes_new_sim_list) + 1]]   = pRes_new_sim
-  pInd_sim_list[[i]]                                   = pInd_sim
-  pInd_jump_sim_list[[length(pInd_jump_sim_list) + 1]] = pInd_jump_sim
-
+# length + 1 for new iteration
+  pRes_sim_list[[length(pRes_sim_list) + 1]]                     = pRes_sim
+  pRes_new_sim_list[[length(pRes_new_sim_list) + 1]]             = pRes_new_sim
+  pInd_sim_list[[i]]                                             = pInd_sim
+  pInd_jump_sim_list[[length(pInd_jump_sim_list) + 1]]           = pInd_jump_sim
+  pInd_whichjump_sim_list[[length(pInd_whichjump_sim_list) + 1]] = pInd_whichjump_sim
+  pInd_whichsurv_sim_list[[length(pInd_whichsurv_sim_list) + 1]] = pInd_whichsurv_sim
 
 }
 
@@ -138,13 +148,15 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
 
 
 out = list()
-out$pRes_sim      = pRes_sim_list
-out$pRes_new_sim  = pRes_new_sim_list
-out$pInd_sim      = pInd_sim_list
-out$n_generation  = n_generation
-out$pRes_min      = pRes_min
-out$pRes_max      = pRes_max
-out$pInd_jump_sim = pInd_jump_sim_list
+out$pRes_sim           = pRes_sim_list
+out$pRes_new_sim       = pRes_new_sim_list
+out$pInd_sim           = pInd_sim_list
+out$n_generation       = n_generation
+out$pRes_min           = pRes_min
+out$pRes_max           = pRes_max
+out$pInd_jump_sim      = pInd_jump_sim_list
+out$pInd_whichjump_sim = pInd_whichjump_sim_list
+out$pInd_whichsurv_sim = pInd_whichsurv_sim_list
 out$K=K;out$b=b; out$mig=mig; out$sd=sd;out$sigma=sigma;out$iter=iter
 class(out) = "HostSwitch"
 
@@ -156,37 +168,47 @@ return(out)
 
 }
 
+#' Set class and method
+#'
+#' This is a build-time dependency on methods, as opposed to a run-time
+#' dependency, thus requiring the importFrom tag to avoid a NOTE when checking
+#' the package on CRAN.
+#'
+#' @keywords internal
+#' @importFrom methods setClass setMethod
+#' @export
+#'
+methods::setClass("summaryHostSwitch", representation=representation("list"))
+methods::setMethod("show",signature = "summaryHostSwitch", definition = function(object) {
+  cat("An object of class ", class(object), "\n", sep = "")
+  cat("Summary of HostSwitch simulations\n\n")
+  cat("Settings of Simulation:\n")
+  cat("iter:",object$iter,", n_generations:",object$n_generation,", pRes_min:",object$pRes_min,", pRes_max:",object$pRes_max,"\n",sep="")
+  cat("K:",object$K,", sd:",object$sd,", sigma:",object$sigma,"\n\n",sep="")
+  cat("Summary of phenotypes:\n")
+  print(object$summaryP)
+  cat("\nSummary of host switches by parasites:\n")
+  print(object$summaryHS)
+  invisible(NULL)
+})
 
 
 #' Summary statistics of HostSwitch simulation
 #'
 #' @param HostSwitch_simulated_quantities An object created by \code{\link{simHostSwitch}}
 #' @details This function generates summary statistcs for HostSwitch simulations.
-#' @return An object of class HostSwitch
+#' @return Summary of HostSwitch simulations
 #' @examples
 #' HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200,iter=100)
 #' summaryHostSwitch(HostSwitch_simulated_quantities)
 #' @import ArgumentCheck
+#' @import methods
+#' @import plyr
 #' @export
 
 
 
-
 summaryHostSwitch = function(HostSwitch_simulated_quantities){
-
-  methods::setClass("HostSwitch", representation("list"))
-  methods::setMethod("show",signature = "HostSwitch", definition = function(object) {
-    cat("An object of class ", class(object), "\n", sep = "")
-    cat("Summary of HostSwitch simulations\n\n")
-    cat("Settings of Simulation:\n")
-    cat("iter:",object$iter,", n_generations:",object$n_generation,", pRes_min:",object$pRes_min,", pRes_max:",object$pRes_max,"\n",sep="")
-    cat("K:",object$K,", sd:",object$sd,", sigma:",object$sigma,"\n\n",sep="")
-    cat("Summary of phenotypes:\n")
-    print(object$summaryP)
-    cat("\nSummary of host switches by parasites:\n")
-    print(object$summaryHS)
-    invisible(NULL)
-  })
 
   # compute mean for each iteration
   out=list()
@@ -219,15 +241,14 @@ summaryHostSwitch = function(HostSwitch_simulated_quantities){
   sucessfullHS = rep(0,HostSwitch_simulated_quantities$iter)
 
   for (i in 1:HostSwitch_simulated_quantities$iter){
-    dat = lapply(df[c(1,2)], `[[`, i)
+    dat = lapply(HostSwitch_simulated_quantities[c(1,2)], `[[`, i)
     sucessfullHS[i] = length(which(dat$pRes_sim[-1]==dat$pRes_new_sim))
   }
 
   summaryHS[2,] = c(mean(sucessfullHS),max(sucessfullHS))
 
   out$summaryHS = summaryHS
-
-  methods::new("HostSwitch", out)
+  methods::new("summaryHostSwitch", out)
 }
 
 

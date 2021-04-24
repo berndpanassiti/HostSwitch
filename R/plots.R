@@ -21,25 +21,39 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities,iter=1){
   mytheme <-  ggplot2::theme(axis.title = element_text(size =24),
                     axis.text = element_text(size =25),
                     strip.text= element_text(size = 30),
-                    plot.title = element_text(hjust = 0.5))
+                    plot.title = element_text(hjust = 0.5),
+                    legend.title=element_blank(),
+                    legend.text=element_text(size=12))
 
-  dat= HostSwitch_simulated_quantities[c("pRes_sim","pRes_new_sim","pInd_sim")]
+  dat= HostSwitch_simulated_quantities[c("pRes_sim","pRes_new_sim","pInd_sim","pInd_whichjump_sim","pInd_whichsurv_sim")]
   dat = sapply(dat, "[[", iter)
-  pRes_sim     = data.frame(x=0:(length(dat$pRes_sim)-1),y=dat$pRes_sim)
-  pRes_new_sim = data.frame(x=1:length(dat$pRes_new_sim),y=dat$pRes_new_sim)
+  pRes_sim     = data.frame(p=rep("pRes",length(dat$pRes_sim)), y=dat$pRes_sim,x=0:(length(dat$pRes_sim)-1))
+  pRes_new_sim = data.frame(p=rep("pRes_new",length(dat$pRes_new_sim)),y=dat$pRes_new_sim,x=1:length(dat$pRes_new_sim))
 
-  pInd_sim = createPlotInput_sim_pInd(dat$pInd_sim)
+  pInd_sim_df = createPlotInput_sim_pInd(dat$pInd_sim)
+  pInd_sim = data.frame(cbind(p=rep("pInd",nrow(pInd_sim_df)),pInd_sim_df))
+
+  whichJump_sim_df = createPlotInput_sim_which(dat$pInd_whichjump_sim)
+  whichJump_sim = data.frame(cbind(p=rep("whichJump",nrow(whichJump_sim_df)),whichJump_sim_df))
+
+  whichSurv_sim_df = createPlotInput_sim_which(dat$pInd_whichsurv_sim)
+  whichSurv_sim = data.frame(cbind(p=rep("whichSurv",nrow(whichSurv_sim_df)),whichSurv_sim_df))
+
+  plotInput = data.frame(rbind(pRes_sim,pRes_new_sim,pInd_sim,whichJump_sim,whichSurv_sim))
 
   n_generations = HostSwitch_simulated_quantities$n_generation
   pRes_min = HostSwitch_simulated_quantities$pRes_min; pRes_max = HostSwitch_simulated_quantities$pRes_max
 
-    ggplot2::ggplot() +
-      xlim(0, n_generations) + ylim(pRes_min,pRes_max)+
-      geom_point(data =  pInd_sim, aes(x,y, color = "pInd",shape="pInd"))+
-      geom_point(data=pRes_sim,aes(x,y,shape="pInd favered by pRes"),size=4) +  # plot resourcce
-      geom_point(data = pRes_new_sim, aes(x,y, shape="pInd favered by pRes_new"),size=4) +  # plot new resource
-      labs(y = "Phenotype of parasite", x = "Number of generations") +# rename y-axis
-      ggplot2::theme_bw() + mytheme +
-      scale_color_manual(name="",values=c("pInd"="black"))+
-      scale_shape_manual(name="",values=c("pInd favered by pRes"=5,"pInd favered by pRes_new"=1,"pInd"=20))
+
+  labels=c("Phenotpye parasites","Phenotype host","Phenotype new host", "Phenotype of jumped parasites", "Phenotype of successful colonizing parasites")
+
+  ggplot2::ggplot(plotInput,aes(x = x, y = y, group = p)) +
+    xlim(0, n_generations) + ylim(pRes_min,pRes_max)+
+    geom_point(aes(fill = p, shape =p, size=p))+
+    scale_shape_manual(values=c(21,22,24,21,21), labels=labels) +
+    scale_fill_manual(values=c("black","red","green","blue","yellow"), labels=labels) +
+    scale_size_manual(values=c(2,4,4,4,4), labels=labels)+
+    labs(y = "Phenotype of parasite", x = "Number of generations") +# rename y-axis
+    ggplot2::theme_bw() + mytheme
+
   }

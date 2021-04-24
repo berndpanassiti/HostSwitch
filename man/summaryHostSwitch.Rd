@@ -10,7 +10,7 @@ summaryHostSwitch(HostSwitch_simulated_quantities)
 \item{HostSwitch_simulated_quantities}{An object created by \code{\link{simHostSwitch}}}
 }
 \value{
-An object of class HostSwitch
+Summary of HostSwitch simulations
 }
 \description{
 Summary statistics of HostSwitch simulation
