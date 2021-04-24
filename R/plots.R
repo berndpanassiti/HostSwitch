@@ -28,15 +28,15 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities,iter=1){
   dat= HostSwitch_simulated_quantities[c("pRes_sim","pRes_new_sim","pInd_sim","pInd_whichjump_sim","pInd_whichsurv_sim")]
   dat = sapply(dat, "[[", iter)
   pRes_sim     = data.frame(p=rep("pRes",length(dat$pRes_sim)), y=dat$pRes_sim,x=0:(length(dat$pRes_sim)-1))
-  pRes_new_sim = data.frame(p=rep("pRes_new",length(dat$pRes_new_sim)),y=dat$pRes_new_sim,x=1:length(dat$pRes_new_sim))
+  pRes_new_sim = data.frame(p=rep("pRes_new",length(dat$pRes_new_sim)),y=dat$pRes_new_sim,x=0:(length(dat$pRes_new_sim)-1))
 
-  pInd_sim_df = createPlotInput_sim_pInd(dat$pInd_sim)
+  pInd_sim_df = createPlotInput_Ind_sim(dat$pInd_sim)
   pInd_sim = data.frame(cbind(p=rep("pInd",nrow(pInd_sim_df)),pInd_sim_df))
 
-  whichJump_sim_df = createPlotInput_sim_which(dat$pInd_whichjump_sim)
+  whichJump_sim_df = createPlotInput_Ind_sim(dat$pInd_whichjump_sim)
   whichJump_sim = data.frame(cbind(p=rep("whichJump",nrow(whichJump_sim_df)),whichJump_sim_df))
 
-  whichSurv_sim_df = createPlotInput_sim_which(dat$pInd_whichsurv_sim)
+  whichSurv_sim_df = createPlotInput_Ind_sim(dat$pInd_whichsurv_sim)
   whichSurv_sim = data.frame(cbind(p=rep("whichSurv",nrow(whichSurv_sim_df)),whichSurv_sim_df))
 
   plotInput = data.frame(rbind(pRes_sim,pRes_new_sim,pInd_sim,whichJump_sim,whichSurv_sim))
@@ -45,11 +45,11 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities,iter=1){
   pRes_min = HostSwitch_simulated_quantities$pRes_min; pRes_max = HostSwitch_simulated_quantities$pRes_max
 
 
-  labels=c("Phenotpye parasites","Phenotype host","Phenotype new host", "Phenotype of jumped parasites", "Phenotype of successful colonizing parasites")
+  labels=c("Phenotpye parasites","Phenotype host","Phenotype new host", "Phenotype of jumped parasites", "Phenotype of jumping and successful colonizing parasites")
 
   ggplot2::ggplot(plotInput,aes(x = x, y = y, group = p)) +
     xlim(0, n_generations) + ylim(pRes_min,pRes_max)+
-    geom_point(aes(fill = p, shape =p, size=p))+
+    geom_point(aes(fill = p, shape =p, size=p), na.rm=TRUE)+
     scale_shape_manual(values=c(21,22,24,21,21), labels=labels) +
     scale_fill_manual(values=c("black","red","green","blue","yellow"), labels=labels) +
     scale_size_manual(values=c(2,4,4,4,4), labels=labels)+

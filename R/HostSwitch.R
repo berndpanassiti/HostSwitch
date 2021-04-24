@@ -91,7 +91,11 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
     pInd_jump=pInd[which_jump] # selected phenotype depending on poision
 
     pInd_jump_sim[n+1]        = length(pInd_jump) # record how many individuals jumped
+    if(length(pInd_jump)>0){
     pInd_whichjump_sim[[n+1]] = pInd_jump         # record which individuals jumped
+    } else{
+      pInd_whichjump_sim[[n+1]] = NA
+    }
 
     ## Selection in the new host
     prob=survivalProbability(pInd=pInd_jump,pHost=pRes_new,sigma=sigma) # survival probability of jumped individuals; eq. 1
@@ -99,13 +103,14 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
 
     if(length(pInd_new)>0){ # Host switch successful, at least 1 individual jumped & survived
       pRes=pRes_new
-      pInd=pInd_new # survivded individuals on new plant
-      pInd_whichsurv_sim[[n+1]] = pInd            # record which individuals survived
+      pInd=pInd_new                         # survivded individuals on new plant
+      pInd_whichsurv_sim[[n+1]] = pInd_new  # record which individuals survived
     }
     else{
       # If SOME INDIVIDUALS JUMPED BUT DID NOT SURVIVE, remaining! individuals on original host
       # are further used to calculate survival probability on original host and generate new offspring
       # Note: jumped individuals are not allowed come back!
+      pInd_whichsurv_sim[[n+1]] = NA # no survived individuals
       if(length(which_jump)>0 & jump_back=="no"){pInd=pInd[-which_jump]} # select remaining individuals of original host
       prob=survivalProbability(pInd=pInd,pHost=pRes,sigma=sigma)
       pInd=pInd[prob>stats::runif(length(pInd))]
@@ -125,6 +130,8 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
     pRes_sim[n+1]     = pRes
     pRes_new_sim[n+1] = pRes_new
     pInd_sim[[n+1]]   = pInd
+
+
   }
 
 
