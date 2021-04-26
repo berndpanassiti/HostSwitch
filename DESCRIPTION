@@ -24,7 +24,8 @@ Imports:
     utils,
     ArgumentCheck,
     methods,
-    plyr
+    plyr,
+    purrr
 Suggests:
     knitr,
     rmarkdown

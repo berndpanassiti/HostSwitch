@@ -4,15 +4,22 @@
 \alias{testHostSwitch}
 \title{Test for differences of HostSwitch simulations}
 \usage{
-testHostSwitch(x1, x2, parameter, test, plot = FALSE)
+testHostSwitch(
+  simulated_quantities1,
+  simulated_quantities2,
+  parameter,
+  test,
+  plot = FALSE
+)
 }
 \arguments{
-\item{x1}{An object created by \code{\link{simHostSwitch}}}
+\item{simulated_quantities1}{An object created by \code{\link{simHostSwitch}}}
 
-\item{x2}{An object created by \code{\link{simHostSwitch}}}
+\item{simulated_quantities2}{An object created by \code{\link{simHostSwitch}}}
 
 \item{parameter}{Quantity of interest, possible values are:
 \itemize{
+  \item "j" for \strong{j}umps of parasites from resource to new resource
   \item "s" for \strong{s}uccessful host switches
   \item "d" for \strong{d}istance between parasite and new host phenotypes if host switch successful
 }}

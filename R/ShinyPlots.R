@@ -1,8 +1,15 @@
-#' Shiny plot of survival probability of parasite after host switch
+#' Shiny plot of parasite host switch
 #'
-#' @details The function creates a shiny plot with host switches by a parasite.
+#' @details The function creates an interactive shiny-plot of simulated dispersal and colonization of a parasite on new hosts.
 #'
-#' @import shiny
+#'The parameter values of the function HostSwitch can be modified on the slider bars. The refresh button on the top plots the new simulation.
+#'
+#'Black dots are the phenotype values after each event of reproduction. The green squares represent the value of phenotype favored by a new host proposed at each generation. The red squares are the phenotype values favored by the current host (=the initial one and the host after successful colonization).
+#'
+#'The total number of tentative dispersal by the parasites and successful host switches are calculated below the plot.
+#'  @import shiny
+#'  @examples
+#'  shinyHostSwitch()
 #'
 #' @export
 shinyHostSwitch <- function() {

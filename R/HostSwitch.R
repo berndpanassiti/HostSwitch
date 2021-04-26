@@ -240,7 +240,7 @@ summaryHostSwitch = function(HostSwitch_simulated_quantities){
   out$summaryP=summaryP
 
   summaryHS = data.frame(matrix(NA, ncol = 2, nrow = 2))
-  rownames(summaryHS) = c("Number of parasite jumps:","Number of successful host switches:")
+  rownames(summaryHS) = c("Total events of dispersion:","Number of successful host switches:")
   colnames(summaryHS) = c("Mean", "Max")
   summaryHS[1,] = c(round(mean(plyr::laply(HostSwitch_simulated_quantities$pInd_jump_sim,function(x) length(which(x>0)))),2),
                     round(max(plyr::laply(HostSwitch_simulated_quantities$pInd_jump_sim,function(x) length(which(x>0)))),2))

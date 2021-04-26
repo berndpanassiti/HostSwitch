@@ -24,3 +24,5 @@ createPlotInput_Ind_sim <- function(x){
   parasites$x           = as.numeric(as.character(parasites$x))
   return(parasites)
 }
+
+
