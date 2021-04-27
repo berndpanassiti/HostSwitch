@@ -17,13 +17,14 @@
 #' @details This function can be used to compare HostSwitch simulations with different settings and test for differences.
 #' @return An object of class HostSwitch
 #' @examples
-#' HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200,iter=100)
-#' testHostSwitch(HostSwitch_simulated_quantities)
+#' m1 = simHostSwitch(n_generation=100,iter=100)
+#' m2 = simHostSwitch(n_generation=50,iter=50)
+#' testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot=TRUE)
 #' @import ArgumentCheck
 #' @import stats
 #' @import ggplot2
-#' @import purrr
-#' @import plyr
+#' @importFrom purrr map
+#' @importFrom plyr laply
 #' @export
 
 testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,test,plot=FALSE){

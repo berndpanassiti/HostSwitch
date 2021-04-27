@@ -51,7 +51,7 @@ ui <- fluidPage(
 
       # Output: Shiny plot of host switches by parasites ----
       plotOutput(outputId = "HostSwitchPlot"),
-      tableOutput("HostSwitchSummary")
+      tableOutput(outputId = "HostSwitchSummary")
     )
   )
 )

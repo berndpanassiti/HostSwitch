@@ -24,12 +24,12 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities,iter=1){
 
   n_generations <- pRes_max <- pRes_min <- x <- y <- NULL # global variables
 
-  mytheme <-  ggplot2::theme(axis.title = element_text(size =24),
-                             axis.text = element_text(size =25),
-                             strip.text= element_text(size = 30),
-                             plot.title = element_text(hjust = 0.5),
-                             legend.title=element_blank(),
-                             legend.text=element_text(size=12))
+  mytheme <-  ggplot2::theme(axis.title   = ggplot2::element_text(size =24),
+                             axis.text    = ggplot2::element_text(size =25),
+                             strip.text   = ggplot2::element_text(size = 30),
+                             plot.title   = ggplot2::element_text(hjust = 0.5),
+                             legend.title = ggplot2::element_blank(),
+                             legend.text  = ggplot2::element_text(size=12))
 
   dat= HostSwitch_simulated_quantities[c("pRes_sim","pRes_new_sim","pInd_sim","pInd_whichjump_sim","pInd_whichsurv_sim")]
   dat = sapply(dat, "[[", iter)
