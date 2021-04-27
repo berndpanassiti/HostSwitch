@@ -28,7 +28,7 @@ survivalProbability = function(pInd,pHost,sigma){
 #' Simulate host switches by parasites
 #'
 #' @param K Carrying capacity
-#' @param b Birth rate
+#' @param b Average number of offspring each parasite can have (birth rate)
 #' @param mig Cut off for migration, individuals below cutoff jump
 #' @param sd Standard deviation for mutation
 #' @param sigma Standard deviation for selection

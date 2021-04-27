@@ -21,7 +21,7 @@ simHostSwitch(
 \arguments{
 \item{K}{Carrying capacity}
 
-\item{b}{Birth rate}
+\item{b}{Average number of offspring each parasite can have (birth rate)}
 
 \item{mig}{Cut off for migration, individuals below cutoff jump}
 
