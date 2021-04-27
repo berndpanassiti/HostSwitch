@@ -26,19 +26,23 @@ HostSwitch has dependencies .....
 This package will be expanded with furthers scenarios of species interaction. Please feel free to contact the authors to contribute by making suggestions, or sending bug fixes or extension proposals. 
 
 
+# Theoratical background
+
+
 # Using HostSwitch
 
 ## Installing, loading and citing the package
 
 If you haven't installed the package yet, please install the recent release using GitHub
 
-```{r, eval = F}
-devtools::install_github(repo = "berndpanassiti/HostSwitch",build_vignettes = TRUE)
+```{r}
+#devtools::install_github(repo = "berndpanassiti/HostSwitch",build_vignettes = TRUE)
+# NEED TO BE UNCOMMENTED when GITHUB repository public
 ```
 
 Loading and citation
 
-```{r,eval=F}
+```{r}
 library(HostSwitch)
 citation("HostSwitch")
 ```
@@ -46,17 +50,25 @@ citation("HostSwitch")
 
 ## Run the model
 Simulate host switches by parasites
-```{r,eval=F}
-HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.001, sdm=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
-HostSwitch_simulated_quantities
+```{r}
+# using only 20 generations and 1 iterations, others arguments left to default values
+# see ?simHostSwitch for more arguments
+simulated_quantities = simHostSwitch(seed=123,iter=1,n_generation=20) 
 ```
 
 The function generates a list containing all quantities of interest which can be used for summary statistics or plots. Quantities of interest are **phenotpyes** of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These parameters are available for each generation step.
 
 
+Summary of host switches simulation
+```{r}
+summaryHostSwitch(simulated_quantities) 
+```
+
+
+
 ## Plot the simulation of parasite host switches
-```{r,eval=F}
-gg1 = plotHostSwitch(HostSwitch_simulated_quantities)
+```{r}
+gg1 = plotHostSwitch(simulated_quantities, iter = 1) # use iter to select specific iterations
 gg1
 #gg1 + xlim(0,10) # limit x-axis from 0 to 10 generations
 ```
