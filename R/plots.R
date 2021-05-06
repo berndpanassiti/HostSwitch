@@ -56,9 +56,9 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities,iter=1){
   ggplot2::ggplot(plotInput,aes(x = x, y = y, group = p)) +
     xlim(0, n_generations) + ylim(pRes_min,pRes_max)+
     geom_point(aes(fill = p, shape =p, size=p), na.rm=TRUE)+
-    scale_shape_manual(values=c(21,22,24,21,21), labels=labels) +
+    scale_shape_manual(values=c(21,22,22,21,21), labels=labels) +
     scale_fill_manual(values=c("black","red","green","blue","yellow"), labels=labels) +
-    scale_size_manual(values=c(1,4,2,4,4), labels=labels)+
+    scale_size_manual(values=c(1,4,3,3,3), labels=labels)+
     labs(y = "Phenotype of parasite", x = "Number of generations") + # rename y-axis
     ggplot2::theme_bw() + mytheme
 
