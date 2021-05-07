@@ -24,7 +24,9 @@ This function calculates the survival probability of individual consumers that a
 The function is based on the probability density function of a normal distribution. By ignoring the  normalization constant \eqn{(1/sqrt(2*pi)*sigma)}, it provides then the survival probability.
 }
 \examples{
-## Example 1a - The ith consumer has the phenotype that maximize its colonization success on the new host, then pInd is equal to pHost (pInd = pHost), and the survival probability is 1.
+## Example 1a - The ith consumer has the phenotype that maximize its
+## colonization success on the new host, then pInd is equal to pHost (pInd = pHost),
+## and the survival probability is 1.
 survivalProbability(pInd=5,pHost=5,sigma=1)
 
 ## Example 1b - Increasing |pInd-pHost| the survival probability decreases

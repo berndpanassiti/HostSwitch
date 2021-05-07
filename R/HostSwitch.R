@@ -8,7 +8,9 @@
 #'
 #' @return The survival probability of the consumer
 #' @examples
-#' ## Example 1a - The ith consumer has the phenotype that maximize its colonization success on the new host, then pInd is equal to pHost (pInd = pHost), and the survival probability is 1.
+#' ## Example 1a - The ith consumer has the phenotype that maximize its
+#' ## colonization success on the new host, then pInd is equal to pHost (pInd = pHost),
+#' ## and the survival probability is 1.
 #' survivalProbability(pInd=5,pHost=5,sigma=1)
 #'
 #' ## Example 1b - Increasing |pInd-pHost| the survival probability decreases
@@ -41,9 +43,9 @@ survivalProbability = function(pInd,pHost,sigma){
 #' @details This function simulates the number of host switches by the population of a consumer. Results are stored to a HostSwitch object, to make use of summary and plotting functions in the HostSwitch package. The HostSwitch object includes the following simulated quantities are: $pRes_sim (all the optimal phenotypes favored by the selected new hosts), $pRes_new_sim (new resource), $pInd and of individual consumer. These simulated quantities of interest are available for each generation step and can be used for summary statistics or plots.
 #' @return An object of class HostSwitch
 #' @examples
-#' HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)
-#' HostSwitch_simulated_quantities
-#' @import ArgumentCheck
+#' m1 = simHostSwitch() # default values for arguments
+#' m1
+#' @import checkmate
 #' @export
 
 
@@ -196,9 +198,9 @@ methods::setMethod("show",signature = "summaryHostSwitch", definition = function
 #' @details This function generates summary statistcs for HostSwitch simulations.
 #' @return Summary of HostSwitch simulations
 #' @examples
-#' HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200,n_sim=100)
-#' summaryHostSwitch(HostSwitch_simulated_quantities)
-#' @import ArgumentCheck
+#' m1 = simHostSwitch(n_sim=100) # except n_sim, default values for arguments
+#' summaryHostSwitch(m1)
+#' @import checkmate
 #' @import methods
 #' @import plyr
 #' @export

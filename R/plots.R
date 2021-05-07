@@ -11,18 +11,18 @@
 #'
 #' @import ggplot2
 #' @examples
-#' HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200,n_sim=100)
+#' m1 = simHostSwitch(n_sim=100) # except n_sim, default values for arguments
 #'
 #' ## The results of the first simuation´(n_sim=1) are plotted as default
-#' plotHostSwitch(HostSwitch_simulated_quantities)
+#' plotHostSwitch(m1)
 #'
 #' ## The 50th simulation of the model is plotted
-#' plotHostSwitch(HostSwitch_simulated_quantities,n_sim=50)
+#' plotHostSwitch(m1,n_sim=50)
 #'
 #' @export
 plotHostSwitch <- function(HostSwitch_simulated_quantities,n_sim=1){
 
-  n_generations <- pRes_max <- pRes_min <- x <- y <- NULL # global variables
+  n_generations <- pRes_max <- pRes_min <- p <- x <- y <- NULL # global variables
 
   mytheme <-  ggplot2::theme(axis.title   = ggplot2::element_text(size =24),
                              axis.text    = ggplot2::element_text(size =25),

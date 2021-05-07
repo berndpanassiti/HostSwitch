@@ -19,6 +19,6 @@ Summary statistics of HostSwitch simulation
 This function generates summary statistcs for HostSwitch simulations.
 }
 \examples{
-HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200,n_sim=100)
-summaryHostSwitch(HostSwitch_simulated_quantities)
+m1 = simHostSwitch(n_sim=100) # except n_sim, default values for arguments
+summaryHostSwitch(m1)
 }

@@ -20,12 +20,12 @@ The function plots the simulation for the dispersal, colonization (successful ho
 Black dots are the phenotype values after each event of reproduction. The green squares represent the value of phenotype favored by a new host proposed at each generation. The red squares are the phenotype values favored by the current host (=the initial one and the host after successful colonization).
 }
 \examples{
-HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200,n_sim=100)
+m1 = simHostSwitch(n_sim=100) # except n_sim, default values for arguments
 
 ## The results of the first simuation´(n_sim=1) are plotted as default
-plotHostSwitch(HostSwitch_simulated_quantities)
+plotHostSwitch(m1)
 
 ## The 50th simulation of the model is plotted
-plotHostSwitch(HostSwitch_simulated_quantities,n_sim=50)
+plotHostSwitch(m1,n_sim=50)
 
 }

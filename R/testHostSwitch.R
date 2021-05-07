@@ -20,14 +20,17 @@
 #' m1 = simHostSwitch(n_generation=100,n_sim=100)
 #' m2 = simHostSwitch(n_generation=50,n_sim=50)
 #' testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot=TRUE)
-#' @import ArgumentCheck
+#' @import checkmate
 #' @import stats
 #' @import ggplot2
 #' @importFrom purrr map
 #' @importFrom plyr laply
+#' @importFrom utils head
 #' @export
 
 testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,test,plot=FALSE){
+
+  values <- NULL # global variables
 
   out=list()
 
@@ -64,12 +67,12 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
     y = rep(0,(simulated_quantities2$n_sim*simulated_quantities2$n_generation))
 
     # sim1
-    Ind = sapply(flatten2(purrr::map(simulated_quantities1$pInd_sim,head,-1)),mean)
+    Ind = sapply(flatten2(purrr::map(simulated_quantities1$pInd_sim,utils::head,-1)),mean)
     pRes_new=unlist(flatten2(simulated_quantities1$pRes_new_sim))
     x = abs(Ind-pRes_new)
 
     # sim2
-    Ind = sapply(flatten2(purrr::map(simulated_quantities2$pInd_sim,head,-1)),mean)
+    Ind = sapply(flatten2(purrr::map(simulated_quantities2$pInd_sim,utils::head,-1)),mean)
     pRes_new=unlist(flatten2(simulated_quantities2$pRes_new_sim))
     y = abs(Ind-pRes_new)
   }
