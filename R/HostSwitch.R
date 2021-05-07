@@ -29,17 +29,17 @@ survivalProbability = function(pInd,pHost,sigma){
 
 #' Simulate host switches by consumers
 #'
-#' @param K Carrying capacity
-#' @param b Average number of offspring each consumer can have (birth rate)
-#' @param mig Cut off for migration, individuals below cutoff jump
-#' @param sd Standard deviation for mutation
-#' @param sigma Standard deviation for selection
-#' @param pRes_min Initial value, smallest phenotype of resource (original host) and consumer
-#' @param pRes_max Initial value, maximum phenotype of resource (original host) and consumer
-#' @param n_generation Number of generations
+#' @param K Carrying capacity, numeric value (min=0, max=1000)
+#' @param b Average number of offspring each consumer can have (birth rate), numeric value (min=0, max=K)
+#' @param mig Cut off for migration, individuals below cutoff jump, numeric value (min=0, max=1)
+#' @param sd Standard deviation for mutation, numeric value (min=0, max=10)
+#' @param sigma Standard deviation for selection, numeric value (min=0, max=10)
+#' @param pRes_min Initial value, smallest phenotype of resource (original host) and consumer, numeric value (min=0, max=pRes_max)
+#' @param pRes_max Initial value, maximum phenotype of resource (original host) and consumer, numeric value (min=pRes_min, max=100)
+#' @param n_generation Number of generations, numeric value (min=1, max=50000)
 #' @param jump_back Options for consumers that do not survive on the new host. If "yes" the consumer(s) jump back to the current host and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.
-#' @param seed Random number to ensure reproducible plots
-#' @param n_sim Number of simulations
+#' @param seed Random number to ensure reproducible plots, positive integer
+#' @param n_sim Number of simulations, positive integer (min=1, max = 50000)
 #' @details This function simulates the number of host switches by the population of a consumer. Results are stored to a HostSwitch object, to make use of summary and plotting functions in the HostSwitch package. The HostSwitch object includes the following simulated quantities are: $pRes_sim (all the optimal phenotypes favored by the selected new hosts), $pRes_new_sim (new resource), $pInd and of individual consumer. These simulated quantities of interest are available for each generation step and can be used for summary statistics or plots.
 #' @return An object of class HostSwitch
 #' @examples
@@ -51,9 +51,18 @@ survivalProbability = function(pInd,pHost,sigma){
 
 simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generation=200,jump_back='no',seed=NULL, n_sim=1){
   set.seed(seed)
-
-  assert_JumpBack(jump_back)
-
+  # checks
+  checkmate::assertCount(K,positive=TRUE);checkmate::assertNumeric(K,upper=1000) # K
+  checkmate::assertNumeric(b,lower=0,upper=K) # b
+  checkmate::assertNumeric(mig,lower=0,upper=1) # sd
+  checkmate::assertNumeric(sd,lower=0,upper=10) # sd
+  checkmate::assertNumeric(sigma,lower=0,upper=10) # sigma
+  checkmate::assertNumeric(pRes_min,lower=0,upper=pRes_max) # pRes_min
+  checkmate::assertNumeric(pRes_min,lower=pRes_min,upper=100) # pRes_max
+  checkmate::assertCount(n_generation,positive=TRUE);checkmate::assertNumeric(n_generation,upper=50000) # n_generation
+  assert_JumpBack(jump_back) # jump_back
+  checkmate::assertCount(seed,positive=TRUE) # seed
+  checkmate::assertCount(n_sim,positive=TRUE);checkmate::assertNumeric(n_sim,upper=50000) # n_sim
 
   pRes_sim_list           = list()
   pRes_new_sim_list       = list()
