@@ -4,28 +4,28 @@
 \alias{plotHostSwitch}
 \title{HostSwitch standard plot}
 \usage{
-plotHostSwitch(HostSwitch_simulated_quantities, iter = 1)
+plotHostSwitch(HostSwitch_simulated_quantities, n_sim = 1)
 }
 \arguments{
 \item{HostSwitch_simulated_quantities}{The object HostSwitch created by \code{\link{simHostSwitch}}}
 
-\item{iter}{the iteration of the simulation plotted. The "iter" values possible are saved in the HostSwitch object, the plot from the first iteration is shown as default (iter = 1).An error message "Error in FUN(X[[i]], ...) : subscript out of bounds" will be returned, if the called iteration is not present in the object HostSwitch.}
+\item{n_sim}{simulation number plotted. The "n_sim" values possible are saved in the HostSwitch object, the plot from the first simulation is shown as default (n_sim = 1).An error message "Error in FUN(X[[i]], ...) : subscript out of bounds" will be returned, if the called simulation is not present in the object HostSwitch.}
 }
 \description{
 This function creates a standard plot for the simulated host switches
 }
 \details{
-The function plots the simulation for the dispersal, colonization (successful host switch), and reproduction of a parasite. The X-axis shows the number of generations, the y-axis the phenotype values of the parasite.
+The function plots the simulation for the dispersal, colonization (successful host switch), and reproduction of a consumer. The X-axis shows the number of generations, the y-axis the phenotype values of the consumer.
 
 Black dots are the phenotype values after each event of reproduction. The green squares represent the value of phenotype favored by a new host proposed at each generation. The red squares are the phenotype values favored by the current host (=the initial one and the host after successful colonization).
 }
 \examples{
-HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200,iter=100)
+HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200,n_sim=100)
 
-## The first iteration results are plotted as default
+## The results of the first simuation´(n_sim=1) are plotted as default
 plotHostSwitch(HostSwitch_simulated_quantities)
 
-## The 50th iteration is plotted
-plotHostSwitch(HostSwitch_simulated_quantities,iter=50)
+## The 50th simulation of the model is plotted
+plotHostSwitch(HostSwitch_simulated_quantities,n_sim=50)
 
 }

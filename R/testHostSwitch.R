@@ -17,8 +17,8 @@
 #' @details This function can be used to compare HostSwitch simulations with different settings and test for differences.
 #' @return An object of class HostSwitch
 #' @examples
-#' m1 = simHostSwitch(n_generation=100,iter=100)
-#' m2 = simHostSwitch(n_generation=50,iter=50)
+#' m1 = simHostSwitch(n_generation=100,n_sim=100)
+#' m2 = simHostSwitch(n_generation=50,n_sim=50)
 #' testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot=TRUE)
 #' @import ArgumentCheck
 #' @import stats
@@ -41,15 +41,15 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
 ## SUCCESSFUL HOST SWITCHES
   if(parameter == "s"){
     title = "Comparison of number of successful host switches by a parasite"
-    x = rep(0,simulated_quantities1$iter)
-    y = rep(0,simulated_quantities2$iter)
+    x = rep(0,simulated_quantities1$n_sim)
+    y = rep(0,simulated_quantities2$n_sim)
 
-    for (i in 1:simulated_quantities1$iter){
+    for (i in 1:simulated_quantities1$n_sim){
       dat = lapply(simulated_quantities1[c(1,2)], `[[`, i)
       x[i] = length(which(dat$pRes_sim[-1]==dat$pRes_new_sim))
     }
 
-    for (i in 1:simulated_quantities2$iter){
+    for (i in 1:simulated_quantities2$n_sim){
       dat = lapply(simulated_quantities1[c(1,2)], `[[`, i)
       y[i] = length(which(dat$pRes_sim[-1]==dat$pRes_new_sim))
     }
@@ -60,8 +60,8 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
 ## Distance between mean parasite and new host phenotype
   if(parameter == "d"){
     title = "Comparison of phenotype distance btw. parasite and new host"
-    x = rep(0,(simulated_quantities1$iter*simulated_quantities1$n_generation))
-    y = rep(0,(simulated_quantities2$iter*simulated_quantities2$n_generation))
+    x = rep(0,(simulated_quantities1$n_sim*simulated_quantities1$n_generation))
+    y = rep(0,(simulated_quantities2$n_sim*simulated_quantities2$n_generation))
 
     # sim1
     Ind = sapply(flatten2(purrr::map(simulated_quantities1$pInd_sim,head,-1)),mean)

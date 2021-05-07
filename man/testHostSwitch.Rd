@@ -41,7 +41,7 @@ Test for differences of HostSwitch simulations
 This function can be used to compare HostSwitch simulations with different settings and test for differences.
 }
 \examples{
-m1 = simHostSwitch(n_generation=100,iter=100)
-m2 = simHostSwitch(n_generation=50,iter=50)
+m1 = simHostSwitch(n_generation=100,n_sim=100)
+m2 = simHostSwitch(n_generation=50,n_sim=50)
 testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot=TRUE)
 }

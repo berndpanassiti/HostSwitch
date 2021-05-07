@@ -5,14 +5,20 @@
 \title{Create input data of simulated jumped/survived individuals for plots}
 \usage{
 createPlotInput_Ind_sim(x)
+
+createPlotInput_Ind_sim(x)
 }
 \arguments{
 \item{x}{A list of simulated jumped/survived parasite phenotypes for each generation}
 }
 \description{
 Create input data of simulated jumped/survived individuals for plots
+
+Create input data of simulated jumped/survived individuals for plots
 }
 \details{
+Converts list to dataframe and stack it
+
 Converts list to dataframe and stack it
 }
 \keyword{internal}

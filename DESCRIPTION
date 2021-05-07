@@ -22,7 +22,7 @@ Depends:
 Imports:
     stats,
     utils,
-    ArgumentCheck,
+    checkmate,
     methods,
     plyr,
     purrr

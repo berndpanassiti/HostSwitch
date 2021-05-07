@@ -104,9 +104,9 @@ This function opens a new window with an interactive plot of the HostSwitch simu
 ## Run the model
 ### Simulate host switches by parasites
 ```{r}
-# using only 20 generations and 1 iteration, others arguments left to default values
+# using only 20 generations and 1 simulation, others arguments left to default values
 # see ?simHostSwitch for more arguments
-simulated_quantities = simHostSwitch(seed=123,iter=1,n_generation=20) 
+simulated_quantities = simHostSwitch(seed=123,n_sim=1,n_generation=20) 
 ```
 
 The function generates a list containing all quantities of interest which can be used for summary statistics or plots. Quantities of interest are **phenotpyes** of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These parameters are available for each generation step.
@@ -121,7 +121,7 @@ summaryHostSwitch(simulated_quantities)
 
 ### Plot the simulation of parasite host switches
 ```{r}
-gg1 = plotHostSwitch(simulated_quantities, iter = 1) # use iter to select a specific iteration
+gg1 = plotHostSwitch(simulated_quantities, n_sim = 1) # use n_sim to select a specific simulation
 gg1
 #gg1 + xlim(0,10) # limit x-axis from 0 to 10 generations
 ```
@@ -133,11 +133,11 @@ To investigate the effect of selected parameters on host switches, the testHostS
 
 
 Here, we investigate how different number of offsprings (parameter b) affect the average number of jumps to a new host by a parasite.  
-First, we create two simulations with different number of offsprings, leaving other paramters to default values. Note, to test for differences between simulations it is necessary to choose reasonable high number of iterations. We recommand for the number of jumps to set iter >= 100. Second, we compare both simulations choosing the parameter of interest and wether or not a boxplot should be drawn.
+First, we create two simulations with different number of offsprings, leaving other paramters to default values. Note, to test for differences between simulations it is necessary to choose reasonable high number of simulations. We recommand for the number of jumps to set n_sim >= 100. Second, we compare both simulations choosing the parameter of interest and wether or not a boxplot should be drawn.
 ```{r}
 # see ?simHostSwitch for more arguments
-m1 = simHostSwitch(seed=123,iter=100,b=10) 
-m2 = simHostSwitch(seed=123,iter=100,b=15) 
+m1 = simHostSwitch(seed=123,n_sim=100,b=10) 
+m2 = simHostSwitch(seed=123,n_sim=100,b=15) 
 
 # see ?testHostSwitch for more arguments
 testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot="F")

@@ -2,29 +2,29 @@
 % Please edit documentation in R/HostSwitch.R
 \name{survivalProbability}
 \alias{survivalProbability}
-\title{Survival probability of the parasite in a new host (novel resource)}
+\title{Survival probability of the consumer in a new host (novel resource)}
 \usage{
 survivalProbability(pInd, pHost, sigma)
 }
 \arguments{
-\item{pInd}{Phenotype of parasite #(Phenotype of ith parasite attempting to disperse in a new host)}
+\item{pInd}{Phenotype of consumer #(Phenotype of ith consumer attempting to disperse in a new host)}
 
-\item{pHost}{Phenotype of resource #(The optimum phenotype the parasite should have to maximize the colonization success)}
+\item{pHost}{Phenotype of resource #(The optimum phenotype the consumer should have to maximize the colonization success)}
 
 \item{sigma}{Selection intensity #(standard deviation of selection intensity)}
 }
 \value{
-The survival probability of the parasite
+The survival probability of the consumer
 }
 \description{
-Survival probability of the parasite in a new host (novel resource)
+Survival probability of the consumer in a new host (novel resource)
 }
 \details{
-This function calculates the survival probability of individual parasites that attempt dispersal in a new host. It is the core function of \code{\link{simHostSwitch}}.
+This function calculates the survival probability of individual consumers that attempt dispersal in a new host. It is the core function of \code{\link{simHostSwitch}}.
 The function is based on the probability density function of a normal distribution. By ignoring the  normalization constant \eqn{(1/sqrt(2*pi)*sigma)}, it provides then the survival probability.
 }
 \examples{
-## Example 1a - The ith parasite has the phenotype that maximize its colonization success on the new host, then pInd is equal to pHost (pInd = pHost), and the survival probability is 1.
+## Example 1a - The ith consumer has the phenotype that maximize its colonization success on the new host, then pInd is equal to pHost (pInd = pHost), and the survival probability is 1.
 survivalProbability(pInd=5,pHost=5,sigma=1)
 
 ## Example 1b - Increasing |pInd-pHost| the survival probability decreases

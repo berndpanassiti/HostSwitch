@@ -2,7 +2,7 @@
 % Please edit documentation in R/HostSwitch.R
 \name{simHostSwitch}
 \alias{simHostSwitch}
-\title{Simulate host switches by parasites}
+\title{Simulate host switches by consumers}
 \usage{
 simHostSwitch(
   K = 100,
@@ -15,13 +15,13 @@ simHostSwitch(
   n_generation = 200,
   jump_back = "no",
   seed = NULL,
-  iter = 0
+  n_sim = 1
 )
 }
 \arguments{
 \item{K}{Carrying capacity}
 
-\item{b}{Average number of offspring each parasite can have (birth rate)}
+\item{b}{Average number of offspring each consumer can have (birth rate)}
 
 \item{mig}{Cut off for migration, individuals below cutoff jump}
 
@@ -29,26 +29,26 @@ simHostSwitch(
 
 \item{sigma}{Standard deviation for selection}
 
-\item{pRes_min}{Initial value, smallest phenotype of resource (original host) and parasite}
+\item{pRes_min}{Initial value, smallest phenotype of resource (original host) and consumer}
 
-\item{pRes_max}{Initial value, maximum phenotype of resource (original host) and parasite}
+\item{pRes_max}{Initial value, maximum phenotype of resource (original host) and consumer}
 
 \item{n_generation}{Number of generations}
 
-\item{jump_back}{Options for parasites that do not survive on the new host. If "yes" the parasite(s) jump back to the current host and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.}
+\item{jump_back}{Options for consumers that do not survive on the new host. If "yes" the consumer(s) jump back to the current host and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.}
 
 \item{seed}{Random number to ensure reproducible plots}
 
-\item{iter}{Number of iterations}
+\item{n_sim}{Number of simulations}
 }
 \value{
 An object of class HostSwitch
 }
 \description{
-Simulate host switches by parasites
+Simulate host switches by consumers
 }
 \details{
-This function simulates the number of host switches by the population of a parasite. Results are stored to a HostSwitch object, to make use of summary and plotting functions in the HostSwitch package. The HostSwitch object includes the following simulated quantities are: $pRes_sim (all the optimal phenotypes favored by the selected new hosts), $pRes_new_sim (new resource), $pInd and of individual parasite. These simulated quantities of interest are available for each generation step and can be used for summary statistics or plots.
+This function simulates the number of host switches by the population of a consumer. Results are stored to a HostSwitch object, to make use of summary and plotting functions in the HostSwitch package. The HostSwitch object includes the following simulated quantities are: $pRes_sim (all the optimal phenotypes favored by the selected new hosts), $pRes_new_sim (new resource), $pInd and of individual consumer. These simulated quantities of interest are available for each generation step and can be used for summary statistics or plots.
 }
 \examples{
 HostSwitch_simulated_quantities = simHostSwitch(K=100,b=10, mig=0.01, sd=0.2, sigma=1, pRes_min=1, pRes_max=10, n_generation=200)

@@ -7,10 +7,12 @@
 flatten2(x)
 }
 \arguments{
-\item{x}{A nested list
-#'@details Flattens a nested list; https://stackoverflow.com/questions/8139677/how-to-flatten-a-list-to-a-list-without-coercion}
+\item{x}{A nested list}
 }
 \description{
 Flatten a nested list
+}
+\details{
+Flattens a nested list; https://stackoverflow.com/questions/8139677/how-to-flatten-a-list-to-a-list-without-coercion
 }
 \keyword{internal}
