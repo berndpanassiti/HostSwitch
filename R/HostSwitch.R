@@ -61,7 +61,7 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
   checkmate::assertNumeric(pRes_min,lower=pRes_min,upper=100) # pRes_max
   checkmate::assertCount(n_generation,positive=TRUE);checkmate::assertNumeric(n_generation,upper=50000) # n_generation
   assert_JumpBack(jump_back) # jump_back
-  checkmate::assertCount(seed,positive=TRUE) # seed
+  checkmate::assertCount(seed,positive=TRUE,null.ok = TRUE) # seed
   checkmate::assertCount(n_sim,positive=TRUE);checkmate::assertNumeric(n_sim,upper=50000) # n_sim
 
   pRes_sim_list           = list()
