@@ -12,34 +12,34 @@ simHostSwitch(
   sigma = 1,
   pRes_min = 1,
   pRes_max = 10,
-  n_generation = 200,
+  n_generations = 200,
   jump_back = "no",
   seed = NULL,
   n_sim = 1
 )
 }
 \arguments{
-\item{K}{Carrying capacity, numeric value (min=0, max=1000)}
+\item{K}{Carrying capacity, positive integer (min=1, max=1000), default value: 100}
 
-\item{b}{Average number of offspring each consumer can have (birth rate), numeric value (min=0, max=K)}
+\item{b}{Average number of offspring each consumer can have (birth rate), numeric value (min=0, max=K), default value: 10}
 
-\item{mig}{Cut off for migration, individuals below cutoff jump, numeric value (min=0, max=1)}
+\item{mig}{Cut off for migration, individuals below cutoff jump, numeric value (min=0, max=1), default value: 0.01}
 
-\item{sd}{Standard deviation for mutation, numeric value (min=0, max=10)}
+\item{sd}{Standard deviation for mutation, numeric value (min=0, max=10), default value: 0.2}
 
-\item{sigma}{Standard deviation for selection, numeric value (min=0, max=10)}
+\item{sigma}{Standard deviation for selection, numeric value (min=0, max=10), default value: 1}
 
-\item{pRes_min}{Initial value, smallest phenotype of resource (original host) and consumer, numeric value (min=0, max=pRes_max)}
+\item{pRes_min}{Initial value, smallest phenotype of resource (original host) and consumer, numeric value (min=0, max=pRes_max), default value: 1}
 
-\item{pRes_max}{Initial value, maximum phenotype of resource (original host) and consumer, numeric value (min=pRes_min, max=100)}
+\item{pRes_max}{Initial value, maximum phenotype of resource (original host) and consumer, numeric value (min=pRes_min, max=100), default value: 10}
 
-\item{n_generation}{Number of generations, numeric value (min=1, max=50000)}
+\item{n_generations}{Number of generations, positive integer (min=1, max=50000), default value: 200}
 
 \item{jump_back}{Options for consumers that do not survive on the new host. If "yes" the consumer(s) jump back to the current host and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.}
 
-\item{seed}{Random number to ensure reproducible plots, positive integer}
+\item{seed}{Random number to ensure reproducible plots, positive integer (>0), default value: NULL}
 
-\item{n_sim}{Number of simulations, positive integer (min=1, max = 50000)}
+\item{n_sim}{Number of simulations, positive integer (min=1, max = 50000), default value: 1}
 }
 \value{
 An object of class HostSwitch

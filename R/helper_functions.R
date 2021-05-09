@@ -40,20 +40,25 @@ createPlotInput_Ind_sim <- function(x){
   return(parasites)
 }
 
-#' Echo personalized error message for jump back
+
+#' Echo personalized pattern and error message
 #' @param x User input (string)
 #' @details Checks if input is a string and either yes or no
 #' @keywords internal
 
-assert_JumpBack <- function(x) {
-  res <- try(expr = checkmate::assert_string(x,pattern="^no$|^yes$"), silent = TRUE)
-  msg_attr=attr(x = res, which = "condition")$message
-  msg_gsub = gsub("[^[:alnum:][:blank:]+':|?&/\\-]","",msg_attr)
-  msg = gsub("\\|","' or '",msg_gsub)
-  if (inherits(x = res, what = "try-error")) {
-    stop(
-      call. = FALSE,
-      msg
-    )
-  }
-}
+# assertPersonalizedPatternMsg <- function(x,name,pattern) {
+#   res <- try(expr = checkmate::assert_character(x,pattern=pattern), silent = TRUE)
+#   msg_attr=attr(x = res, which = "condition")$message
+#   msg_gsub1 = gsub("[^[:alnum:][:blank:]+':|?&/\\-]","",msg_attr)
+#   msg_gsub2 = gsub("\\|","' or '",msg_gsub1)
+#   msg = gsub("'x'",paste("'",name,"'",sep=""),msg_gsub2)
+#   if (inherits(x = res, what = "try-error")) {
+#     stop(
+#       call. = FALSE,
+#       msg
+#     )
+#   }
+# }
+
+# Usage:assertPersonalizedPatternMsg(x=jump_back,name="jump_back",pattern="^no$|^yes$") # jump_back
+# better option: assertChoice

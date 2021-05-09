@@ -18,12 +18,12 @@ link-citations: true
 abstract: |
   \justifing
   
-  The 'HostSwitch' package uses a individual-based model to simulate the parasite's successful invasion and survival on a new host. As a consequence of such colonization,the parasite acquiring a new host adapts to a different resource which becomes an actual host. Recently, Araujo et al. [-@Araujo_2015] introduced a mathematical model that evaluates the host switch of a parasite. The authors conceived the initial model to test the ... 
+  The 'HostSwitch' package uses an individual-based model for simulating the consumer's successful invasion and survival on a novel host. As a consequence of such colonization,the consumer acquiring a new host adapts to a different resource which becomes an actual host. Recently, Araujo et al. [-@Araujo_2015] introduced a mathematical model that evaluates the host switch of a parasite. The authors conceived the initial model to test the ... 
   
   Here, we introduce the R package, HostSwitch which formalizes and extends the original model built on Fortran provided by Araujo et al. [-@Araujo_2015]. We describe the areas of application to increase the utility of the present simulation of the host switch under the ecological fitting hypotheses.  
 
 
-  The package provides an R-friendly and modified version of this model which can be applied to different host-parasite scenarios.\n\n\n
+  The package provides an R-friendly and modified version of this model which can be applied to different biological models and scenarios.\n\n\n
   
 
 ---
@@ -60,17 +60,17 @@ knitr::opts_chunk$set(fig.width=8.5, fig.height=5.5, fig.align='center', warning
 ```
 
 
+# Theoratical background
+
+[@Araujo_2015]
+
+
 # Motivation 
-The HostSwitch package offers simple functions to evaluate the role of the single parameters included in the model in defining the probability and the amplitude of the host switch. The extension in R code allows the users to choose among different host-parasite scenarios (S0, S1) described by the usage examples in this vignette.
+The HostSwitch package offers simple functions to evaluate the role of the single parameters included in the model in defining the probability and the amplitude of the host switch. The extension in R code allows the users to choose among different consumer-host scenarios (S0, S1) described by the usage examples in this vignette.
 
 HostSwitch has dependencies .....
 
 This package will be expanded with furthers scenarios of species interaction. Please feel free to contact the authors to contribute by making suggestions, or sending bug fixes or extension proposals. 
-
-
-# Theoratical background
-
-[@Araujo_2015]
 
 
 
@@ -99,10 +99,10 @@ citation("HostSwitch")
 shinyHostSwitch()
 ```
 
-This function opens a new window with an interactive plot of the HostSwitch simulation model. This plot can be used to interact with the model and explore how different settings affect the host switches by a parasite.
+This function opens a new window with an interactive plot of the HostSwitch simulation model. This plot can be used to interact with the model and explore how different settings affect the host switches by a consumer.
 
 ## Run the model
-### Simulate host switches by parasites
+### Simulate host switches by consumers
 ```{r}
 # using only 20 generations and 1 simulation, others arguments left to default values
 # see ?simHostSwitch for more arguments
@@ -140,7 +140,7 @@ m1 = simHostSwitch(seed=123,n_sim=100,b=10)
 m2 = simHostSwitch(seed=123,n_sim=100,b=15) 
 
 # see ?testHostSwitch for more arguments
-testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot="F")
+testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot=FALSE)
 ```
 
 

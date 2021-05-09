@@ -2,7 +2,7 @@
 ui <- fluidPage(
 
   # App title ----
-  titlePanel("Simulate parasite host switching"),
+  titlePanel("Simulate consumer host-switching"),
 
   # Sidebar layout with input and output definitions ----
   sidebarLayout(
@@ -49,7 +49,7 @@ ui <- fluidPage(
     # Main panel for displaying outputs ----
     mainPanel(
 
-      # Output: Shiny plot of host switches by parasites ----
+      # Output: Shiny-plot of consumer host-switching ----
       plotOutput(outputId = "HostSwitchPlot"),
       tableOutput(outputId = "HostSwitchSummary")
     )

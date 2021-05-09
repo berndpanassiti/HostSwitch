@@ -2,13 +2,14 @@
 % Please edit documentation in R/testHostSwitch.R
 \name{testHostSwitch}
 \alias{testHostSwitch}
-\title{Test for differences of HostSwitch simulations}
+\title{Test for differences of HostSwitch models}
 \usage{
 testHostSwitch(
   simulated_quantities1,
   simulated_quantities2,
   parameter,
   test,
+  warmup = 1,
   plot = FALSE
 )
 }
@@ -19,9 +20,9 @@ testHostSwitch(
 
 \item{parameter}{Quantity of interest, possible values are:
 \itemize{
-  \item "j" for \strong{j}umps of parasites from resource to new resource
+  \item "j" for \strong{j}umps of consumers from resource to new resource
   \item "s" for \strong{s}uccessful host switches
-  \item "d" for \strong{d}istance between parasite and new host phenotypes if host switch successful
+  \item "d" for \strong{d}istance between consumers and new host phenotypes if host switch successful
 }}
 
 \item{test}{Statistical test, available tests are:
@@ -29,19 +30,24 @@ testHostSwitch(
   \item ''t'' for \strong{t}-test
 }}
 
+\item{warmup}{Number of warmup steps to be excluded when comparing models, see details. Possible value are NULL or positive integer (min=1,max=50). Default value = 1}
+
 \item{plot}{If \emph{TRUE}, a boxplot is drawn}
 }
 \value{
 An object of class HostSwitch
 }
 \description{
-Test for differences of HostSwitch simulations
+Test for differences of HostSwitch models
 }
 \details{
-This function can be used to compare HostSwitch simulations with different settings and test for differences.
+This function can be used to compare HostSwitch models with different settings and test for differences.
+Warmup represents the initial condition and is defined as an adaptation stage of the simulation model. The initial condition corresponds to the number of
+generations (n_generations): warmup = 1 means that the generation at time 0 is excluded from comparison; warmup = 2 means generations at times 0 and 1 are excluded and so on.
+If warmup = NULL all generations are considered for comparison, i.e. initial condition is not considered.
 }
 \examples{
-m1 = simHostSwitch(n_generation=100,n_sim=100)
-m2 = simHostSwitch(n_generation=50,n_sim=50)
+m1 = simHostSwitch(n_generations=100,n_sim=100)
+m2 = simHostSwitch(n_generations=50,n_sim=50)
 testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot=TRUE)
 }

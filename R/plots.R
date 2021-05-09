@@ -47,11 +47,11 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities,n_sim=1){
 
   plotInput = data.frame(rbind(pInd_sim,pRes_sim,pRes_new_sim,whichJump_sim,whichSurv_sim))
 
-  n_generations = HostSwitch_simulated_quantities$n_generation
+  n_generations = HostSwitch_simulated_quantities$n_generations
   pRes_min = HostSwitch_simulated_quantities$pRes_min; pRes_max = HostSwitch_simulated_quantities$pRes_max
 
 
-  labels=c("Phenotpye consumers","Consumer phenotype favored by current resource","Consumer phenotype favored by new resource", "Phenotype of dispersing consumers", "Phenotype of successfully colonizing consumers")
+  labels=c("Consumer phenotpye","Consumer phenotype favored by current resource","Consumer phenotype favored by new resource", "Phenotype of dispersing consumer", "Phenotype of successfully colonizing consumer")
 
   ggplot2::ggplot(plotInput,aes(x = x, y = y, group = p)) +
     xlim(0, n_generations) + ylim(pRes_min,pRes_max)+

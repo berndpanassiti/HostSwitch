@@ -2,15 +2,15 @@
 % Please edit documentation in R/ShinyPlots.R
 \name{shinyHostSwitch}
 \alias{shinyHostSwitch}
-\title{Shiny plot of parasite host switch}
+\title{Shiny-plot of consumer host-switching}
 \usage{
 shinyHostSwitch()
 }
 \description{
-Shiny plot of parasite host switch
+Shiny-plot of consumer host-switching
 }
 \details{
-The function creates an interactive shiny-plot of simulated dispersal and colonization of a parasite on new hosts.
+The function creates an interactive shiny-plot of simulated dispersal and colonization events of a consumer on novel hosts.
 
 The parameter values of the function HostSwitch can be modified on the slider bars. The refresh button on the top plots the new simulation.
 
