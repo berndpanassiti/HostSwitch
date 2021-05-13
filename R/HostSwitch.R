@@ -76,7 +76,7 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
   # record quantities of interest
   pRes_sim           = rep(NA,n_generations) ### phenotype original host (Valeria: vector of optimum phenotypes favored by the new host)
   pRes_new_sim       = rep(NA,n_generations) ### phenotype new host (Valeria: ???)
-  pInd_sim           = list()               # phenotype of individuals (valeria: phenotype of individuals at each generation)
+  pInd_sim           = list()               # phenotype of individuals at each generation
   pInd_jump_sim      = rep(0,n_generations)  # vector of number of consumers that disperse (jumped)
   pInd_whichjump_sim = list()  # which consumers jumped
   pInd_whichsurv_sim = list()  # which consumers survived

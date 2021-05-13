@@ -9,13 +9,38 @@ server <- function(input, output, session) {
 
   })
 
-  output$HostSwitchPlot <- renderPlot({
-    HostSwitch::plotHostSwitch(HostSwitch_simulated_quantities())
-    })
+
+
+
   output$HostSwitchSummary = renderTable({
     data.frame("Total events of dispersion"= length(which(HostSwitch_simulated_quantities()$pInd_jump_sim[[1]]>0)),
                 "Number of successful host switches" = c(length(which(HostSwitch_simulated_quantities()$pRes_sim[[1]][-1]==HostSwitch_simulated_quantities()$pRes_new_sim[[1]])))
                                             , check.names=FALSE)
     },colnames = "TRUE")
 
+
+  # -------------------------------------------------------------------
+  # Single zoomable plot
+  ranges <- reactiveValues(x = NULL, y = NULL)
+
+
+
+  output$HostSwitchPlot <- renderPlot({
+    HostSwitch::plotHostSwitch(HostSwitch_simulated_quantities()) + coord_cartesian(xlim = ranges$x, ylim = ranges$y, expand = FALSE)
+  })
+
+
+  # When a double-click happens, check if there's a brush on the plot.
+  # If so, zoom to the brush bounds; if not, reset the zoom.
+  observeEvent(input$plot1_dblclick, {
+    brush <- input$plot1_brush
+    if (!is.null(brush)) {
+      ranges$x <- c(brush$xmin, brush$xmax)
+      ranges$y <- c(brush$ymin, brush$ymax)
+
+    } else {
+      ranges$x <- NULL
+      ranges$y <- NULL
+    }
+  })
 }

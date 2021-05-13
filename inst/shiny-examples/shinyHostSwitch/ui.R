@@ -50,7 +50,12 @@ ui <- fluidPage(
     mainPanel(
 
       # Output: Shiny-plot of consumer host-switching ----
-      plotOutput(outputId = "HostSwitchPlot"),
+      plotOutput(outputId = "HostSwitchPlot",
+                 dblclick = "plot1_dblclick",
+                 brush = brushOpts(
+                   id = "plot1_brush",
+                   resetOnNew = TRUE)
+                 ),
       tableOutput(outputId = "HostSwitchSummary")
     )
   )
