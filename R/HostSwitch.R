@@ -1,29 +1,29 @@
 #' Survival probability of the consumer in a new host (novel resource)
 #'
-#' @param pInd Phenotype of consumer #(Phenotype of ith consumer attempting to disperse in a new host)
-#' @param pHost Phenotype of resource #(The optimum phenotype the consumer should have to maximize the colonization success)
-#' @param sigma Selection intensity #(standard deviation of selection intensity)
+#' @param pInd Phenotype of ith consumer attempting to disperse in a new host
+#' @param pOpt The optimum phenotype the consumer should have to maximize the colonization success
+#' @param sigma Standard deviation of the niche breadth
 #' @details This function calculates the survival probability of individual consumers that attempt dispersal in a new host. It is the core function of \code{\link{simHostSwitch}}.
-#' The function is based on the probability density function of a normal distribution. By ignoring the  normalization constant \eqn{(1/sqrt(2*pi)*sigma)}, it provides then the survival probability.
+#' The function is based on the probability density function of a normal distribution. By ignoring the normalization constant \eqn{(1/sqrt(2*pi)*sigma)}, it provides then the survival probability.
 #'
 #' @return The survival probability of the consumer
 #' @examples
 #' ## Example 1a - The ith consumer has the phenotype that maximize its
-#' ## colonization success on the new host, then pInd is equal to pHost (pInd = pHost),
+#' ## colonization success on the new host, then pInd is equal to pOpt (pInd = pOpt),
 #' ## and the survival probability is 1.
-#' survivalProbability(pInd=5,pHost=5,sigma=1)
+#' survivalProbability(pInd=5,pOpt=5,sigma=1)
 #'
-#' ## Example 1b - Increasing |pInd-pHost| the survival probability decreases
-#' survivalProbability(pInd=5,pHost=30,sigma=1)
+#' ## Example 1b - Increasing |pInd-pOpt| the survival probability decreases
+#' survivalProbability(pInd=5,pOpt=30,sigma=1)
 #'
-#' ## Example 1c - Give a |pInd-pHost|> 1, increases sigma the survival probability increases
-#' survivalProbability(pInd=5,pHost=30,sigma=1)
+#' ## Example 1c - Give a |pInd-pOpt|> 1, increases sigma the survival probability increases
+#' survivalProbability(pInd=5,pOpt=30,sigma=1)
 #'
 #'
 #' @export
 
-survivalProbability = function(pInd,pHost,sigma){
-  exp(-(pInd-pHost)^2/(2*sigma^2))
+survivalProbability = function(pInd,pOpt,sigma){
+  exp(-(pInd-pOpt)^2/(2*sigma^2))
 }
 
 
@@ -40,11 +40,29 @@ survivalProbability = function(pInd,pHost,sigma){
 #' @param jump_back Options for consumers that do not survive on the new host. If "yes" the consumer(s) jump back to the current host and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.
 #' @param seed Random number to ensure reproducible plots, positive integer (>0), default value: NULL
 #' @param n_sim Number of simulations, positive integer (min=1, max = 50000), default value: 1
-#' @details This function simulates the number of host switches by the population of a consumer. Results are stored to a HostSwitch object, to make use of summary and plotting functions in the HostSwitch package. The HostSwitch object includes the following simulated quantities are: $pRes_sim (all the optimal phenotypes favored by the selected new hosts), $pRes_new_sim (new resource), $pInd and of individual consumer. These simulated quantities of interest are available for each generation step and can be used for summary statistics or plots.
+#' @details
+#' This function simulates the number of host switches by the population of a consumer. Results are stored to an object of class \sQuote{HostSwitch},
+#' to make use of summary and plotting functions in the HostSwitch package.\cr\cr
+#' The object of class \sQuote{HostSwitch} includes the following simulated quantities:
+#' \describe{
+#'   \item{}{\bold{$pRes_sim}: optimal phenotypes favored by the \emph{current hosts}}
+#'   \item{}{\bold{$pRes_new_sim}: phenotypes of \emph{new resources}}
+#'   \item{}{\bold{$pInd}: phenotypes of \emph{individual consumer}}
+#' }
+#' These simulated quantities of interest are available for each generation step and can be used for summary statistics \code{\link{summaryHostSwitch}} or plots \code{\link{plotHostSwitch}}.\cr
+#'
+#' Note: One important aspect of simHostswitch is the calculation of the survival probability of the consumer on the current and new resources.
+#' Here the argument sigma defines the niche breadth and influences survival probability. For more information see \code{\link{survivalProbability}}.
+#'
+#' @seealso \code{\link{survivalProbability}}, \code{\link{summaryHostSwitch}}, \code{\link{plotHostSwitch}}
+#'
 #' @return An object of class HostSwitch
 #' @examples
-#' m1 = simHostSwitch() # default values for arguments
-#' m1
+#' m1 = simHostSwitch() # using default values for arguments
+#'
+#' \dontrun{
+#' simHostSwitch(sigma=100)}
+#'
 #' @import checkmate
 #' @export
 
@@ -102,7 +120,7 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
     }
 
     ## Selection in the new host
-    prob=survivalProbability(pInd=pInd_jump,pHost=pRes_new,sigma=sigma) # survival probability of jumped individuals; eq. 1
+    prob=survivalProbability(pInd=pInd_jump,pOpt=pRes_new,sigma=sigma) # survival probability of jumped individuals; eq. 1
     pInd_new=pInd_jump[prob>stats::runif(length(pInd_jump))]
 
     if(length(pInd_new)>0){ # Host switch successful, at least 1 individual jumped & survived
@@ -116,7 +134,7 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
       # Note: jumped individuals are not allowed come back!
       pInd_whichsurv_sim[[n+1]] = NA # no survived individuals
       if(length(which_jump)>0 & jump_back=="no"){pInd=pInd[-which_jump]} # select remaining individuals of original host
-      prob=survivalProbability(pInd=pInd,pHost=pRes,sigma=sigma)
+      prob=survivalProbability(pInd=pInd,pOpt=pRes,sigma=sigma)
       pInd=pInd[prob>stats::runif(length(pInd))]
     }
 

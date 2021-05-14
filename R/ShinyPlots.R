@@ -7,8 +7,8 @@
 #'Black dots are the phenotype values after each event of reproduction. The green squares represent the value of phenotype favored by a new host proposed at each generation. The red squares are the phenotype values favored by the current host (=the initial one and the host after successful colonization).
 #'
 #'The total number of tentative dispersal by the parasites and successful host switches are calculated below the plot.
-#'  @import shiny
-#'  @examples
+#' @import shiny
+#' @examples
 #'  shinyHostSwitch()
 #'
 #' @export

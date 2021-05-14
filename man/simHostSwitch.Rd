@@ -48,9 +48,26 @@ An object of class HostSwitch
 Simulate host switches by consumers
 }
 \details{
-This function simulates the number of host switches by the population of a consumer. Results are stored to a HostSwitch object, to make use of summary and plotting functions in the HostSwitch package. The HostSwitch object includes the following simulated quantities are: $pRes_sim (all the optimal phenotypes favored by the selected new hosts), $pRes_new_sim (new resource), $pInd and of individual consumer. These simulated quantities of interest are available for each generation step and can be used for summary statistics or plots.
+This function simulates the number of host switches by the population of a consumer. Results are stored to an object of class \sQuote{HostSwitch},
+to make use of summary and plotting functions in the HostSwitch package.\cr\cr
+The object of class \sQuote{HostSwitch} includes the following simulated quantities:
+\describe{
+  \item{}{\bold{$pRes_sim}: optimal phenotypes favored by the \emph{current hosts}}
+  \item{}{\bold{$pRes_new_sim}: phenotypes of \emph{new resources}}
+  \item{}{\bold{$pInd}: phenotypes of \emph{individual consumer}}
+}
+These simulated quantities of interest are available for each generation step and can be used for summary statistics \code{\link{summaryHostSwitch}} or plots \code{\link{plotHostSwitch}}.\cr
+
+Note: One important aspect of simHostswitch is the calculation of the survival probability of the consumer on the current and new resources.
+Here the argument sigma defines the niche breadth and influences survival probability. For more information see \code{\link{survivalProbability}}.
 }
 \examples{
-m1 = simHostSwitch() # default values for arguments
-m1
+m1 = simHostSwitch() # using default values for arguments
+
+\dontrun{
+simHostSwitch(sigma=100)}
+
+}
+\seealso{
+\code{\link{survivalProbability}}, \code{\link{summaryHostSwitch}}, \code{\link{plotHostSwitch}}
 }

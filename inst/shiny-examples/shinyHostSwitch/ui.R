@@ -22,7 +22,7 @@ ui <- fluidPage(
                   min = 0,
                   max = 50,
                   value = 10),
-      sliderInput(inputId = "n_generation",
+      sliderInput(inputId = "n_generations",
                   label = "Number of generations:",
                   min = 0,
                   max = 1000,
@@ -43,7 +43,11 @@ ui <- fluidPage(
                   min = 0,
                   max = 10,
                   value = 1,
-                  step=0.1)
+                  step=0.1),
+      selectInput(inputId = "jump_back",
+                  label = "Jump back:",
+                  selected="no",
+                  choices=c("no","yes"))
     ),
 
     # Main panel for displaying outputs ----
