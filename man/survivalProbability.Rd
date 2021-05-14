@@ -21,7 +21,7 @@ Survival probability of the consumer in a new host (novel resource)
 }
 \details{
 This function calculates the survival probability of individual consumers that attempt dispersal in a new host. It is the core function of \code{\link{simHostSwitch}}.
-The function is based on the probability density function of a normal distribution. By ignoring the  normalization constant \eqn{(1/sqrt(2*pi)*sigma)}, it provides then the survival probability.
+The function is based on the probability density function of a normal distribution. By ignoring the normalization constant \eqn{(1/sqrt(2*pi)*sigma)}, it provides then the survival probability.
 }
 \examples{
 ## Example 1a - The ith consumer has the phenotype that maximize its

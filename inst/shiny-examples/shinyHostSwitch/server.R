@@ -13,8 +13,8 @@ server <- function(input, output, session) {
 
 
   output$HostSwitchSummary = renderTable({
-    data.frame("Total events of dispersion"= length(which(HostSwitch_simulated_quantities()$pInd_jump_sim[[1]]>0)),
-                "Number of successful host switches" = c(length(which(HostSwitch_simulated_quantities()$pRes_sim[[1]][-1]==HostSwitch_simulated_quantities()$pRes_new_sim[[1]])))
+    data.frame("Total events of dispersion (N dispersed consumers)"= paste(length(which(HostSwitch_simulated_quantities()$pInd_jump_sim[[1]]>0))," (",length(na.omit(unlist(HostSwitch_simulated_quantities()$pInd_whichjump_sim))),")" ,sep=""),
+                "Number of successful host switches (N colonizing consumers)" = paste(c(length(which(HostSwitch_simulated_quantities()$pRes_sim[[1]][-1]==HostSwitch_simulated_quantities()$pRes_new_sim[[1]])))," (",length(na.omit(unlist(HostSwitch_simulated_quantities()$pInd_whichsurv_sim))),")" ,sep="")
                                             , check.names=FALSE)
     },colnames = "TRUE")
 

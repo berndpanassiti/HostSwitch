@@ -42,7 +42,7 @@ simHostSwitch(
 \item{n_sim}{Number of simulations, positive integer (min=1, max = 50000), default value: 1}
 }
 \value{
-An object of class HostSwitch
+An object of class \sQuote{HostSwitch}.
 }
 \description{
 Simulate host switches by consumers

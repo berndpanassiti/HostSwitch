@@ -56,7 +56,7 @@ survivalProbability = function(pInd,pOpt,sigma){
 #'
 #' @seealso \code{\link{survivalProbability}}, \code{\link{summaryHostSwitch}}, \code{\link{plotHostSwitch}}
 #'
-#' @return An object of class HostSwitch
+#' @return An object of class \sQuote{HostSwitch}.
 #' @examples
 #' m1 = simHostSwitch() # using default values for arguments
 #'
