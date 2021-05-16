@@ -2,12 +2,12 @@
 % Please edit documentation in R/HostSwitch.R
 \name{survivalProbability}
 \alias{survivalProbability}
-\title{Survival probability of the consumer in a new host (novel resource)}
+\title{Survival probability of the consumer in a novel resource (host)}
 \usage{
 survivalProbability(pInd, pOpt, sigma)
 }
 \arguments{
-\item{pInd}{Phenotype of ith consumer attempting to disperse in a new host}
+\item{pInd}{Phenotype of ith consumer attempting to disperse in a novel resource}
 
 \item{pOpt}{The optimum phenotype the consumer should have to maximize the colonization success}
 
@@ -17,7 +17,7 @@ survivalProbability(pInd, pOpt, sigma)
 The survival probability of the consumer
 }
 \description{
-Survival probability of the consumer in a new host (novel resource)
+Survival probability of the consumer in a novel resource (host)
 }
 \details{
 This function calculates the survival probability of individual consumers that attempt dispersal in a new host. It is the core function of \code{\link{simHostSwitch}}.

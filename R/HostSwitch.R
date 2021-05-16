@@ -1,6 +1,6 @@
-#' Survival probability of the consumer in a new host (novel resource)
+#' Survival probability of the consumer in a novel resource (host)
 #'
-#' @param pInd Phenotype of ith consumer attempting to disperse in a new host
+#' @param pInd Phenotype of ith consumer attempting to disperse in a novel resource
 #' @param pOpt The optimum phenotype the consumer should have to maximize the colonization success
 #' @param sigma Standard deviation of the niche breadth
 #' @details This function calculates the survival probability of individual consumers that attempt dispersal in a new host. It is the core function of \code{\link{simHostSwitch}}.

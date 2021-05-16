@@ -8,6 +8,7 @@
 #'
 #'The total number of tentative dispersal by the parasites and successful host switches are calculated below the plot.
 #' @import shiny
+#' @import tippy
 #' @examples
 #'  shinyHostSwitch()
 #'

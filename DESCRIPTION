@@ -25,7 +25,8 @@ Imports:
     checkmate,
     methods,
     plyr,
-    purrr
+    purrr,
+    tippy
 Suggests:
     testthat (>= 3.0.0),
     knitr,
