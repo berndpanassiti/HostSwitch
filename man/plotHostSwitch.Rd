@@ -9,20 +9,20 @@ plotHostSwitch(HostSwitch_simulated_quantities, n_sim = 1)
 \arguments{
 \item{HostSwitch_simulated_quantities}{The object HostSwitch created by \code{\link{simHostSwitch}}}
 
-\item{n_sim}{simulation number plotted. The "n_sim" values possible are saved in the HostSwitch object, the plot from the first simulation is shown as default (n_sim = 1).An error message "Error in FUN(X[[i]], ...) : subscript out of bounds" will be returned, if the called simulation is not present in the object HostSwitch.}
+\item{n_sim}{for HostSwitch object including more than 1 simulation saved, "n_sim" specifies which simulation have to be plotted. The plot from the first simulation is shown as default (n_sim = 1). If the called simulation number is not present in the HostSwitch object, the error message "Error in FUN(X[[i]], ...) : subscript out of bounds" will be returned.}
 }
 \description{
 This function creates a standard plot for the simulated host switches
 }
 \details{
-The function plots the simulation for the dispersal, colonization (successful host switch), and reproduction of a consumer. The X-axis shows the number of generations, the y-axis the phenotype values of the consumer.
+The function plots dispersal and colonization (host-switching events) of Consumers on a novel host offered at each generation given the values of parameters related to carrying capacity, fitness space, migration, reproduction, selection, and biological model. The X-axis shows the total number of possible generations defined in the object HostSwitch, the Y-axis the phenotype values of the Consumer.
 
-Black dots are the phenotype values after each event of reproduction. The green squares represent the value of phenotype favored by a new host proposed at each generation. The red squares are the phenotype values favored by the current host (=the initial one and the host after successful colonization).
+Black dots are the phenotype values of the Consumer after each event of reproduction. The green squares represent the value of phenotype favored by the novel Resource offered at each generation. The red squares are the phenotype values of the Consumer favored by the current Resource.The blue dots represents the phenotypes of dispersing Consumers, and the yellow dots the successfully colonizing Consumers.
 }
 \examples{
-m1 = simHostSwitch(n_sim=100) # except n_sim, default values for arguments
+m1 = simHostSwitch(n_sim=100) # create an HostSwitch object with 100 simulations.
 
-## The results of the first simuation´(n_sim=1) are plotted as default
+## The results of the first simulation (n_sim=1) are plotted as default
 plotHostSwitch(m1)
 
 ## The 50th simulation of the model is plotted

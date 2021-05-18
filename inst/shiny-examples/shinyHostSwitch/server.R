@@ -26,8 +26,8 @@ server <- function(input, output, session) {
 
 
   output$HostSwitchPlot <- renderPlot({
-    HostSwitch::plotHostSwitch(HostSwitch_simulated_quantities()) + coord_cartesian(xlim = ranges$x, ylim = ranges$y, expand = FALSE) +
-      theme(plot.margin=unit(c(1,1,1,0),"cm"))
+    HostSwitch::plotHostSwitch(HostSwitch_simulated_quantities()) + ggplot2::coord_cartesian(xlim = ranges$x, ylim = ranges$y, expand = FALSE) +
+      ggplot2::theme(plot.margin=ggplot2::unit(c(1,1,1,0),"cm"))
   } )
 
 

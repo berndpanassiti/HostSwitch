@@ -10,15 +10,17 @@ shinyHostSwitch()
 Shiny-plot of consumer host-switching
 }
 \details{
-The function creates an interactive shiny-plot of simulated dispersal and colonization events of a consumer on novel hosts.
+The function creates an interactive web-based front-end using Shiny App. The Shiny-Plot simulates dispersal and colonization events of a consumer on novel hosts.
 
-The parameter values of the function HostSwitch can be modified on the slider bars. The refresh button on the top plots the new simulation.
+The parameter values included in the function \code{\link{simHostSwitch}} can be modified by the slider bars. The refresh button on the top left (Refresh simulation) plots the new simulation.
 
-Black dots are the phenotype values after each event of reproduction. The green squares represent the value of phenotype favored by a new host proposed at each generation. The red squares are the phenotype values favored by the current host (=the initial one and the host after successful colonization).
+Black dots are the phenotype values of the Consumer after each event of reproduction. The green squares represent the value of phenotype values of the Consumer favored by the novel host proposed at each generation. The red squares are the phenotype values favored by the current host.
 
 The total number of tentative dispersal by the parasites and successful host switches are calculated below the plot.
 }
 \examples{
+
+## Run shiny app locally
  shinyHostSwitch()
 
 }
