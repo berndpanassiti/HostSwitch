@@ -1,11 +1,13 @@
-#' Survival probability of the consumer in a novel resource (host)
+#' Survival probability of the Consumer in a novel Resource
 #'
-#' @param pInd Phenotype of ith consumer attempting to disperse in a novel resource
-#' @param pOpt The optimum phenotype the consumer should have to maximize the colonization success
-#' @param sigma Standard deviation of the niche breadth
+#' @param pInd Phenotype of ith Consumer attempting to disperse in a novel Resource
+#' @param pOpt The optimum phenotype the Consumer should have to maximize the colonization success
+#' @param sigma Standard deviation of the niche breadth (see Details for more explanations)
 #' @details This function calculates the survival probability of individual consumers that attempt dispersal in a new host. It is the core function of \code{\link{simHostSwitch}}.
-#' The function is based on the probability density function of a normal distribution. By ignoring the normalization constant \eqn{(1/sqrt(2*pi)*sigma)}, it provides then the survival probability.
-#'
+#' The probability of survival of each individuals of the consumer in a novel Resource follows a normal distribution.
+#' The formula is formalized as follows \deqn{P(pInd,pOpt) = e^{-\frac{(pInd-pOpt)^2}{2\sigma^2}}}
+#' The normalizing constant \deqn{ NC = \frac{1}{\sigma(\sqrt(2\pi))}} is ignored here.\\
+#' "Sigma" has to be interpreted as the measure of the standard deviation of the niche breadth of the Consumer (species) included in the simulation.
 #' @return The survival probability of the consumer
 #' @examples
 #' ## Example 1a - The ith consumer has the phenotype that maximize its
@@ -33,7 +35,7 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' @param b Average number of offspring each consumer can have (birth rate), numeric value (min=0, max=K), default value: 10
 #' @param mig Cut off for migration, individuals below cutoff jump, numeric value (min=0, max=1), default value: 0.01
 #' @param sd Standard deviation for mutation, numeric value (min=0, max=10), default value: 0.2
-#' @param sigma Standard deviation for selection, numeric value (min=0, max=10), default value: 1
+#' @param sigma Standard deviation of the niche breadth, numeric value (min=0, max=10), default value: 1
 #' @param pRes_min Initial value, smallest phenotype of resource (original host) and consumer, numeric value (min=0, max=pRes_max), default value: 1
 #' @param pRes_max Initial value, maximum phenotype of resource (original host) and consumer, numeric value (min=pRes_min, max=100), default value: 10
 #' @param n_generations Number of generations, positive integer (min=1, max=50000), default value: 200
@@ -222,14 +224,17 @@ methods::setMethod("show",signature = "summaryHostSwitch", definition = function
 #' Summary statistics of HostSwitch simulation
 #'
 #' @param HostSwitch_simulated_quantities An object created by \code{\link{simHostSwitch}}
-#' @param warmup Number of warmup steps to be excluded from summary statstistics, see details. Possible value are NULL or positive integer (min=1,max=50). Default value = 1
-#' @details This function generates summary statistcs for HostSwitch simulations.
-#' Warmup represents the initial condition and is defined as an adaptation stage of the simulation model. The initial condition corresponds to the number of
-#' generations (n_generations): warmup = 1 means that the generation at time 0 is excluded from summary; warmup = 2 means generations at times 0 and 1 are excluded and so on.
-#' If warmup = NULL all generations are considered for summary statistics, i.e. initial condition is not considered.
+#' @param warmup warmup is the number of initial generations to be excluded from summary statstistics, see details. Possible value are NULL or positive integer (min=1,max=50). Default value = 1
+#' @details This function generates summary statistics for HostSwitch simulations.
+#' Warmup represents the initial condition for the simulation, the users may defined it as an adaptation stage of the simulation model.
+#' If warmup = 1 the generation at time 0 is excluded from summary, if warmup = 2 the generations at times 0 and 1 are excluded and so on.
+#' If warmup = NULL all generations are considered for summary statistics.
+#'
 #' @return Summary of HostSwitch simulations
 #' @examples
-#' m1 = simHostSwitch(n_sim=100) # except n_sim, default values for arguments
+#' ## Create an object HostSwitch with 100 simulations and default values for all the other parameters
+#' m1 = simHostSwitch(n_sim=100)
+#'
 #' summaryHostSwitch(m1)
 #' @import checkmate
 #' @import methods

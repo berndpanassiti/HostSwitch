@@ -9,7 +9,7 @@ summaryHostSwitch(HostSwitch_simulated_quantities, warmup = 1)
 \arguments{
 \item{HostSwitch_simulated_quantities}{An object created by \code{\link{simHostSwitch}}}
 
-\item{warmup}{Number of warmup steps to be excluded from summary statstistics, see details. Possible value are NULL or positive integer (min=1,max=50). Default value = 1}
+\item{warmup}{warmup is the number of initial generations to be excluded from summary statstistics, see details. Possible value are NULL or positive integer (min=1,max=50). Default value = 1}
 }
 \value{
 Summary of HostSwitch simulations
@@ -18,12 +18,14 @@ Summary of HostSwitch simulations
 Summary statistics of HostSwitch simulation
 }
 \details{
-This function generates summary statistcs for HostSwitch simulations.
-Warmup represents the initial condition and is defined as an adaptation stage of the simulation model. The initial condition corresponds to the number of
-generations (n_generations): warmup = 1 means that the generation at time 0 is excluded from summary; warmup = 2 means generations at times 0 and 1 are excluded and so on.
-If warmup = NULL all generations are considered for summary statistics, i.e. initial condition is not considered.
+This function generates summary statistics for HostSwitch simulations.
+Warmup represents the initial condition for the simulation, the users may defined it as an adaptation stage of the simulation model.
+If warmup = 1 the generation at time 0 is excluded from summary, if warmup = 2 the generations at times 0 and 1 are excluded and so on.
+If warmup = NULL all generations are considered for summary statistics.
 }
 \examples{
-m1 = simHostSwitch(n_sim=100) # except n_sim, default values for arguments
+## Create an object HostSwitch with 100 simulations and default values for all the other parameters
+m1 = simHostSwitch(n_sim=100)
+
 summaryHostSwitch(m1)
 }

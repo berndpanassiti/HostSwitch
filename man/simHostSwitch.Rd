@@ -27,7 +27,7 @@ simHostSwitch(
 
 \item{sd}{Standard deviation for mutation, numeric value (min=0, max=10), default value: 0.2}
 
-\item{sigma}{Standard deviation for selection, numeric value (min=0, max=10), default value: 1}
+\item{sigma}{Standard deviation of the niche breadth, numeric value (min=0, max=10), default value: 1}
 
 \item{pRes_min}{Initial value, smallest phenotype of resource (original host) and consumer, numeric value (min=0, max=pRes_max), default value: 1}
 

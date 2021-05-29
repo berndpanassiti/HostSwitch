@@ -27,7 +27,8 @@ testHostSwitch(
 
 \item{test}{Statistical test, available tests are:
 \itemize{
-  \item ''t'' for \strong{t}-test
+  \item ''t'' for \strong{t}-test (parametric)
+  \item ''w'' for \strong{W}ilcoxon-test (non-parametric)
 }}
 
 \item{warmup}{Number of warmup steps to be excluded when comparing models, see details. Possible value are NULL or positive integer (min=1,max=50). Default value = 1}
@@ -49,5 +50,6 @@ If warmup = NULL all generations are considered for comparison, i.e. initial con
 \examples{
 m1 = simHostSwitch(n_generations=100,n_sim=100)
 m2 = simHostSwitch(n_generations=50,n_sim=50)
-testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot=TRUE)
+testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,
+parameter="j",test="t",plot=TRUE)
 }

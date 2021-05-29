@@ -2,26 +2,29 @@
 % Please edit documentation in R/HostSwitch.R
 \name{survivalProbability}
 \alias{survivalProbability}
-\title{Survival probability of the consumer in a novel resource (host)}
+\title{Survival probability of the Consumer in a novel Resource}
 \usage{
 survivalProbability(pInd, pOpt, sigma)
 }
 \arguments{
-\item{pInd}{Phenotype of ith consumer attempting to disperse in a novel resource}
+\item{pInd}{Phenotype of ith Consumer attempting to disperse in a novel Resource}
 
-\item{pOpt}{The optimum phenotype the consumer should have to maximize the colonization success}
+\item{pOpt}{The optimum phenotype the Consumer should have to maximize the colonization success}
 
-\item{sigma}{Standard deviation of the niche breadth}
+\item{sigma}{Standard deviation of the niche breadth (see Details for more explanations)}
 }
 \value{
 The survival probability of the consumer
 }
 \description{
-Survival probability of the consumer in a novel resource (host)
+Survival probability of the Consumer in a novel Resource
 }
 \details{
 This function calculates the survival probability of individual consumers that attempt dispersal in a new host. It is the core function of \code{\link{simHostSwitch}}.
-The function is based on the probability density function of a normal distribution. By ignoring the normalization constant \eqn{(1/sqrt(2*pi)*sigma)}, it provides then the survival probability.
+The probability of survival of each individuals of the consumer in a novel Resource follows a normal distribution.
+The formula is formalized as follows \deqn{P(pInd,pOpt) = e^{-\frac{(pInd-pOpt)^2}{2\sigma^2}}}
+The normalizing constant \deqn{ NC = \frac{1}{\sigma(\sqrt(2\pi))}} is ignored here.\\
+"Sigma" has to be interpreted as the measure of the standard deviation of the niche breadth of the Consumer (species) included in the simulation.
 }
 \examples{
 ## Example 1a - The ith consumer has the phenotype that maximize its

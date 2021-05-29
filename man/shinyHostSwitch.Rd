@@ -16,11 +16,11 @@ The parameter values included in the function \code{\link{simHostSwitch}} can be
 
 Black dots are the phenotype values of the Consumer after each event of reproduction. The green squares represent the value of phenotype values of the Consumer favored by the novel host proposed at each generation. The red squares are the phenotype values favored by the current host.
 
-The total number of tentative dispersal by the parasites and successful host switches are calculated below the plot.
+The total number of dispersal and successful host switch events (or individuals) by Consumers for each are reported below the plot.
 }
 \examples{
 
 ## Run shiny app locally
- shinyHostSwitch()
+## shinyHostSwitch()
 
 }

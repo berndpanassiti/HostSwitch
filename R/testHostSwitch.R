@@ -10,7 +10,8 @@
 #' }
 #' @param test Statistical test, available tests are:
 #' \itemize{
-#'   \item ''t'' for \strong{t}-test
+#'   \item ''t'' for \strong{t}-test (parametric)
+#'   \item ''w'' for \strong{W}ilcoxon-test (non-parametric)
 #' }
 #' @param warmup Number of warmup steps to be excluded when comparing models, see details. Possible value are NULL or positive integer (min=1,max=50). Default value = 1
 #' @param plot If \emph{TRUE}, a boxplot is drawn
@@ -22,7 +23,8 @@
 #' @examples
 #' m1 = simHostSwitch(n_generations=100,n_sim=100)
 #' m2 = simHostSwitch(n_generations=50,n_sim=50)
-#' testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot=TRUE)
+#' testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,
+#' parameter="j",test="t",plot=TRUE)
 #' @import checkmate
 #' @import stats
 #' @import ggplot2
@@ -121,6 +123,9 @@ if(test == "t"){
   out$result = stats::t.test(x,y)
 }
 
+if(test == "w"){
+    out$result = stats::wilcox.test(x,y)
+}
 
 # plot
 if(plot == TRUE){
