@@ -100,7 +100,7 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
   pRes_sim           = rep(NA,n_generations) ### phenotype original host (Valeria: vector of optimum phenotypes favored by the new host)
   pRes_new_sim       = rep(NA,n_generations) ### phenotype new host (Valeria: ???)
   pInd_sim           = list()               # phenotype of individuals at each generation
-  pInd_jump_sim      = rep(0,n_generations)  # vector of number of consumers that disperse (jumped)
+  pInd_jump_sim      = rep(NA,n_generations)  # vector of number of consumers that disperse (jumped)
   pInd_whichjump_sim = list()  # which consumers jumped
   pInd_whichsurv_sim = list()  # which consumers survived
 
@@ -191,7 +191,7 @@ out$pRes_max           = pRes_max
 out$pInd_jump_sim      = pInd_jump_sim_list
 out$pInd_whichjump_sim = pInd_whichjump_sim_list
 out$pInd_whichsurv_sim = pInd_whichsurv_sim_list
-out$K=K;out$b=b; out$mig=mig; out$sd=sd;out$sigma=sigma;out$n_sim=n_sim
+out$K=K;out$b=b; out$mig=mig; out$sd=sd;out$sigma=sigma;out$n_sim=n_sim;out$jump_back=jump_back
 class(out) = "HostSwitch"
 
 
@@ -215,7 +215,7 @@ methods::setMethod("show",signature = "summaryHostSwitch", definition = function
   cat("Summary of HostSwitch simulations\n\n")
   cat("General settings of individual based model:\n")
   cat("n_sim:",object$n_sim,", warmup:",object$warmup,", n_generations:",object$n_generations,", pRes_min:",object$pRes_min,", pRes_max:",object$pRes_max,"\n",sep="")
-  cat("K:",object$K,", sd:",object$sd,", sigma:",object$sigma,"\n\n",sep="")
+  cat("K:",object$K,", sd:",object$sd,", sigma:",object$sigma,", jump_back:",object$jump_back,"\n\n",sep="")
   cat("Summary of phenotypes:\n")
   print(object$summaryP)
   cat("\nSummary of host switches by consumers:\n")
@@ -229,7 +229,8 @@ methods::setMethod("show",signature = "summaryHostSwitch", definition = function
 #' @param HostSwitch_simulated_quantities An object created by \code{\link{simHostSwitch}}
 #' @param warmup warmup is the number of initial generations to be excluded from summary statstistics, see details. Possible value are NULL or positive integer (min=1,max=50). Default value = 1
 #' @details This function generates summary statistics for HostSwitch simulations.
-#' Warmup represents the initial condition for the simulation, the users may defined it as an adaptation stage of the simulation model.
+#' Quantities of interest for each simulation are averaged. If \emph{n_sim = 1}, these averages for this single simulation are shown. If \emph{n_sim > 1}, summary statistics are applied on the simulation averages.\cr\cr
+#' \strong{Warmup} represents the initial condition for the simulation, the users may defined it as an adaptation stage of the simulation model.
 #' If warmup = 1 the generation at time 0 is excluded from summary, if warmup = 2 the generations at times 0 and 1 are excluded and so on.
 #' If warmup = NULL all generations are considered for summary statistics.
 #'
@@ -263,6 +264,7 @@ summaryHostSwitch = function(HostSwitch_simulated_quantities,warmup = 1){
   out$sd            = HostSwitch_simulated_quantities$sd
   out$sigma         = HostSwitch_simulated_quantities$sigma
   out$n_sim         = HostSwitch_simulated_quantities$n_sim
+  out$jump_back     = HostSwitch_simulated_quantities$jump_back
   out$warmup        = warmup
 
 
@@ -279,7 +281,8 @@ summaryHostSwitch = function(HostSwitch_simulated_quantities,warmup = 1){
 
 
 
-
+# more than 1 simulation; n_sim > 1
+if (out$n_sim>1){
   summaryP = data.frame(matrix(NA, ncol = 6, nrow = 3))
   rownames(summaryP) = c("pRes","pRes_new","pInd")
   colnames(summaryP) = c("Min.", "1st Qu.",  "Median" ,   "Mean", "3rd Qu.",    "Max.")
@@ -303,8 +306,32 @@ summaryHostSwitch = function(HostSwitch_simulated_quantities,warmup = 1){
     dat = lapply(HostSwitch_simulated_quantities[c(1,2)], `[[`, i)
     sucessfullHS[i] = length(which(dat$pRes_sim[-1]==dat$pRes_new_sim))
   }
-
   summaryHS[2,] = c(mean(sucessfullHS),max(sucessfullHS))
+}
+
+
+  # only 1 simulation; n_sim = 1
+  if (out$n_sim==1){
+    summaryP = data.frame(matrix(NA, ncol = 1, nrow = 3))
+    rownames(summaryP) = c("pRes","pRes_new","pInd")
+    colnames(summaryP) = c("Value (simulation average)")
+    summaryP[1,] = round(as.numeric(plyr::laply(HostSwitch_simulated_quantities$pRes_sim,mean)),2)
+    summaryP[2,] = round(as.numeric(plyr::laply(HostSwitch_simulated_quantities$pRes_new_sim,mean)),2)
+    summaryP[3,] = round(as.numeric(plyr::laply(HostSwitch_simulated_quantities$pInd_sim, function(x) mean(unlist(x)))),2)
+    out$summaryP=summaryP
+
+    # summary table of jumps and successfult host switches
+    summaryHS = data.frame(matrix(NA, ncol = 1, nrow = 2))
+    rownames(summaryHS) = c("Total events of dispersion:","Number of successful host switches:")
+    colnames(summaryHS) = c("Value (simulation average)")
+    ## calculate jumps
+    summaryHS[1,1] = round(length(which(unlist(HostSwitch_simulated_quantities$pInd_jump_sim)>0)),2)
+
+    ## calculate successful host switches
+    dat = lapply(HostSwitch_simulated_quantities[c(1,2)], `[[`, 1)
+    summaryHS[2,1] = length(which(dat$pRes_sim[-1]==dat$pRes_new_sim))
+  }
+
 
   out$summaryHS = summaryHS
   methods::new("summaryHostSwitch", out)

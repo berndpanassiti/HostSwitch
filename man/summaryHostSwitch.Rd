@@ -19,7 +19,8 @@ Summary statistics of HostSwitch simulation
 }
 \details{
 This function generates summary statistics for HostSwitch simulations.
-Warmup represents the initial condition for the simulation, the users may defined it as an adaptation stage of the simulation model.
+Quantities of interest for each simulation are averaged. If \emph{n_sim = 1}, these averages for this single simulation are shown. If \emph{n_sim > 1}, summary statistics are applied on the simulation averages.\cr\cr
+\strong{Warmup} represents the initial condition for the simulation, the users may defined it as an adaptation stage of the simulation model.
 If warmup = 1 the generation at time 0 is excluded from summary, if warmup = 2 the generations at times 0 and 1 are excluded and so on.
 If warmup = NULL all generations are considered for summary statistics.
 }
