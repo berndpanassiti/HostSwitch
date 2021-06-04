@@ -21,21 +21,21 @@ simHostSwitch(
 \arguments{
 \item{K}{Carrying capacity, positive integer (min=1, max=1000), default value: 100}
 
-\item{b}{Average number of offspring each consumer can have (birth rate), numeric value (min=0, max=K), default value: 10}
+\item{b}{net reproduction rate; average number of offspring that a population of the Consumer produces at each generation, numeric value (min=0), default value: 10}
 
-\item{mig}{Cut off for migration, individuals below cutoff jump, numeric value (min=0, max=1), default value: 0.01}
+\item{mig}{define the proportion of successful migrating individuals at each generation, numeric value (min=0, max=1), default value: 0.01}
 
 \item{sd}{Standard deviation for mutation, numeric value (min=0, max=10), default value: 0.2}
 
-\item{sigma}{Standard deviation of the niche breadth, numeric value (min=0, max=10), default value: 1}
+\item{sigma}{Standard deviation of the survival function, numeric value (min=0, max=10), default value: 1}
 
-\item{pRes_min}{Initial value, smallest phenotype of resource (original host) and consumer, numeric value (min=0, max=pRes_max), default value: 1}
+\item{pRes_min}{smallest phenotype value of consumer, numeric value (min=1, max=pRes_max), default value: 1}
 
-\item{pRes_max}{Initial value, maximum phenotype of resource (original host) and consumer, numeric value (min=pRes_min, max=100), default value: 10}
+\item{pRes_max}{highest phenotype value of consumer, numeric value (min=pRes_min, max=100), default value: 10}
 
 \item{n_generations}{Number of generations, positive integer (min=1, max=50000), default value: 200}
 
-\item{jump_back}{Options for consumers that do not survive on the new host. If "yes" the consumer(s) jump back to the current host and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.}
+\item{jump_back}{Option for consumers that do not survive on the novel resource. If "yes" the consumer(s) jump back to the current resource and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.}
 
 \item{seed}{Random number to ensure reproducible plots, positive integer (>0), default value: NULL}
 
@@ -49,14 +49,17 @@ Simulate host switches by consumers
 }
 \details{
 This function simulates the number of host switches by the population of a consumer. Results are stored to an object of class \sQuote{HostSwitch},
-to make use of summary and plotting functions in the HostSwitch package.\cr\cr
-The object of class \sQuote{HostSwitch} includes the following simulated quantities:
+to make use of summary and plotting functions in the \pkg{HostSwitch} package.\cr\cr
+The object of class \sQuote{'HostSwitch} includes the following simulated quantities:
 \describe{
-  \item{}{\bold{$pRes_sim}: optimal phenotypes favored by the \emph{current hosts}}
-  \item{}{\bold{$pRes_new_sim}: phenotypes of \emph{new resources}}
-  \item{}{\bold{$pInd}: phenotypes of \emph{individual consumer}}
+  \item{}{\bold{$pRes_sim}: vector of optimal phenotypes of the Consumer favored by the current Resource}
+  \item{}{\bold{$pRes_new_sim}: vector of (optimal?) phenotypes of Consumer favored by the new Resource}
+  \item{}{\bold{$pInd_sim}: list of vectors that includes the individual phenotype values of the Consumers in the population of each generation}
+  \item{}{\bold{$pInd_jump_sim}: vector of number of jump at each generation. The vector length is always equal to the 'n_generation' parameter, if the simulation ends before the n_generation value then the vector will include a '0' by default.}
+  \item{}{\bold{$pInd_whichjump_sim}: list of vectors that extracts the individual phenotype values of the Consumers who disperse in a new Resource in each population and generation}
+  \item{}{\bold{$pInd_whichsurv_sim}: list of vectors that extracts the individual phenotype values of the Consumers who successful colonize a new Resource in each population and generation}
 }
-These simulated quantities of interest are available for each generation step and can be used for summary statistics \code{\link{summaryHostSwitch}} or plots \code{\link{plotHostSwitch}}.\cr
+These simulated quantities of interest are available for each generation step and can be used for summary statistics and plots using functions \code{\link{summaryHostSwitch}} and \code{\link{plotHostSwitch}}, respectively.\cr
 
 Note: One important aspect of simHostswitch is the calculation of the survival probability of the consumer on the current and new resources.
 Here the argument sigma defines the niche breadth and influences survival probability. For more information see \code{\link{survivalProbability}}.
