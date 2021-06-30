@@ -39,7 +39,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
   checkmate::assert_class(simulated_quantities1,"HostSwitch") # class HostSwitch
   checkmate::assert_class(simulated_quantities2,"HostSwitch") # class HostSwitch
   checkmate::assertChoice(parameter, c("d", "j","s")) # parameter
-  checkmate::assertChoice(test, c("t")) # test
+  checkmate::assertChoice(test, c("t","w")) # test
   checkmate::assertChoice(plot, c(TRUE,FALSE)) # plot
   checkmate::assertCount(warmup,positive=TRUE,null.ok = TRUE);checkmate::assertNumeric(warmup,upper=50,null.ok = TRUE) # warmup
 
@@ -94,7 +94,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
     }
 
     for (i in 1:n_sim2){
-      dat = lapply(simulated_quantities1[c(1,2)], `[[`, i)
+      dat = lapply(simulated_quantities2[c(1,2)], `[[`, i)
       y[i] = length(which(dat$pRes_sim[-1]==dat$pRes_new_sim))
     }
   }
