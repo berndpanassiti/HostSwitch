@@ -22,7 +22,7 @@ testHostSwitch(
 \itemize{
   \item "j" for \strong{j}umps of consumers from resource to new resource
   \item "s" for \strong{s}uccessful host switches
-  \item "d" for \strong{d}istance between consumers and new host phenotypes if host switch successful
+  \item "d" for \strong{d}istance between current and new host phenotypes if host switch successful
 }}
 
 \item{test}{Statistical test, available tests are:

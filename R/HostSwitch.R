@@ -115,7 +115,7 @@ simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_m
     # Host switch
     pRes_new=pRes_min+(pRes_max-pRes_min)*stats::runif(1) ### fct creates phenotype for new host
     which_jump=which(stats::runif(length(pInd))<mig) # position of individuals
-    pInd_jump=pInd[which_jump] # selected phenotype depending on poision
+    pInd_jump=pInd[which_jump] # selected phenotype depending on position
 
     pInd_jump_sim[n+1]        = length(pInd_jump) # record how many individuals jumped
     if(length(pInd_jump)>0){

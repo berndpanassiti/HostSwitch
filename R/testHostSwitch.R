@@ -6,7 +6,7 @@
 #' \itemize{
 #'   \item "j" for \strong{j}umps of consumers from resource to new resource
 #'   \item "s" for \strong{s}uccessful host switches
-#'   \item "d" for \strong{d}istance between consumers and new host phenotypes if host switch successful
+#'   \item "d" for \strong{d}istance between current and new host phenotypes if host switch successful
 #' }
 #' @param test Statistical test, available tests are:
 #' \itemize{
@@ -103,19 +103,60 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
 
 ## Distance between mean parasite and new host phenotype
   if(parameter == "d"){
-    title = "Comparison of phenotype distance btw. parasite and new host"
-    x = rep(0,(n_sim1*n_generations1))
-    y = rep(0,(n_sim2*n_generations2))
+    title = "Comparison of phenotype distance btw. current and new host in case of colonization"
 
-    # sim1
-    Ind = sapply(flatten2(purrr::map(simulated_quantities1$pInd_sim,utils::head,-1)),mean)
-    pRes_new=unlist(flatten2(simulated_quantities1$pRes_new_sim))
-    x = abs(Ind-pRes_new)
+    # compare pRes and pRes_new in case of successful jump
+
+    ## sim1
+    survPosition1 = list()
+    for (i in 1:n_sim1){
+      dat = simulated_quantities1$pInd_whichsurv_sim[i]
+      dat = flatten2(dat)
+      survPosition1[[i]] = (which(plyr::laply(dat,function(x) length(which(x>0)))>0))
+    }
+
+    ## pRes
+    if(n_sim1>1){
+    pRes_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities1$pRes_sim, y = survPosition1) # get only pRes when jump occurred
+    pRes=unlist(flatten2(pRes_when_Survived))
+
+    ## pRes_new
+    pRes_new_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities1$pRes_new_sim, y = survPosition1) # get only pRes when jump occurred
+    pRes_new=unlist(flatten2(pRes_new_when_Survived))
+    }
+    if(n_sim1==1){
+    pRes =  unlist(simulated_quantities1$pRes_sim)[unlist(survPosition1)]
+    pRes_new =  unlist(simulated_quantities1$pRes_new_sim)[unlist(survPosition1)]
+    }
+    x = abs(pRes-pRes_new)
+
+
+
 
     # sim2
-    Ind = sapply(flatten2(purrr::map(simulated_quantities2$pInd_sim,utils::head,-1)),mean)
-    pRes_new=unlist(flatten2(simulated_quantities2$pRes_new_sim))
-    y = abs(Ind-pRes_new)
+    survPosition2= list()
+
+    for (i in 1:n_sim2){
+      dat = simulated_quantities2$pInd_whichsurv_sim[i]
+      dat = flatten2(dat)
+      survPosition2[[i]] = (which(plyr::laply(dat,function(x) length(which(x>0)))>0))
+    }
+
+    ## pRes
+    if(n_sim2>1){
+    pRes_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities2$pRes_sim, y = survPosition2) # get only pRes when jump occurred
+    pRes=unlist(flatten2(pRes_when_Survived))
+
+    ## pRes_new
+    pRes_new_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities2$pRes_new_sim, y = survPosition2) # get only pRes when jump occurred
+    pRes_new=unlist(flatten2(pRes_new_when_Survived))
+}
+    if(n_sim2==1){
+      pRes =  unlist(simulated_quantities2$pRes_sim)[unlist(survPosition2)]
+      pRes_new =  unlist(simulated_quantities2$pRes_new_sim)[unlist(survPosition2)]
+    }
+
+    y = abs(pRes-pRes_new)
   }
 
 # statistical test
