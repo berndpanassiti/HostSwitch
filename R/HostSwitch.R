@@ -30,7 +30,8 @@ survivalProbability = function(pInd,pOpt,sigma){
 
 
 #' Simulate host switches by consumers
-#'
+#' @param data A matrix or dataset with column indicating different scenarios and rows for parameters, see details.
+#' @param column Used together with data argument; indicate column name, string.
 #' @param K Carrying capacity, positive integer (min=1, max=1000), default value: 100
 #' @param b net reproduction rate; average number of offspring that a population of the Consumer produces at each generation, numeric value (min=0), default value: 10
 #' @param mig define the proportion of successful migrating individuals at each generation, numeric value (min=0, max=1), default value: 0.01
@@ -43,7 +44,16 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' @param seed Random number to ensure reproducible plots, positive integer (>0), default value: NULL
 #' @param n_sim Number of simulations, positive integer (min=1, max = 50000), default value: 1
 #' @details
-#' This function simulates the number of host switches by the population of a consumer. Results are stored to an object of class \sQuote{HostSwitch},
+#' This function simulates the number of host switches by the population of a consumer.
+#' There are 2 ways to provide parameters to the \code{\link{simHostSwitch}} function:
+#' \describe{
+#'   \item{}{\bold{data + column}: Provide names of matrix/dataframe and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
+#'   \item{}{\bold{individual parameter}: e.g. b=5, n_generations=500, etc...}
+#' }
+#'If not data/column or individual parameters are provided, default parameter values are used.
+#'The rownames of the data must match the parameter argument names. You may use one of the \code{\link{parli}}
+#'datasets as a template\cr\cr
+#' Results are stored to an object of class \sQuote{HostSwitch},
 #' to make use of summary and plotting functions in the \pkg{HostSwitch} package.\cr\cr
 #' The object of class \sQuote{'HostSwitch} includes the following simulated quantities:
 #' \describe{
@@ -65,6 +75,10 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' @examples
 #' m1 = simHostSwitch() # using default values for arguments
 #'
+#' data(parli)
+#' Cephaloleia=parli$Cephaloleia
+#' m2 = simHostSwitch(data=Cephaloleia, column="Cb.mLxjN")
+#'
 #' \dontrun{
 #' simHostSwitch(sigma=100)}
 #'
@@ -72,9 +86,34 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' @export
 
 
-simHostSwitch=function (K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generations=200,jump_back='no',seed=NULL, n_sim=1){
+simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generations=200,jump_back='no',seed=NULL, n_sim=1){
   set.seed(seed)
-  # checks
+
+  if(!is.null(data)){
+    checkmate::assert(checkmate::checkMatrix(data),checkmate::checkDataFrame(data))
+    checkmate::assertCharacter(column)
+    checkmate::assertString(column)
+
+    if (!column %in% colnames(data)) {
+      stop(column, " not a colname of data")
+    }
+  usedParamters=NULL
+  if('K' %in% names(data[,column])){K = as.numeric(data[,column]['K']);usedParamters=append(usedParamters,"K")}
+  if('b' %in% names(data[,column])){b = as.numeric(data[,column]['b']);usedParamters=append(usedParamters,"b")}
+  if('mig' %in% names(data[,column])){mig = as.numeric(data[,column]['mig']);usedParamters=append(usedParamters,"mig")}
+  if('sd' %in% names(data[,column])){sd = as.numeric(data[,column]['sd']);usedParamters=append(usedParamters,"sd")}
+  if('sigma' %in% names(data[,column])){sigma = as.numeric(data[,column]['sigma']);usedParamters=append(usedParamters,"sigma")}
+  if('pRes_min' %in% names(data[,column])){pRes_min = as.numeric(data[,column]['pRes_min']);usedParamters=append(usedParamters,"pRes_min")}
+  if('pRes_max' %in% names(data[,column])){pRes_max = as.numeric(data[,column]['pRes_max']);usedParamters=append(usedParamters,"pRes_max")}
+  if('n_generations' %in% names(data[,column])){n_generations = as.numeric(data[,column]['n_generations']);usedParamters=append(usedParamters,"n_generations")}
+  if('jump_back' %in% names(data[,column])){jump_back = data[,column]['jump_back'];usedParamters=append(usedParamters,"jump_back")}
+  if('seed' %in% names(data[,column])){seed = as.numeric(data[,column]['seed']);usedParamters=append(usedParamters,"seed")}
+  if('n_sim' %in% names(data[,column])){n_sim = as.numeric(data[,column]['n_sim']);usedParamters=append(usedParamters,"n_sim")}
+  print(paste("Parameters provided from data are: ",do.call(paste, c(as.list(usedParamters), sep = ",")),sep=""))
+  }
+
+
+  # check on paramters
   checkmate::assertCount(K,positive=TRUE);checkmate::assertNumeric(K,upper=1000) # K
   checkmate::assertNumeric(b,lower=0,upper=K) # b
   checkmate::assertNumeric(mig,lower=0,upper=1) # sd
@@ -185,13 +224,13 @@ out = list()
 out$pRes_sim           = pRes_sim_list
 out$pRes_new_sim       = pRes_new_sim_list
 out$pInd_sim           = pInd_sim_list
-out$n_generations       = n_generations
+out$n_generations      = n_generations
 out$pRes_min           = pRes_min
 out$pRes_max           = pRes_max
 out$pInd_jump_sim      = pInd_jump_sim_list
 out$pInd_whichjump_sim = pInd_whichjump_sim_list
 out$pInd_whichsurv_sim = pInd_whichsurv_sim_list
-out$K=K;out$b=b; out$mig=mig; out$sd=sd;out$sigma=sigma;out$n_sim=n_sim;out$jump_back=jump_back
+out$K=K;out$b=b; out$mig=mig; out$sd=sd;out$sigma=sigma;out$n_sim=n_sim;out$jump_back=jump_back;out$seed=seed
 class(out) = "HostSwitch"
 
 
@@ -214,8 +253,9 @@ methods::setMethod("show",signature = "summaryHostSwitch", definition = function
   cat("An object of class ", class(object), "\n", sep = "")
   cat("Summary of HostSwitch simulations\n\n")
   cat("General settings of individual based model:\n")
-  cat("n_sim:",object$n_sim,", warmup:",object$warmup,", n_generations:",object$n_generations,", pRes_min:",object$pRes_min,", pRes_max:",object$pRes_max,"\n",sep="")
-  cat("K:",object$K,", sd:",object$sd,", sigma:",object$sigma,", jump_back:",object$jump_back,"\n\n",sep="")
+  cat("K:",object$K,", b:",object$b,", mig:",object$mig,", sd:",object$sd,", sigma:",object$sigma,", pRes_min:",object$pRes_min,", pRes_max:",object$pRes_max,"\n",sep="")
+  cat("n_generations:",object$n_generations,", jump_back:",object$jump_back,", seed:",object$seed,", n_sim:",object$n_sim,", warmup:",object$warmup,"\n\n",sep="")
+
   cat("Summary of phenotypes:\n")
   print(object$summaryP)
   cat("\nSummary of host switches by consumers:\n")
@@ -265,6 +305,7 @@ summaryHostSwitch = function(HostSwitch_simulated_quantities,warmup = 1){
   out$sigma         = HostSwitch_simulated_quantities$sigma
   out$n_sim         = HostSwitch_simulated_quantities$n_sim
   out$jump_back     = HostSwitch_simulated_quantities$jump_back
+  out$seed          = HostSwitch_simulated_quantities$seed
   out$warmup        = warmup
 
 
@@ -287,8 +328,8 @@ if (out$n_sim>1){
   rownames(summaryP) = c("pRes","pRes_new","pInd")
   colnames(summaryP) = c("Min.", "1st Qu.",  "Median" ,   "Mean", "3rd Qu.",    "Max.")
   summaryP[1,] = round(summary(plyr::laply(HostSwitch_simulated_quantities$pRes_sim,mean)),2)
-  summaryP[2,] = round(summary(plyr::laply(HostSwitch_simulated_quantities$pRes_new_sim,mean)),2)
-  summaryP[3,] = round(summary(plyr::laply(HostSwitch_simulated_quantities$pInd_sim, function(x) mean(unlist(x)))),2)
+  summaryP[2,] = round(summary(as.numeric(na.omit(plyr::laply(HostSwitch_simulated_quantities$pRes_new_sim,mean)))),2)
+  summaryP[3,] = round(summary(as.numeric(na.omit(plyr::laply(HostSwitch_simulated_quantities$pInd_sim, function(x) mean(unlist(x)))))),2)
   out$summaryP=summaryP
 
   # summary table of jumps and successfult host switches

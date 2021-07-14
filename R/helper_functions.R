@@ -12,20 +12,6 @@ flatten2 <- function(x) {
 }
 
 
-#' Create input data of simulated jumped/survived individuals for plots
-#' @param x A list of simulated jumped/survived parasite phenotypes for each generation
-#' @details Converts list to dataframe and stack it
-#' @keywords internal
-
-createPlotInput_Ind_sim <- function(x){
-  xx        = flatten2(x)
-  parasites = utils::stack(setNames(xx,seq_along(xx)-1)) # need to start from generation 0!
-  colnames(parasites)   = c("y","x")
-  parasites$x           = as.numeric(as.character(parasites$x))
-  return(parasites)
-}
-
-
 
 #' Create input data of simulated jumped/survived individuals for plots
 #' @param x A list of simulated jumped/survived parasite phenotypes for each generation

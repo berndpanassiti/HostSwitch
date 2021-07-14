@@ -5,6 +5,8 @@
 \title{Simulate host switches by consumers}
 \usage{
 simHostSwitch(
+  data = NULL,
+  column = NULL,
   K = 100,
   b = 10,
   mig = 0.01,
@@ -19,6 +21,10 @@ simHostSwitch(
 )
 }
 \arguments{
+\item{data}{A matrix or dataset with column indicating different scenarios and rows for parameters, see details.}
+
+\item{column}{Used together with data argument; indicate column name, string.}
+
 \item{K}{Carrying capacity, positive integer (min=1, max=1000), default value: 100}
 
 \item{b}{net reproduction rate; average number of offspring that a population of the Consumer produces at each generation, numeric value (min=0), default value: 10}
@@ -48,7 +54,16 @@ An object of class \sQuote{HostSwitch}.
 Simulate host switches by consumers
 }
 \details{
-This function simulates the number of host switches by the population of a consumer. Results are stored to an object of class \sQuote{HostSwitch},
+This function simulates the number of host switches by the population of a consumer.
+There are 2 ways to provide parameters to the \code{\link{simHostSwitch}} function:
+\describe{
+  \item{}{\bold{data + column}: Provide names of matrix/dataframe and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
+  \item{}{\bold{individual parameter}: e.g. b=5, n_generations=500, etc...}
+}
+If not data/column or individual parameters are provided, default parameter values are used.
+The rownames of the data must match the parameter argument names. You may use one of the \code{\link{parli}}
+datasets as a template\cr\cr
+Results are stored to an object of class \sQuote{HostSwitch},
 to make use of summary and plotting functions in the \pkg{HostSwitch} package.\cr\cr
 The object of class \sQuote{'HostSwitch} includes the following simulated quantities:
 \describe{
@@ -66,6 +81,10 @@ Here the argument sigma defines the niche breadth and influences survival probab
 }
 \examples{
 m1 = simHostSwitch() # using default values for arguments
+
+data(parli)
+Cephaloleia=parli$Cephaloleia
+m2 = simHostSwitch(data=Cephaloleia, column="Cb.mLxjN")
 
 \dontrun{
 simHostSwitch(sigma=100)}
