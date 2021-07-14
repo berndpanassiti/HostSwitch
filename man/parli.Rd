@@ -13,7 +13,8 @@ data(parli)
 \description{
 Data derived from real world experiments (see references). Data includes
 life cycle parameters for a wildlife ecology, agricultural
-and biomedical arena  to simulate host switches.
+and biomedical arena  to simulate host switches.\cr
+Semantics of parli = \bold{par}ameter of \bold{li}fe cycle
 }
 \examples{
 data(parli)

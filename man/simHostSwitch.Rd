@@ -57,14 +57,17 @@ Simulate host switches by consumers
 This function simulates the number of host switches by the population of a consumer.
 There are 2 ways to provide parameters to the \code{\link{simHostSwitch}} function:
 \describe{
-  \item{}{\bold{data + column}: Provide names of matrix/dataframe and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
+  \item{}{\bold{"data","column"}: Provide names of matrix/dataframe and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
   \item{}{\bold{individual parameter}: e.g. b=5, n_generations=500, etc...}
 }
-If not data/column or individual parameters are provided, default parameter values are used.
+If no data/column or individual parameters are provided, default parameter values are used.
 The rownames of the data must match the parameter argument names. You may use one of the \code{\link{parli}}
-datasets as a template\cr\cr
-Results are stored to an object of class \sQuote{HostSwitch},
-to make use of summary and plotting functions in the \pkg{HostSwitch} package.\cr\cr
+datasets as a template.\cr\cr
+Results are stored to an object of class \sQuote{HostSwitch}.
+to make use of summary and plotting functions in the \pkg{HostSwitch} package.
+Please note that when arguments "data" and "column" are provided, the results are stored to the global environment
+using the colname provided to the argument "column" (in our example above Cb.mLxjN).
+\cr\cr
 The object of class \sQuote{'HostSwitch} includes the following simulated quantities:
 \describe{
   \item{}{\bold{$pRes_sim}: vector of optimal phenotypes of the Consumer favored by the current Resource}
