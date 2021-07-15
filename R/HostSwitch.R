@@ -43,6 +43,7 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' @param jump_back Option for consumers that do not survive on the novel resource. If "yes" the consumer(s) jump back to the current resource and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.
 #' @param seed Random number to ensure reproducible plots, positive integer (>0), default value: NULL
 #' @param n_sim Number of simulations, positive integer (min=1, max = 50000), default value: 1
+#' @param nInitConsumer Number of initial individual at the first consumer generation
 #' @details
 #' This function simulates the number of host switches by the population of a consumer.
 #' There are 2 ways to provide parameters to the \code{\link{simHostSwitch}} function:
@@ -89,7 +90,7 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' @export
 
 
-simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generations=200,jump_back='no',seed=NULL, n_sim=1){
+simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generations=200,jump_back='no',seed=NULL, n_sim=1,nInitConsumer=20){
   set.seed(seed)
 
   if(!is.null(data)){
@@ -112,6 +113,7 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
   if('jump_back' %in% names(data[,column])){jump_back = data[,column]['jump_back'];usedParamters=append(usedParamters,"jump_back")}
   if('seed' %in% names(data[,column])){seed = as.numeric(data[,column]['seed']);usedParamters=append(usedParamters,"seed")}
   if('n_sim' %in% names(data[,column])){n_sim = as.numeric(data[,column]['n_sim']);usedParamters=append(usedParamters,"n_sim")}
+  if('nInitConsumer' %in% names(data[,column])){n_sim = as.numeric(data[,column]['nInitConsumer']);usedParamters=append(usedParamters,"nInitConsumer")}
   print(paste("Parameters provided from your data are: ",do.call(paste, c(as.list(usedParamters), sep = ",")),sep=""))
   }
 
@@ -128,6 +130,7 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
   checkmate::assertChoice(jump_back, c("no","yes"))
   checkmate::assertCount(seed,positive=TRUE,null.ok = TRUE) # seed
   checkmate::assertCount(n_sim,positive=TRUE);checkmate::assertNumeric(n_sim,upper=50000) # n_sim
+  checkmate::assertCount(nInitConsumer,positive=TRUE);checkmate::assertNumeric(nInitConsumer,upper=K) # nInitConsumer
 
   pRes_sim_list           = list()
   pRes_new_sim_list       = list()
@@ -148,7 +151,7 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
 
   pInitial=mean(c(pRes_min,pRes_max)) ### Initial phenotype equal for host and individual (Valeria: the Initial phenotype for the consumer at n=0 is the average value of the IS)
   pRes=pInitial; pRes_sim[1]  = pInitial # The sine qua non condition for the simulation to starts is to have the first individual consumer having the phenotype equal to optimum favored by the current host.
-  pInd=pInitial; pInd_sim[[1]]= pInitial # ....
+  pInd=rep(pInitial,nInitConsumer); pInd_sim[[1]]= rep(pInitial,nInitConsumer) # ....
 
   n=0
 
@@ -233,7 +236,7 @@ out$pRes_max           = pRes_max
 out$pInd_jump_sim      = pInd_jump_sim_list
 out$pInd_whichjump_sim = pInd_whichjump_sim_list
 out$pInd_whichsurv_sim = pInd_whichsurv_sim_list
-out$K=K;out$b=b; out$mig=mig; out$sd=sd;out$sigma=sigma;out$n_sim=n_sim;out$jump_back=jump_back;out$seed=seed
+out$K=K;out$b=b; out$mig=mig; out$sd=sd;out$sigma=sigma;out$n_sim=n_sim;out$jump_back=jump_back;out$seed=seed;out$nInitConsumer=nInitConsumer
 class(out) = "HostSwitch"
 
 
@@ -259,7 +262,7 @@ methods::setMethod("show",signature = "summaryHostSwitch", definition = function
   cat("Summary of HostSwitch simulations\n\n")
   cat("General settings of individual based model:\n")
   cat("K:",object$K,", b:",object$b,", mig:",object$mig,", sd:",object$sd,", sigma:",object$sigma,", pRes_min:",object$pRes_min,", pRes_max:",object$pRes_max,"\n",sep="")
-  cat("n_generations:",object$n_generations,", jump_back:",object$jump_back,", seed:",object$seed,", n_sim:",object$n_sim,", warmup:",object$warmup,"\n\n",sep="")
+  cat("n_generations:",object$n_generations,", jump_back:",object$jump_back,", seed:",object$seed,", n_sim:",object$n_sim,", warmup:",object$warmup,", nInitConsumer:",object$nInitConsumer,"\n\n",sep="")
 
   cat("Summary of phenotypes:\n")
   print(object$summaryP)

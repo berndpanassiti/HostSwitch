@@ -17,7 +17,8 @@ simHostSwitch(
   n_generations = 200,
   jump_back = "no",
   seed = NULL,
-  n_sim = 1
+  n_sim = 1,
+  nInitConsumer = 20
 )
 }
 \arguments{
@@ -46,6 +47,8 @@ simHostSwitch(
 \item{seed}{Random number to ensure reproducible plots, positive integer (>0), default value: NULL}
 
 \item{n_sim}{Number of simulations, positive integer (min=1, max = 50000), default value: 1}
+
+\item{nInitConsumer}{Number of initial individual at the first consumer generation}
 }
 \value{
 An object of class \sQuote{HostSwitch}.

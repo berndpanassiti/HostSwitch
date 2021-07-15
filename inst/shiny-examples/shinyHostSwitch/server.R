@@ -5,7 +5,7 @@ server <- function(input, output, session) {
     # Make action button dependency
     input$refresh
     # but isolate input$sample
-    isolate(HostSwitch::simHostSwitch(K=input$K,b=input$b, mig=input$mig, sd=input$sd, sigma=input$sigma, pRes_min=1, pRes_max=10, n_generations=input$n_generations,jump_back=input$jump_back,n_sim=1))
+    isolate(HostSwitch::simHostSwitch(K=input$K,b=input$b, mig=input$mig, sd=input$sd, sigma=input$sigma, pRes_min=1, pRes_max=10, n_generations=input$n_generations,jump_back=input$jump_back,n_sim=1,nInitConsumer=input$nInitConsumer))
 
   })
 

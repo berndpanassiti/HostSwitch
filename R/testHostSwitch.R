@@ -56,6 +56,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
     simulated_quantities1[["pRes_sim"]]      = lapply(simulated_quantities1[["pRes_sim"]], function(x) x[-c(1:warmup)])
     simulated_quantities1[["pRes_new_sim"]]  = lapply(simulated_quantities1[["pRes_new_sim"]], function(x) x[-c(1:warmup)])
     simulated_quantities1[["pInd_jump_sim"]] = lapply(simulated_quantities1[["pInd_jump_sim"]], function(x) x[-c(1:warmup)])
+    simulated_quantities1[["pInd_whichsurv_sim"]] = lapply(simulated_quantities1[["pInd_whichsurv_sim"]], function(x) x[-c(1:warmup)])
     for (i in 1:n_sim1){
       simulated_quantities1[["pInd_sim"]][[i]] = simulated_quantities1[["pInd_sim"]][[i]][-c(1:warmup)]
     }
@@ -65,6 +66,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
     simulated_quantities2[["pRes_sim"]]      = lapply(simulated_quantities2[["pRes_sim"]], function(x) x[-c(1:warmup)])
     simulated_quantities2[["pRes_new_sim"]]  = lapply(simulated_quantities2[["pRes_new_sim"]], function(x) x[-c(1:warmup)])
     simulated_quantities2[["pInd_jump_sim"]] = lapply(simulated_quantities2[["pInd_jump_sim"]], function(x) x[-c(1:warmup)])
+    simulated_quantities2[["pInd_whichsurv_sim"]] = lapply(simulated_quantities2[["pInd_whichsurv_sim"]], function(x) x[-c(1:warmup)])
     for (i in 1:n_sim2){
       simulated_quantities2[["pInd_sim"]][[i]] = simulated_quantities2[["pInd_sim"]][[i]][-c(1:warmup)]
     }
@@ -112,7 +114,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
     for (i in 1:n_sim1){
       dat = simulated_quantities1$pInd_whichsurv_sim[i]
       dat = flatten2(dat)
-      survPosition1[[i]] = (which(plyr::laply(dat,function(x) length(which(x>0)))>0))
+      survPosition1[[i]] = (which(plyr::laply(dat,function(x) length(which(x>0)))>0))-1
     }
 
     ## pRes
@@ -124,6 +126,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
     pRes_new_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities1$pRes_new_sim, y = survPosition1) # get only pRes when jump occurred
     pRes_new=unlist(flatten2(pRes_new_when_Survived))
     }
+    # 7, 228, [249,]
     if(n_sim1==1){
     pRes =  unlist(simulated_quantities1$pRes_sim)[unlist(survPosition1)]
     pRes_new =  unlist(simulated_quantities1$pRes_new_sim)[unlist(survPosition1)]
@@ -139,7 +142,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
     for (i in 1:n_sim2){
       dat = simulated_quantities2$pInd_whichsurv_sim[i]
       dat = flatten2(dat)
-      survPosition2[[i]] = (which(plyr::laply(dat,function(x) length(which(x>0)))>0))
+      survPosition2[[i]] = (which(plyr::laply(dat,function(x) length(which(x>0)))>0))-1
     }
 
     ## pRes
