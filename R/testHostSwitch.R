@@ -171,12 +171,17 @@ if(test == "w"){
     out$result = stats::wilcox.test(x,y)
 }
 
+df1 = data.frame(x=rep("sim1",length(x)),values=x) # simulated_quantities1
+df2 = data.frame(x=rep("sim2",length(y)),values=y) # simulated_quantities2
+plotInput = data.frame(rbind(df1,df2))
+out$result=append(out$result,plotInput)
+
+
+
 # plot
 if(plot == TRUE){
-  df1 = data.frame(x=rep("sim1",length(x)),values=x) # simulated_quantities1
-  df2 = data.frame(x=rep("sim2",length(y)),values=y) # simulated_quantities2
-  plotInput = data.frame(rbind(df1,df2))
-  g=ggplot2::ggplot(data=plotInput,aes(x=x,y=values,group=x)) + geom_boxplot() +
+
+  g=ggplot2::ggplot(data=out$plotInput,aes(x=x,y=values,group=x)) + geom_boxplot() +
   labs(title = title) +
   ggplot2::theme_bw()
  print(g)

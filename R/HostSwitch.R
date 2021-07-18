@@ -184,6 +184,11 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
       # Note: jumped individuals are not allowed come back!
       pInd_whichsurv_sim[[n+1]] = NA # no survived individuals
       if(length(which_jump)>0 & jump_back=="no"){pInd=pInd[-which_jump]} # select remaining individuals of original host
+
+      # all individuals: pInd
+      # 1. case: no jump: only ind of of old resource
+      # 2. case: length(which_jump)>0 & jump back yes: all individuals
+
       prob=survivalProbability(pInd=pInd,pOpt=pRes,sigma=sigma)
       pInd=pInd[prob>stats::runif(length(pInd))]
     }
