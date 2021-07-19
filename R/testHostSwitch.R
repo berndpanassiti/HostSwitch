@@ -120,11 +120,11 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
     ## pRes
     if(n_sim1>1){
     pRes_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities1$pRes_sim, y = survPosition1) # get only pRes when jump occurred
-    pRes=unlist(flatten2(pRes_when_Survived))
+    if(is.list(pRes_when_Survived)){pRes=unlist(flatten2(pRes_when_Survived))}else{pRes=as.vector(pRes_when_Survived)}
 
     ## pRes_new
     pRes_new_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities1$pRes_new_sim, y = survPosition1) # get only pRes when jump occurred
-    pRes_new=unlist(flatten2(pRes_new_when_Survived))
+    if(is.list(pRes_new_when_Survived)){pRes_new=unlist(flatten2(pRes_new_when_Survived))}else{pRes_new=as.vector(pRes_new_when_Survived)}
     }
     # 7, 228, [249,]
     if(n_sim1==1){
@@ -148,11 +148,11 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
     ## pRes
     if(n_sim2>1){
     pRes_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities2$pRes_sim, y = survPosition2) # get only pRes when jump occurred
-    pRes=unlist(flatten2(pRes_when_Survived))
+    if(is.list(pRes_when_Survived)){pRes=unlist(flatten2(pRes_when_Survived))}else{pRes=as.vector(pRes_when_Survived)}
 
     ## pRes_new
     pRes_new_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities2$pRes_new_sim, y = survPosition2) # get only pRes when jump occurred
-    pRes_new=unlist(flatten2(pRes_new_when_Survived))
+    if(is.list(pRes_new_when_Survived)){pRes_new=unlist(flatten2(pRes_new_when_Survived))}else{pRes_new=as.vector(pRes_new_when_Survived)}
 }
     if(n_sim2==1){
       pRes =  unlist(simulated_quantities2$pRes_sim)[unlist(survPosition2)]
@@ -187,8 +187,23 @@ if(plot == TRUE){
  print(g)
 }
 
-  return(out$result)
-
+methods::new("testHostSwitch", out$result)
 }
 
-
+#' Set class and method
+#'
+#' This is a build-time dependency on methods, as opposed to a run-time
+#' dependency, thus requiring the importFrom tag to avoid a NOTE when checking
+#' the package on CRAN.
+#'
+#' @keywords internal
+#' @importFrom methods setClass setMethod
+#' @export
+#'
+methods::setClass("testHostSwitch", representation=representation("list"))
+methods::setMethod("show",signature = "testHostSwitch", definition = function(object) {
+  cat("An object of class ", class(object), "\n", sep = "")
+  cat("Test result comparing 2 HostSwitch simulations using",object$method,"\n\n")
+  cat(names(tt$statistic),": ",object$statistic,", df:",object$parameter,", p.value:",object$p.value,"\n\n",sep="")
+  invisible(NULL)
+})
