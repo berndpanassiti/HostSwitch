@@ -121,7 +121,7 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
   # check on paramters
   checkmate::assertCount(K,positive=TRUE);checkmate::assertNumeric(K,upper=1000) # K
   checkmate::assertNumeric(b,lower=0,upper=K) # b
-  checkmate::assertNumeric(mig,lower=0,upper=1) # sd
+  checkmate::assertNumeric(mig,lower=0,upper=1) # mig
   checkmate::assertNumeric(sd,lower=0,upper=10) # sd
   checkmate::assertNumeric(sigma,lower=0,upper=10) # sigma
   checkmate::assertNumeric(pRes_min,lower=0,upper=pRes_max) # pRes_min
@@ -142,14 +142,14 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
   for (i in 1:n_sim){
 
   # record quantities of interest
-  pRes_sim           = rep(NA,n_generations) ### phenotype original host (Valeria: vector of optimum phenotypes favored by the new host)
-  pRes_new_sim       = rep(NA,n_generations) ### phenotype new host (Valeria: ???)
+  pRes_sim           = rep(NA,n_generations) ### at each generation a optimum phenotype that consumers should have to be favored by the current Resource
+  pRes_new_sim       = rep(NA,n_generations) ### at each generation a optimum phenotype that consumers should have to be favored by the novel Resource
   pInd_sim           = list()               # phenotype of individuals at each generation
-  pInd_jump_sim      = rep(NA,n_generations)  # vector of number of consumers that disperse (jumped)
+  pInd_jump_sim      = rep(NA,n_generations)  # number of consumers that disperse
   pInd_whichjump_sim = list()  # which consumers jumped
   pInd_whichsurv_sim = list()  # which consumers survived
 
-  pInitial=mean(c(pRes_min,pRes_max)) ### Initial phenotype equal for host and individual (Valeria: the Initial phenotype for the consumer at n=0 is the average value of the IS)
+  pInitial=mean(c(pRes_min,pRes_max)) ### Initial phenotype for the consumer at n=0
   pRes=pInitial; pRes_sim[1]  = pInitial # The sine qua non condition for the simulation to starts is to have the first individual consumer having the phenotype equal to optimum favored by the current host.
   pInd=rep(pInitial,nInitConsumer); pInd_sim[[1]]= rep(pInitial,nInitConsumer) # ....
 
@@ -245,9 +245,8 @@ out$K=K;out$b=b; out$mig=mig; out$sd=sd;out$sigma=sigma;out$n_sim=n_sim;out$jump
 class(out) = "HostSwitch"
 
 
-  if(!is.null(data)){
-    assign(paste0(column),out, envir = .GlobalEnv)} # returns column name of dataset
-  if(is.null(data)){return(out)} # only parameters
+
+  return(out)
 
 }
 
@@ -280,7 +279,7 @@ methods::setMethod("show",signature = "summaryHostSwitch", definition = function
 #' Summary statistics of HostSwitch simulation
 #'
 #' @param HostSwitch_simulated_quantities An object created by \code{\link{simHostSwitch}}
-#' @param warmup warmup is the number of initial generations to be excluded from summary statstistics, see details. Possible value are NULL or positive integer (min=1,max=50). Default value = 1
+#' @param warmup warmup is the number of initial generations to be excluded from summary statistics, see details. Possible value are NULL or positive integer (min=1, max=50), default value = 1
 #' @details This function generates summary statistics for HostSwitch simulations.
 #' Quantities of interest for each simulation are averaged. If \emph{n_sim = 1}, these averages for this single simulation are shown. If \emph{n_sim > 1}, summary statistics are applied on the simulation averages.\cr\cr
 #' \strong{Warmup} represents the initial condition for the simulation, the users may defined it as an adaptation stage of the simulation model.
@@ -319,6 +318,7 @@ summaryHostSwitch = function(HostSwitch_simulated_quantities,warmup = 1){
   out$n_sim         = HostSwitch_simulated_quantities$n_sim
   out$jump_back     = HostSwitch_simulated_quantities$jump_back
   out$seed          = HostSwitch_simulated_quantities$seed
+  out$nInitConsumer = HostSwitch_simulated_quantities$nInitConsumer
   out$warmup        = warmup
 
 

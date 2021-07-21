@@ -33,7 +33,7 @@
 #' @importFrom utils head
 #' @export
 
-testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,test,warmup=NULL,plot=FALSE){
+testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,test,warmup=1,plot=FALSE){
 
   # input checks
   checkmate::assert_class(simulated_quantities1,"HostSwitch") # class HostSwitch
@@ -80,13 +80,13 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
 # choice of parameter
 ## JUMPS
   if(parameter == "j"){
-    title = "Comparison of averages of dispersion events by the Consumer"
+    title = "Number of dispersion events to a new host"
    x = plyr::laply(simulated_quantities1$pInd_jump_sim,function(x) length(which(x>0)))
    y = plyr::laply(simulated_quantities2$pInd_jump_sim,function(x) length(which(x>0)))
   }
 ## SUCCESSFUL HOST SWITCHES
   if(parameter == "s"){
-    title = "Comparison of averages of host switch by the Consumer"
+    title = "Number of successful host switch events by a consumer"
     x = rep(0,n_sim1)
     y = rep(0,n_sim2)
 
@@ -105,7 +105,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
 
 ## Distance between mean parasite and new host phenotype
   if(parameter == "d"){
-    title = "Comparison of averages of phenotypic distance for consumers in current and novel Resource"
+    title = "Phenotypic distance for consumers in current and new host"
 
     # compare pRes and pRes_new in case of successful jump
 
@@ -181,7 +181,7 @@ out$result=append(out$result,plotInput)
 # plot
 if(plot == TRUE){
 
-  g=ggplot2::ggplot(data=plotInput,aes(x=x,y=values,group=x)) + geom_boxplot() +  ##replaced data=out$plotInput with data=plotInput
+  g=ggplot2::ggplot(data=plotInput,aes(x=x,y=values,group=x)) + geom_boxplot() +
   labs(title = title) +
   ggplot2::theme_bw()
  print(g)

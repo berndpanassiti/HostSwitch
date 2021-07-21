@@ -4,12 +4,12 @@
 \alias{plotHostSwitch}
 \title{HostSwitch standard plot}
 \usage{
-plotHostSwitch(HostSwitch_simulated_quantities, n_sim = 1)
+plotHostSwitch(HostSwitch_simulated_quantities, sim_n = 1)
 }
 \arguments{
 \item{HostSwitch_simulated_quantities}{The object HostSwitch created by \code{\link{simHostSwitch}}}
 
-\item{n_sim}{for HostSwitch object including more than 1 simulation saved, "n_sim" specifies which simulation have to be plotted. The plot from the first simulation is shown as default (n_sim = 1). If the called simulation number is not present in the HostSwitch object, the error message "Error in FUN(X[[i]], ...) : subscript out of bounds" will be returned.}
+\item{sim_n}{for HostSwitch object including more than 1 simulation saved, "sim_n" specifies which simulation have to be plotted. The plot from the first simulation is shown as default (sim_n = 1). If the called simulation number is not present in the HostSwitch object, the error message "Error in FUN(X[[i]], ...) : subscript out of bounds" will be returned.}
 }
 \description{
 This function creates a standard plot for the simulated host switches
@@ -20,12 +20,12 @@ The function plots dispersal and colonization (host-switching events) of Consume
 Black dots are the phenotype values of the Consumer after each event of reproduction. The green squares represent the value of phenotype favored by the novel Resource offered at each generation. The red squares are the phenotype values of the Consumer favored by the current Resource.The blue dots represents the phenotypes of dispersing Consumers, and the yellow dots the successfully colonizing Consumers.
 }
 \examples{
-m1 = simHostSwitch(n_sim=100) # create an HostSwitch object with 100 simulations.
+m1 = simHostSwitch(sim_n=100) # create an HostSwitch object with 100 simulations.
 
-## The results of the first simulation (n_sim=1) are plotted as default
+## The results of the first simulation (sim_n=1) are plotted as default
 plotHostSwitch(m1)
 
 ## The 50th simulation of the model is plotted
-plotHostSwitch(m1,n_sim=50)
+plotHostSwitch(m1,sim_n=50)
 
 }

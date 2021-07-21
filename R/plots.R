@@ -3,7 +3,7 @@
 #' This function creates a standard plot for the simulated host switches
 #'
 #' @param HostSwitch_simulated_quantities The object HostSwitch created by \code{\link{simHostSwitch}}
-#' @param n_sim for HostSwitch object including more than 1 simulation saved, "n_sim" specifies which simulation have to be plotted. The plot from the first simulation is shown as default (n_sim = 1). If the called simulation number is not present in the HostSwitch object, the error message "Error in FUN(X[[i]], ...) : subscript out of bounds" will be returned.
+#' @param sim_n for HostSwitch object including more than 1 simulation saved, "sim_n" specifies which simulation have to be plotted. The plot from the first simulation is shown as default (sim_n = 1). If the called simulation number is not present in the HostSwitch object, the error message "Error in FUN(X[[i]], ...) : subscript out of bounds" will be returned.
 #'
 #' @details The function plots dispersal and colonization (host-switching events) of Consumers on a novel host offered at each generation given the values of parameters related to carrying capacity, fitness space, migration, reproduction, selection, and biological model. The X-axis shows the total number of possible generations defined in the object HostSwitch, the Y-axis the phenotype values of the Consumer.
 #'
@@ -11,16 +11,16 @@
 #'
 #' @import ggplot2
 #' @examples
-#' m1 = simHostSwitch(n_sim=100) # create an HostSwitch object with 100 simulations.
+#' m1 = simHostSwitch(sim_n=100) # create an HostSwitch object with 100 simulations.
 #'
-#' ## The results of the first simulation (n_sim=1) are plotted as default
+#' ## The results of the first simulation (sim_n=1) are plotted as default
 #' plotHostSwitch(m1)
 #'
 #' ## The 50th simulation of the model is plotted
-#' plotHostSwitch(m1,n_sim=50)
+#' plotHostSwitch(m1,sim_n=50)
 #'
 #' @export
-plotHostSwitch <- function(HostSwitch_simulated_quantities,n_sim=1){
+plotHostSwitch <- function(HostSwitch_simulated_quantities,sim_n=1){
 
   n_generations <- pRes_max <- pRes_min <- p <- x <- y <- NULL # global variables
 
@@ -32,7 +32,7 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities,n_sim=1){
                              legend.text  = ggplot2::element_text(size=12))
 
   dat= HostSwitch_simulated_quantities[c("pRes_sim","pRes_new_sim","pInd_sim","pInd_whichjump_sim","pInd_whichsurv_sim")]
-  dat = sapply(dat, "[[", n_sim)
+  dat = sapply(dat, "[[", sim_n)
   pRes_sim     = data.frame(p=rep("pRes",length(dat$pRes_sim)), y=dat$pRes_sim,x=0:(length(dat$pRes_sim)-1))
   pRes_new_sim = data.frame(p=rep("pRes_new",length(dat$pRes_new_sim)),y=dat$pRes_new_sim,x=0:(length(dat$pRes_new_sim)-1))
 
