@@ -20,7 +20,7 @@ The function plots dispersal and colonization (host-switching events) of Consume
 Black dots are the phenotype values of the Consumer after each event of reproduction. The green squares represent the value of phenotype favored by the novel Resource offered at each generation. The red squares are the phenotype values of the Consumer favored by the current Resource.The blue dots represents the phenotypes of dispersing Consumers, and the yellow dots the successfully colonizing Consumers.
 }
 \examples{
-m1 = simHostSwitch(sim_n=100) # create an HostSwitch object with 100 simulations.
+m1 = simHostSwitch(n_sim=100) # create an HostSwitch object with 100 simulations.
 
 ## The results of the first simulation (sim_n=1) are plotted as default
 plotHostSwitch(m1)

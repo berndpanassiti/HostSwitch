@@ -119,12 +119,14 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
 
     ## pRes
     if(n_sim1>1){
-    pRes_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities1$pRes_sim, y = survPosition1) # get only pRes when jump occurred
+    pRes_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities1$pRes_sim, y = survPosition1,SIMPLIFY = FALSE) # get only pRes when jump occurred
     pRes=unlist(flatten2(pRes_when_Survived))
+    #if(is.matrix(pRes_when_Survived)){pRes=pRes_when_Survived}
 
     ## pRes_new
-    pRes_new_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities1$pRes_new_sim, y = survPosition1) # get only pRes when jump occurred
+    pRes_new_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities1$pRes_new_sim, y = survPosition1,SIMPLIFY = FALSE) # get only pRes when jump occurred
     pRes_new=unlist(flatten2(pRes_new_when_Survived))
+    #if(is.matrix(pRes_new_when_Survived)){pRes_new=pRes_new_when_Survived}
     }
     # 7, 228, [249,]
     if(n_sim1==1){
@@ -147,12 +149,14 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
 
     ## pRes
     if(n_sim2>1){
-    pRes_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities2$pRes_sim, y = survPosition2) # get only pRes when jump occurred
+    pRes_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities2$pRes_sim, y = survPosition2,SIMPLIFY = FALSE) # get only pRes when jump occurred
     pRes=unlist(flatten2(pRes_when_Survived))
+    #if(is.matrix(pRes_when_Survived)){pRes=pRes_when_Survived}
 
     ## pRes_new
-    pRes_new_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities2$pRes_new_sim, y = survPosition2) # get only pRes when jump occurred
+    pRes_new_when_Survived =mapply(FUN = function(x,y) {d <- x[y]}, x = simulated_quantities2$pRes_new_sim, y = survPosition2,SIMPLIFY = FALSE) # get only pRes when jump occurred
     pRes_new=unlist(flatten2(pRes_new_when_Survived))
+    #if(is.matrix(pRes_new_when_Survived)){pRes_new=pRes_new_when_Survived}
 }
     if(n_sim2==1){
       pRes =  unlist(simulated_quantities2$pRes_sim)[unlist(survPosition2)]

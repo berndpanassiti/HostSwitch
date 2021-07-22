@@ -11,7 +11,7 @@
 #'
 #' @import ggplot2
 #' @examples
-#' m1 = simHostSwitch(sim_n=100) # create an HostSwitch object with 100 simulations.
+#' m1 = simHostSwitch(n_sim=100) # create an HostSwitch object with 100 simulations.
 #'
 #' ## The results of the first simulation (sim_n=1) are plotted as default
 #' plotHostSwitch(m1)
