@@ -91,7 +91,7 @@ survivalProbability = function(pInd,pOpt,sigma){
 
 
 simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generations=200,jump_back='no',seed=NULL, n_sim=1,nInitConsumer=20){
-  set.seed(seed)
+  fctArgs <- match.call()
 
   if(!is.null(data)){
     checkmate::assert(checkmate::checkMatrix(data),checkmate::checkDataFrame(data))
@@ -114,8 +114,39 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
   if('seed' %in% names(data[,column])){seed = as.numeric(data[,column]['seed']);usedParamters=append(usedParamters,"seed")}
   if('n_sim' %in% names(data[,column])){n_sim = as.numeric(data[,column]['n_sim']);usedParamters=append(usedParamters,"n_sim")}
   if('nInitConsumer' %in% names(data[,column])){n_sim = as.numeric(data[,column]['nInitConsumer']);usedParamters=append(usedParamters,"nInitConsumer")}
-  print(paste("Parameters provided from your data are: ",do.call(paste, c(as.list(usedParamters), sep = ",")),sep=""))
+  #print(paste("Parameters provided from your data are: ",do.call(paste, c(as.list(usedParamters), sep = ",")),sep=""))
+
+   # overwrite if single arguments are provided additionally to dataset
+  if("K" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "K");K = fctArgs[[ArgPosition]]}
+  if("b" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "b");b = fctArgs[[ArgPosition]]}
+  if("mig" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "mig");mig = fctArgs[[ArgPosition]]}
+  if("sd" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "sd");sd = fctArgs[[ArgPosition]]}
+  if("sigma" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "sigma");sigma = fctArgs[[ArgPosition]]}
+  if("pRes_min" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "pRes_min");pRes_min = fctArgs[[ArgPosition]]}
+  if("pRes_max" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "pRes_max");pRes_max = fctArgs[[ArgPosition]]}
+  if("n_generations" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "n_generations");n_generations = fctArgs[[ArgPosition]]}
+  if("jump_back" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "jump_back");jump_back = fctArgs[[ArgPosition]]}
+  if("seed" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "seed");seed = fctArgs[[ArgPosition]]}
+  if("n_sim" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "n_sim");n_sim = fctArgs[[ArgPosition]]}
+  if("nInitConsumer" %in% names(fctArgs)){
+    ArgPosition = which(names(fctArgs) == "nInitConsumer");nInitConsumer = fctArgs[[ArgPosition]]}
+
+
   }
+
+
+
 
 
   # check on paramters
@@ -131,6 +162,11 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
   checkmate::assertCount(seed,positive=TRUE,null.ok = TRUE) # seed
   checkmate::assertCount(n_sim,positive=TRUE);checkmate::assertNumeric(n_sim,upper=50000) # n_sim
   checkmate::assertCount(nInitConsumer,positive=TRUE);checkmate::assertNumeric(nInitConsumer,upper=K) # nInitConsumer
+
+
+
+  set.seed(seed)
+
 
   pRes_sim_list           = list()
   pRes_new_sim_list       = list()

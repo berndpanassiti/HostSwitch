@@ -142,6 +142,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,parameter,
     survPosition2= list()
 
     for (i in 1:n_sim2){
+      # for each simulation, records position (=generation) of survived individuals
       dat = simulated_quantities2$pInd_whichsurv_sim[i]
       dat = flatten2(dat)
       survPosition2[[i]] = (which(plyr::laply(dat,function(x) length(which(x>0)))>0))-1
