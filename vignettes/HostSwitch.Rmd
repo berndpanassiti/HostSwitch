@@ -60,12 +60,12 @@ knitr::opts_chunk$set(fig.width=8.5, fig.height=5.5, fig.align='center', warning
 
 # Theoratical background
 
-The evolution of the biological associations may include several concatenated events of speciation affecting one or both species and it is driven by four main processes: cospeciation, host switch, failure to speciate and "missing the boat" (Page 2002). While the prevalent paradigm wants the cospeciation to be the main process driving the coevolution of most of the biological associations, recent evidence showed that host-switching, favored by the intrinsic capability of adaptation in the sub-optimal environment, may explain rapid novel associations (i.e. colonization of novel hosts at the ecological time scale) eventually followed by speciation (at the evolutionary time) as well the observed incongruences of the paired phylogenies (see Brooks et al. 2019 for a review).
+The evolution of the biological associations may include several concatenated events of speciation affecting one or both species and it is driven by four main processes: cospeciation, host switch, failure to speciate and "missing the boat" [@page2002tangled]. While the prevalent paradigm wants the cospeciation to be the main process driving the coevolution of most of the biological associations, recent evidence showed that host-switching, favored by the intrinsic capability of adaptation in the sub-optimal environment, may explain rapid novel associations (i.e. colonization of novel hosts at the ecological time scale) eventually followed by speciation (at the evolutionary time) as well the observed incongruences of the paired phylogenies (see [@brooks2019stockholm] for a review).
 
 
 # Motivation 
 
-The simulation model of HostSwitch aims to measure the dynamics of the host switch (extent and frequency) in the population of an organism (hereafter Consumer) that interacts with current and potential hosts (hereafter Resource) over the generations. A host switch implies that a Consumer may colonize new Resource, which in turn imposes selection pressure that impacts the Consumers' survival. The host-switching relies on a mechanism of ecological readjustment or ecological fitting, i.e. the capability of the Consumer to use a similar Resource even if sub-optimal (Jansen 1985, Agosta 2008). The fundamental aspect of the HostSwitch simulation model is to track, summarize and compare the dispersion and successful host switch events in a new Resource by the populations of the Consumer.
+The simulation model of HostSwitch aims to measure the dynamics of the host switch (extent and frequency) in the population of an organism (hereafter Consumer) that interacts with current and potential hosts (hereafter Resource) over the generations. A host switch implies that a Consumer may colonize new Resource, which in turn imposes selection pressure that impacts the Consumers' survival. The host-switching relies on a mechanism of ecological readjustment or ecological fitting, i.e. the capability of the Consumer to use a similar Resource even if sub-optimal [@janzen1985ecological] [@agosta2008ecological]. The fundamental aspect of the HostSwitch simulation model is to track, summarize and compare the dispersion and successful host switch events in a new Resource by the populations of the Consumer.
 
 The HostSwitch package offers simple functions to evaluate the role of the single parameters included in the model in defining the probability and the amplitude of the host switch. The extension in R code allows the users to choose among different consumer-resource scenarios which accommodate all the symbiotic (sensu lato) associations.
 
@@ -99,7 +99,7 @@ shinyHostSwitch()
 This function opens a new window with an interactive plot of the HostSwitch simulation model. This plot can be used to interact with the model and explore how different settings affect dispersion and host switch events by a consumer.
 
 ## Run the model
-### Simulate host switches by consumers
+### Simulate dispersal and host switch events by a consumer
 ```{r}
 # using only 20 generations and 1 simulation, others arguments left to default values
 # see ?simHostSwitch for more arguments
@@ -109,28 +109,32 @@ simulated_quantities = simHostSwitch(seed=123,n_sim=1,n_generation=20)
 The function simHostSwitch generates a list containing all quantities of interest which can be used for summary statistics or plots. Quantities of interest are optimum phenotypes that Consumers should have to be favored by the current Resource (**pRes_sim**), that Consumers should have to be favored by the novel Resource (**pRes_new_sim**), individual phenotype values of the Consumers (**pInd**), number of migrating individuals at each generation (**pInd_jump_sim**), individual phenotype values of the Consumers who disperse in a novel Resource (**pInd_whichjump_sim**), and individual phenotype values of the Consumers who successful colonize a novel Resource (**pInd_whichsurv_sim**). These parameters are available for each generation step.
 
 
-### Summary of host switches simulation
+### Summary of a HostSwitch object
 ```{r}
 summaryHostSwitch(simulated_quantities) 
 ```
 
 The function summaryHostSwitch creates a summary of basic statistics for phenotypes, dispersion and host switch events. 
 
-### Plot the simulation of parasite host switches
+### Plot one HostSwitch simulation
 ```{r}
 gg1 = plotHostSwitch(simulated_quantities, sim_n = 1) # use n_sim to select a specific simulation
 gg1
 #gg1 + xlim(0,10) # limit x-axis from 0 to 10 generations
 ```
+The S3 method plotHostSwitch function graphically summarize the simulated output.
 
+## Comparing two HostSwitch objects
 
-## Comparing two host switch simulations
+To investigate the effect of selected parameters on dispersal and host switch events, the testHostSwitch function can be used to compare estimated quantities from two HostSwitch objects.
 
-To investigate the effect of selected parameters on host switches, the testHostSwitch function can be used to compare two simulations.
+The three estimated quantities are: 
+*j total number of dispersing events;
+*s total number of successful host switch events;
+*d distance between the pRes_sim andpRes_new_sim for the generations where a successful host switch occurs, or phenotype distance.
 
-
-Here, we investigate how different number of offsprings (parameter b) affect the average number of jumps to a new host by a parasite.  
-First, we create two simulations with different number of offsprings, leaving other paramters to default values. Note, to test for differences between simulations it is necessary to choose reasonable high number of simulations. We recommand for the number of jumps to set n_sim >= 100. Second, we compare both simulations choosing the parameter of interest and wether or not a boxplot should be drawn.
+In the example below, we investigated how different values of net reproduction rate (parameter b) affect the average number of dispersal and host switch events to a new resource by a consumer.  
+First, we created two HostSwitch objects with different b (m1 and m2), other parameters set to default values. Second, we compared m1 and m2 choosing the estimated quantity of interest. If plot = TRUE a boxplot will be generated in the plot pane in RStudio.
 ```{r}
 # see ?simHostSwitch for more arguments
 m1 = simHostSwitch(seed=123,n_sim=100,b=10) 
@@ -139,6 +143,6 @@ m2 = simHostSwitch(seed=123,n_sim=100,b=15)
 # see ?testHostSwitch for more arguments
 testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,parameter="j",test="t",plot=FALSE)
 ```
-
+Note, to test for differences between HostSwitch objects a reasonable high number of simulations is recommended (e.g., n_sim >= 100).
 
 # References
