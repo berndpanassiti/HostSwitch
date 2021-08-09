@@ -18,12 +18,10 @@ link-citations: true
 abstract: |
   \justifing
   
-  The 'HostSwitch' package uses an individual-based model for simulating the consumer's successful invasion and survival on a novel host. As a consequence of such colonization,the consumer acquiring a new host adapts to a different resource which becomes an actual host. Recently, Araujo et al. [-@Araujo_2015] introduced a mathematical model that evaluates the host switch of a parasite. The authors conceived the initial model to test the ... 
+  The 'HostSwitch' package uses an individual-based model to simulate dispersion and host switch events by a consumer. As a consequence od the adaptation to a new resource,the consumer may expand its host range. 
+  The HostSwitch R package provides functions to explore host switch events on a novel resource over the time. Based on the Individual-Based Model (IBM) published in Araujo et al. [-@Araujo_2015], the main function of this R package simulates the colonization dynamics of consumers over resources that are randomly offered. The HostSwitch package was implemented by including all functionalities in the original IBM model as well as numerous additions, such as comparison and evaluation of simulations with several customized parameter options and an in-depth description of the parameters in an ecological context.
   
-  Here, we introduce the R package, HostSwitch which formalizes and extends the original model built on Fortran provided by Araujo et al. [-@Araujo_2015]. We describe the areas of application to increase the utility of the present simulation of the host switch under the ecological fitting hypotheses.  
-
-
-  The package provides an R-friendly and modified version of this model which can be applied to different biological models and scenarios.\n\n\n
+  We aim to reach a broader audience by providing an interactive visualization of the model and linking the theoretical model to real world scenarios. The dataset ("data$parli") provided with  the present package provide a useful series of example with some parameters retrived from the literature.\n\n\n
   
 
 ---
@@ -62,15 +60,16 @@ knitr::opts_chunk$set(fig.width=8.5, fig.height=5.5, fig.align='center', warning
 
 # Theoratical background
 
-[@Araujo_2015]
+The evolution of the biological associations may include several concatenated events of speciation affecting one or both species and it is driven by four main processes: cospeciation, host switch, failure to speciate and "missing the boat" (Page 2002). While the prevalent paradigm wants the cospeciation to be the main process driving the coevolution of most of the biological associations, recent evidence showed that host-switching, favored by the intrinsic capability of adaptation in the sub-optimal environment, may explain rapid novel associations (i.e. colonization of novel hosts at the ecological time scale) eventually followed by speciation (at the evolutionary time) as well the observed incongruences of the paired phylogenies (see Brooks et al. 2019 for a review).
 
 
 # Motivation 
-The HostSwitch package offers simple functions to evaluate the role of the single parameters included in the model in defining the probability and the amplitude of the host switch. The extension in R code allows the users to choose among different consumer-host scenarios (S0, S1) described by the usage examples in this vignette.
 
-HostSwitch has dependencies .....
+The simulation model of HostSwitch aims to measure the dynamics of the host switch (extent and frequency) in the population of an organism (hereafter Consumer) that interacts with current and potential hosts (hereafter Resource) over the generations. A host switch implies that a Consumer may colonize new Resource, which in turn imposes selection pressure that impacts the Consumers' survival. The host-switching relies on a mechanism of ecological readjustment or ecological fitting, i.e. the capability of the Consumer to use a similar Resource even if sub-optimal (Jansen 1985, Agosta 2008). The fundamental aspect of the HostSwitch simulation model is to track, summarize and compare the dispersion and successful host switch events in a new Resource by the populations of the Consumer.
 
-This package will be expanded with furthers scenarios of species interaction. Please feel free to contact the authors to contribute by making suggestions, or sending bug fixes or extension proposals. 
+The HostSwitch package offers simple functions to evaluate the role of the single parameters included in the model in defining the probability and the amplitude of the host switch. The extension in R code allows the users to choose among different consumer-resource scenarios which accommodate all the symbiotic (sensu lato) associations.
+
+This package will be expanded with further scenarios of biological interactions. Please feel free to contact the authors to contribute by making suggestions, or sending bug fixes or extension proposals. 
 
 
 
@@ -78,7 +77,7 @@ This package will be expanded with furthers scenarios of species interaction. Pl
 
 ## Installing, loading and citing the package
 
-If you haven't installed the package yet, please install the recent release using GitHub
+Install the recent release of HostSwitch package using GitHub
 
 ```{r, eval=FALSE}
 devtools::install_github(repo = "berndpanassiti/HostSwitch",build_vignettes = TRUE)
@@ -92,14 +91,12 @@ citation("HostSwitch")
 ```
 
 
-
-
 ## Interactive plot using Shiny
 ```{r, eval=F}
 shinyHostSwitch()
 ```
 
-This function opens a new window with an interactive plot of the HostSwitch simulation model. This plot can be used to interact with the model and explore how different settings affect the host switches by a consumer.
+This function opens a new window with an interactive plot of the HostSwitch simulation model. This plot can be used to interact with the model and explore how different settings affect dispersion and host switch events by a consumer.
 
 ## Run the model
 ### Simulate host switches by consumers
@@ -109,7 +106,7 @@ This function opens a new window with an interactive plot of the HostSwitch simu
 simulated_quantities = simHostSwitch(seed=123,n_sim=1,n_generation=20) 
 ```
 
-The function generates a list containing all quantities of interest which can be used for summary statistics or plots. Quantities of interest are **phenotpyes** of resource (original host, 'pRes_sim'), new resource (new host, 'pRes_new_sim') and of individual parasites ('pInd'). These parameters are available for each generation step.
+The function simHostSwitch generates a list containing all quantities of interest which can be used for summary statistics or plots. Quantities of interest are optimum phenotypes that Consumers should have to be favored by the current Resource (**pRes_sim**), that Consumers should have to be favored by the novel Resource (**pRes_new_sim**), individual phenotype values of the Consumers (**pInd**), number of migrating individuals at each generation (**pInd_jump_sim**), individual phenotype values of the Consumers who disperse in a novel Resource (**pInd_whichjump_sim**), and individual phenotype values of the Consumers who successful colonize a novel Resource (**pInd_whichsurv_sim**). These parameters are available for each generation step.
 
 
 ### Summary of host switches simulation
@@ -117,7 +114,7 @@ The function generates a list containing all quantities of interest which can be
 summaryHostSwitch(simulated_quantities) 
 ```
 
-
+The function summaryHostSwitch creates a summary of basic statistics for phenotypes, dispersion and host switch events. 
 
 ### Plot the simulation of parasite host switches
 ```{r}
