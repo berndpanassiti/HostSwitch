@@ -18,7 +18,7 @@ link-citations: true
 abstract: |
   \justifing
   
-  The 'HostSwitch' package uses an individual-based model to simulate dispersion and host switch events by a consumer. As a consequence od the adaptation to a new resource,the consumer may expand its host range. 
+  The 'HostSwitch' package uses an individual-based model to simulate dispersion and host switch events by a consumer. As a consequence to the adaptation to a new resource, the consumer may expand its host range. 
   The HostSwitch R package provides functions to explore host switch events on a novel resource over the time. Based on the Individual-Based Model (IBM) published in Araujo et al. [-@Araujo_2015], the main function of this R package simulates the colonization dynamics of consumers over resources that are randomly offered. The HostSwitch package was implemented by including all functionalities in the original IBM model as well as numerous additions, such as comparison and evaluation of simulations with several customized parameter options and an in-depth description of the parameters in an ecological context.
   
   We aim to reach a broader audience by providing an interactive visualization of the model and linking the theoretical model to real world scenarios. The dataset ("data$parli") provided with  the present package provide a useful series of example with some parameters retrived from the literature.\n\n\n
