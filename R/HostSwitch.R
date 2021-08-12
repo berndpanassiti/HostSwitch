@@ -70,7 +70,7 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' }
 #' These simulated quantities of interest are available for each generation step and can be used for summary statistics and plots using functions \code{\link{summaryHostSwitch}} and \code{\link{plotHostSwitch}}, respectively.\cr
 #'
-#' Note: One important aspect of \code{\link{simHostswitch}} is that it is based on the \code{\link{survivalProbability}} function.
+#' Note: One important aspect of \emph{simHostswitch} is that it is based on the \code{\link{survivalProbability}} function.
 #'
 #' @seealso \code{\link{survivalProbability}}, \code{\link{summaryHostSwitch}}, \code{\link{plotHostSwitch}}
 #'

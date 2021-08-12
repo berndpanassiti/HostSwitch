@@ -82,7 +82,7 @@ The object of class \sQuote{'HostSwitch} includes the following simulated quanti
 }
 These simulated quantities of interest are available for each generation step and can be used for summary statistics and plots using functions \code{\link{summaryHostSwitch}} and \code{\link{plotHostSwitch}}, respectively.\cr
 
-Note: One important aspect of \code{\link{simHostswitch}} is that it is based on the \code{\link{survivalProbability}} function.
+Note: One important aspect of \emph{simHostswitch} is that it is based on the \code{\link{survivalProbability}} function.
 }
 \examples{
 m1 = simHostSwitch() # using default values for arguments
