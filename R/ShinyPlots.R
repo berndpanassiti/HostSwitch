@@ -9,9 +9,12 @@
 #'The total number of dispersal and successful host switch events (or individuals) by Consumers for each are reported below the plot.
 #' @import shiny
 #' @import tippy
+#' @return a dynamic interface plotting the dispersion events and host switch simulations and reacting to user input.
 #' @examples
-#' ## Run shiny app locally
-#' ## shinyHostSwitch()
+#' ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'  shinyHostSwitch()
+#' }
 #'
 #' @export
 shinyHostSwitch <- function() {

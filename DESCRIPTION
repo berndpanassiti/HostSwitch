@@ -8,9 +8,9 @@ Authors@R: c(
     person(c("Sabrina", "B.L."), "Araujo", email = "araujosbl@gmail.com", role = c("aut")),
     person("Bernd", "Panassiti", email = "bernd.panassiti@gmail.com", role = c("cre","aut"),comment=c(ORCID="0000-0002-5899-4584")))
 Maintainer: Bernd Panassiti <bernd.panassiti@gmail.com>
-Description: The 'HostSwitch' package uses a simulation-based approach to investigate host switches by consumers.
-    The individual based model is based on the concepts of Stockholm paradigm and ecological fitting.
-    The original model is published by Araujo et al. 2015. Understanding Host-Switching by Ecological Fitting (<doi:10.1371/journal.pone.0139225>).
+Description: Using a simulation-based approach, the 'HostSwitch' package provides functions to investigate host switches by consumers.
+    The individual-based model is based on the concept of ecological fitting.
+    The mockup model is published by Araujo et al. 2015. Understanding Host-Switching by Ecological Fitting (<doi:10.1371/journal.pone.0139225>).
     The package provides an R-friendly and modified version of this model which can be applied to different consumer-resource scenarios.
 License: GPL (>= 3)
 URL: https://github.com/berndpanassiti/HostSwitch
