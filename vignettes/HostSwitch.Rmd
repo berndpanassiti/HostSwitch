@@ -58,7 +58,7 @@ knitr::opts_chunk$set(fig.width=8.5, fig.height=5.5, fig.align='center', warning
 ```
 
 
-# Theoratical background
+# Theoretical background
 
 The evolution of the biological associations may include several concatenated events of speciation affecting one or both species and it is driven by four main processes: cospeciation, host switch, failure to speciate and "missing the boat" [@page2002tangled]. While the prevalent paradigm wants the cospeciation to be the main process driving the coevolution of most of the biological associations, recent evidence showed that host-switching, favored by the intrinsic capability of adaptation in the sub-optimal environment, may explain rapid novel associations (i.e. colonization of novel hosts at the ecological time scale) eventually followed by speciation (at the evolutionary time) as well the observed incongruences of the paired phylogenies (see [@brooks2019stockholm] for a review).
 
