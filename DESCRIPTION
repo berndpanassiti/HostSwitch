@@ -4,7 +4,7 @@ Title: Simulate the Extent of Host Switching by Consumers
 Version: 0.1.2
 Authors@R: c(
     person("Valeria", "Trivellone", email = "valeria.trivellone@gmail.com", role = c("aut"),comment=c(ORCID="0000-0003-1415-4097")),
-    person(c("Sabrina", "B.L."), "Araujo", email = "araujosbl@gmail.com", role = c("aut")),
+    person(c("Sabrina", "B.L."), "Araujo", email = "araujosbl@gmail.com", role = c("aut"),comment=c(ORCID="0000-0002-8759-8310")),
     person("Bernd", "Panassiti", email = "bernd.panassiti@gmail.com", role = c("cre","aut"),comment=c(ORCID="0000-0002-5899-4584")))
 Maintainer: Bernd Panassiti <bernd.panassiti@gmail.com>
 Description: Using a simulation-based approach, the 'HostSwitch' package provides functions to investigate host switches by consumers.
