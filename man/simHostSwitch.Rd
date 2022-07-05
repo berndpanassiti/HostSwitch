@@ -60,8 +60,8 @@ Simulates the number of dispersion and successful host switch events by individu
 This function simulates the number of host switches by the population of a consumer.
 There are 2 ways to provide parameters to the \code{\link{simHostSwitch}} function:
 \describe{
-  \item{}{\bold{"data","column"}: Provide names of matrix/dataframe and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
-  \item{}{\bold{individual parameter}: e.g. b=5, n_generations=500, etc...}
+  \item{data}{\bold{"data","column"}: Provide names of matrix/dataframe and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
+  \item{parameter}{\bold{individual parameter}: e.g. b=5, n_generations=500, etc...}
 }
 If no data/column or individual parameters are provided, default parameter values are used.
 The rownames of the data must match the parameter argument names. You may use one of the \code{\link{parli}}
@@ -73,12 +73,12 @@ using the colname provided to the argument "column" (in our example above Cb.mLx
 \cr\cr
 The object of class \sQuote{'HostSwitch} includes the following simulated quantities:
 \describe{
-  \item{}{\bold{$pRes_sim}:  a vector of the optimum phenotypes (one for each generation) that Consumers should have to be favored by the current Resource.}
-  \item{}{\bold{$pRes_new_sim}: a vector of the optimum phenotypes (one for each generation) that Consumers should have to be favored by the novel Resource.}
-  \item{}{\bold{$pInd_sim}: list of vectors that includes the individual phenotype values of the Consumers in the population of each generation.}
-  \item{}{\bold{$pInd_jump_sim}: vector of number of migrating individuals at each generation. The vector length is always equal to the 'n_generation' parameter, if the simulation ends before the 'n_generation' value then the vector will include a 'NA' by default.}
-  \item{}{\bold{$pInd_whichjump_sim}: list of vectors that extracts the individual phenotype values of the Consumers who disperse in a novel Resource in each population and generation.}
-  \item{}{\bold{$pInd_whichsurv_sim}: list of vectors that extracts the individual phenotype values of the Consumers who successful colonize a novel Resource in each population and generation.}
+  \item{pRes_sim}{\bold{$pRes_sim}:  a vector of the optimum phenotypes (one for each generation) that Consumers should have to be favored by the current Resource.}
+  \item{pRes_new_sim}{\bold{$pRes_new_sim}: a vector of the optimum phenotypes (one for each generation) that Consumers should have to be favored by the novel Resource.}
+  \item{pInd_sim}{\bold{$pInd_sim}: list of vectors that includes the individual phenotype values of the Consumers in the population of each generation.}
+  \item{pInd_jump_sim}{\bold{$pInd_jump_sim}: vector of number of migrating individuals at each generation. The vector length is always equal to the 'n_generation' parameter, if the simulation ends before the 'n_generation' value then the vector will include a 'NA' by default.}
+  \item{pInd_whichjump_sim}{\bold{$pInd_whichjump_sim}: list of vectors that extracts the individual phenotype values of the Consumers who disperse in a novel Resource in each population and generation.}
+  \item{pInd_whichsurv_sim}{\bold{$pInd_whichsurv_sim}: list of vectors that extracts the individual phenotype values of the Consumers who successful colonize a novel Resource in each population and generation.}
 }
 These simulated quantities of interest are available for each generation step and can be used for summary statistics and plots using functions \code{\link{summaryHostSwitch}} and \code{\link{plotHostSwitch}}, respectively.\cr
 

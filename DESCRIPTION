@@ -1,10 +1,9 @@
 Package: HostSwitch
 Type: Package
 Title: Simulate the Extent of Host Switching by Consumers
-Date: 2021-08-12
-Version: 0.1.0
+Version: 0.1.2
 Authors@R: c(
-    person("Valeria", "Trivellone", email = "valeria.trivellone@gmail.com", role = c("aut")),
+    person("Valeria", "Trivellone", email = "valeria.trivellone@gmail.com", role = c("aut"),comment=c(ORCID="0000-0003-1415-4097")),
     person(c("Sabrina", "B.L."), "Araujo", email = "araujosbl@gmail.com", role = c("aut")),
     person("Bernd", "Panassiti", email = "bernd.panassiti@gmail.com", role = c("cre","aut"),comment=c(ORCID="0000-0002-5899-4584")))
 Maintainer: Bernd Panassiti <bernd.panassiti@gmail.com>
@@ -36,5 +35,5 @@ VignetteBuilder:
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Config/testthat/edition: 3

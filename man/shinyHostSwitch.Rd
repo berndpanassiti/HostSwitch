@@ -6,6 +6,9 @@
 \usage{
 shinyHostSwitch()
 }
+\value{
+a dynamic interface plotting the dispersion events and host switch simulations and reacting to user input.
+}
 \description{
 Shiny-plot of consumer host-switching
 }
@@ -19,7 +22,9 @@ Black dots are the phenotype values of the Consumer after each event of reproduc
 The total number of dispersal and successful host switch events (or individuals) by Consumers for each are reported below the plot.
 }
 \examples{
-## Run shiny app locally
-## shinyHostSwitch()
+## Only run examples in interactive R sessions
+if (interactive()) {
+ shinyHostSwitch()
+}
 
 }

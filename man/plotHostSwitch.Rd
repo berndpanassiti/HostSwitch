@@ -11,6 +11,9 @@ plotHostSwitch(HostSwitch_simulated_quantities, sim_n = 1)
 
 \item{sim_n}{for HostSwitch object including more than 1 simulation saved, "sim_n" specifies which simulation have to be plotted. The plot from the first simulation is shown as default (sim_n = 1). If the called simulation number is not present in the HostSwitch object, the error message "Error in FUN(X[[i]], ...) : subscript out of bounds" will be returned.}
 }
+\value{
+An S3 object with class gg/ggplot
+}
 \description{
 This function creates a standard plot for the simulated host switches
 }
