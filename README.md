@@ -52,7 +52,7 @@ Finally, try `plotHostSwitch` to plot of the simulated quantities and to select 
 plotHostSwitch(simulated_quantities, sim_n = 1)
 ```
 
-You can compare two "simHostSwitch" objects using the function `testHostSwitch`. The comparison is between three estimated quantities: "j" total number of dispersing events; "s" total number of successful host switch events; "d" distance between the pRes_sim andpRes_new_sim for the generations where a successful host switch occurs, or phenotype distance. The The available tests are:”t” for t-test (parametric), and ”w” for Wilcoxon-test (non-parametric).For this compparison the number of simulation need to be greater than 1.
+You can compare two "simHostSwitch" objects using the function `testHostSwitch`. The comparison is between three estimated quantities: "j" total number of dispersing events; "s" total number of successful host switch events; "d" distance between the pRes_sim andpRes_new_sim for the generations where a successful host switch occurs, or phenotype distance. The The available tests are:”t” for t-test (parametric), and ”w” for Wilcoxon-test (non-parametric). For this comparison the number of simulation need to be greater than 1.
 ```{r}
 m1 <- simHostSwitch(seed=123,n_sim=100,b=10) 
 m2 <- simHostSwitch(seed=123,n_sim=100,b=15) 
