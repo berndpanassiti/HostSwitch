@@ -142,7 +142,7 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
     ArgPosition = which(names(fctArgs) == "nInitConsumer");nInitConsumer = fctArgs[[ArgPosition]]}
 }
 
-  # check on paramters
+  # check on parameters
   checkmate::assertCount(K,positive=TRUE);checkmate::assertNumeric(K,upper=1000) # K
   checkmate::assertNumeric(b,lower=0,upper=K) # b
   checkmate::assertNumeric(mig,lower=0,upper=1) # mig
