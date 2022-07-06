@@ -6,6 +6,8 @@ HostSwitch: An R Package to simulate host switching by a parasite
 [![](http://cranlogs.r-pkg.org/badges/grand-total/HostSwitch?color=green)](https://cran.r-project.org/package=HostSwitch)
 [![](http://cranlogs.r-pkg.org/badges/last-month/HostSwitch?color=green)](https://cran.r-project.org/package=HostSwitch)
 [![](http://cranlogs.r-pkg.org/badges/last-week/HostSwitch?color=green)](https://cran.r-project.org/package=HostSwitch)
+[![R-CMD-check](https://github.com/berndpanassiti/HostSwitch/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/berndpanassiti/HostSwitch/actions/workflows/R-CMD-check.yaml)
+
 
 #### Trivellone, V. <a itemprop="sameAs" content="https://orcid.org/0000-0003-1415-4097" href="https://orcid.org/0000-0003-1415-4097" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon"></a>; Araujo B.L., S. <a itemprop="sameAs" content="https://orcid.org/0000-0002-8759-8310" href="https://orcid.org/0000-0002-8759-8310" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon"></a>; Panassiti B.  <a itemprop="sameAs" content="https://orcid.org/0000-0002-5899-4584" href="https://orcid.org/0000-0002-5899-4584" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon"></a>
 
