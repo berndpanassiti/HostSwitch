@@ -10,6 +10,7 @@
 #' Black dots are the phenotype values of the Consumer after each event of reproduction. The green squares represent the value of phenotype favored by the novel Resource offered at each generation. The red squares are the phenotype values of the Consumer favored by the current Resource.The blue dots represents the phenotypes of dispersing Consumers, and the yellow dots the successfully colonizing Consumers.
 #'
 #' @import ggplot2
+#' @import checkmate
 #' @return An S3 object with class gg/ggplot
 #' @examples
 #' m1 = simHostSwitch(n_sim=100) # create an HostSwitch object with 100 simulations.
@@ -22,6 +23,8 @@
 #'
 #' @export
 plotHostSwitch <- function(HostSwitch_simulated_quantities,sim_n=1){
+  checkmate::assert_class(HostSwitch_simulated_quantities,"HostSwitch") # class HostSwitch
+  checkmate::assertNumeric(sim_n,lower=1,upper=HostSwitch_simulated_quantities$n_sim)
 
   n_generations <- pRes_max <- pRes_min <- p <- x <- y <- NULL # global variables
 
@@ -33,7 +36,7 @@ plotHostSwitch <- function(HostSwitch_simulated_quantities,sim_n=1){
                              legend.text  = ggplot2::element_text(size=12))
 
   dat= HostSwitch_simulated_quantities[c("pRes_sim","pRes_new_sim","pInd_sim","pInd_whichjump_sim","pInd_whichsurv_sim")]
-  dat = sapply(dat, "[[", sim_n)
+  dat = lapply(dat, "[[", sim_n) # extracts desired simulation for plotting; originally with sapply
   pRes_sim     = data.frame(p=rep("pRes",length(dat$pRes_sim)), y=dat$pRes_sim,x=0:(length(dat$pRes_sim)-1))
   pRes_new_sim = data.frame(p=rep("pRes_new",length(dat$pRes_new_sim)),y=dat$pRes_new_sim,x=0:(length(dat$pRes_new_sim)-1))
 
