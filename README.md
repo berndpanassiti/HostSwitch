@@ -13,12 +13,12 @@ HostSwitch: An R Package to simulate host switching by a parasite
 
 
 
-[R/HostSwitch](https://cran.r-project.org/web/packages/HostSwitch/index.html) is an [R](https://www.r-project.org) package that uses an individual-based model to simulate dispersion and host switch events by a consumer.The host-consumer association refers to any type of symbiotic (sensu lato) biological interaction.
+[R/HostSwitch](https://cran.r-project.org/web/packages/HostSwitch/index.html) is an [R](https://www.r-project.org) package that uses an individual-based model to simulate dispersion and host switch events by a consumer. The host-consumer association refers to any type of symbiotic (<i>sensu lato</i>) biological interaction.
 
 
 #### Installation
 
-Install R/HostSwitch from CRAN using:
+Install [R/HostSwitch](https://cran.r-project.org/web/packages/HostSwitch/index.html) from [CRAN](https://cran.r-project.org) using:
 
 
 ```{r}
@@ -35,7 +35,7 @@ devtools::install_github(repo <- "berndpanassiti/HostSwitch",build_vignettes = T
 
 #### Example use
 
-Try the following example to simulate dispersal and host switch events by a consumer. You can set up a maximum of 20 generations and 3 simulations
+Try the following example to simulate dispersal and host switch events by a consumer. You can set up a maximum of 20 generations and 3 simulations:
 ```{r}
 library (HostSwitch)
 simulated_quantities <- simHostSwitch(seed=123,n_sim=3,n_generation=20)
@@ -49,11 +49,10 @@ summaryHostSwitch(simulated_quantities)
 
 Finally, try `plotHostSwitch` to plot of the simulated quantities and to select a specific simulation use the parameter "n_sim":
 ```{r}
-gg1 <- plotHostSwitch(simulated_quantities, sim_n = 1)
-gg1
+plotHostSwitch(simulated_quantities, sim_n = 1)
 ```
 
-You can compare two "simHostSwitch" objects using the function `testHostSwitch`. The comparison is between three estimated quantities: "j" total number of dispersing events; "s" total number of successful host switch events; "d" distance between the pRes_sim andpRes_new_sim for the generations where a successful host switch occurs, or phenotype distance.The The available tests are:”t” for t-test (parametric), and ”w” for Wilcoxon-test (non-parametric).For this compparison the number of simulation need to be greater than 1.
+You can compare two "simHostSwitch" objects using the function `testHostSwitch`. The comparison is between three estimated quantities: "j" total number of dispersing events; "s" total number of successful host switch events; "d" distance between the pRes_sim andpRes_new_sim for the generations where a successful host switch occurs, or phenotype distance. The The available tests are:”t” for t-test (parametric), and ”w” for Wilcoxon-test (non-parametric).For this compparison the number of simulation need to be greater than 1.
 ```{r}
 m1 <- simHostSwitch(seed=123,n_sim=100,b=10) 
 m2 <- simHostSwitch(seed=123,n_sim=100,b=15) 
@@ -67,5 +66,5 @@ shinyHostSwitch()
 
 #### License
 
-The R/HostSwitch package as a whole is distributed under GPL-3 (GNU General Public License version 3).
+The [R/HostSwitch](https://cran.r-project.org/web/packages/HostSwitch/index.html) package as a whole is distributed under [GPL-3](https://www.gnu.org/licenses/gpl-3.0.en.html) (GNU General Public License version 3).
 
