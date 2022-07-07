@@ -161,9 +161,9 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
   set.seed(seed)
 
 
-  pRes_sim_list           = list()
+  pRes_sim_list           = list()#vector(mode = "list", length = (n_sim*n_generations))
   pRes_new_sim_list       = list()
-  pInd_sim_list           = list()
+  pInd_sim_list           = vector(mode = "list", length = n_sim)
   pInd_jump_sim_list      = list()
   pInd_whichjump_sim_list = list()
   pInd_whichsurv_sim_list = list()
@@ -173,10 +173,10 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
   # record quantities of interest
   pRes_sim           = rep(NA,n_generations) ### at each generation a optimum phenotype that consumers should have to be favored by the current Resource
   pRes_new_sim       = rep(NA,n_generations) ### at each generation a optimum phenotype that consumers should have to be favored by the novel Resource
-  pInd_sim           = list()               # phenotype of individuals at each generation
+  pInd_sim           = vector(mode = "list", length = n_generations+1) # phenotype of individuals at each generation
   pInd_jump_sim      = rep(NA,n_generations)  # number of consumers that disperse
-  pInd_whichjump_sim = list()  # which consumers jumped
-  pInd_whichsurv_sim = list()  # which consumers survived
+  pInd_whichjump_sim = vector(mode = "list", length = n_generations+1) # which consumers jumped
+  pInd_whichsurv_sim = vector(mode = "list", length = n_generations+1) # which consumers survived
 
   pInitial=mean(c(pRes_min,pRes_max)) ### Initial phenotype for the consumer at n=0
   pRes=pInitial; pRes_sim[1]  = pInitial # The sine qua non condition for the simulation to starts is to have the first individual consumer having the phenotype equal to optimum favored by the current host.
@@ -260,17 +260,25 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
 
 
 
-out = list()
-out$pRes_sim           = pRes_sim_list
-out$pRes_new_sim       = pRes_new_sim_list
-out$pInd_sim           = pInd_sim_list
-out$n_generations      = n_generations
-out$pRes_min           = pRes_min
-out$pRes_max           = pRes_max
-out$pInd_jump_sim      = pInd_jump_sim_list
-out$pInd_whichjump_sim = pInd_whichjump_sim_list
-out$pInd_whichsurv_sim = pInd_whichsurv_sim_list
-out$K=K;out$b=b; out$mig=mig; out$sd=sd;out$sigma=sigma;out$n_sim=n_sim;out$jump_back=jump_back;out$seed=seed;out$nInitConsumer=nInitConsumer
+out = list(
+pRes_sim           = pRes_sim_list,
+pRes_new_sim       = pRes_new_sim_list,
+pInd_sim           = pInd_sim_list,
+n_generations      = n_generations,
+pRes_min           = pRes_min,
+pRes_max           = pRes_max,
+pInd_jump_sim      = pInd_jump_sim_list,
+pInd_whichjump_sim = pInd_whichjump_sim_list,
+pInd_whichsurv_sim = pInd_whichsurv_sim_list,
+K                  = K,
+b                  = b,
+mig                = mig,
+sd                 = sd,
+sigma              = sigma,
+n_sim              = n_sim,
+jump_back          = jump_back,
+seed               = seed,
+nInitConsumer      = nInitConsumer)
 class(out) = "HostSwitch"
 
   return(out)
@@ -333,21 +341,21 @@ summaryHostSwitch = function(HostSwitch_simulated_quantities,warmup = 1){
   checkmate::assertCount(warmup,positive=TRUE,null.ok = TRUE);checkmate::assertNumeric(warmup,upper=50,null.ok = TRUE) # warmup
 
   # compute mean for each simulation
-  out=list()
-  out$n_generations = HostSwitch_simulated_quantities$n_generations
-  out$pRes_min      = HostSwitch_simulated_quantities$pRes_min
-  out$pRes_max      = HostSwitch_simulated_quantities$pRes_max
-  out$K             = HostSwitch_simulated_quantities$K
-  out$b             = HostSwitch_simulated_quantities$b
-  out$mig           = HostSwitch_simulated_quantities$mig
-  out$sd            = HostSwitch_simulated_quantities$sd
-  out$sigma         = HostSwitch_simulated_quantities$sigma
-  out$n_sim         = HostSwitch_simulated_quantities$n_sim
-  out$jump_back     = HostSwitch_simulated_quantities$jump_back
-  out$seed          = HostSwitch_simulated_quantities$seed
-  out$nInitConsumer = HostSwitch_simulated_quantities$nInitConsumer
-  out$warmup        = warmup
-
+  out=list(
+  n_generations = HostSwitch_simulated_quantities$n_generations,
+  pRes_min      = HostSwitch_simulated_quantities$pRes_min,
+  pRes_max      = HostSwitch_simulated_quantities$pRes_max,
+  K             = HostSwitch_simulated_quantities$K,
+  b             = HostSwitch_simulated_quantities$b,
+  mig           = HostSwitch_simulated_quantities$mig,
+  sd            = HostSwitch_simulated_quantities$sd,
+  sigma         = HostSwitch_simulated_quantities$sigma,
+  n_sim         = HostSwitch_simulated_quantities$n_sim,
+  jump_back     = HostSwitch_simulated_quantities$jump_back,
+  seed          = HostSwitch_simulated_quantities$seed,
+  nInitConsumer = HostSwitch_simulated_quantities$nInitConsumer,
+  warmup        = warmup
+)
 
   # exclude warmup
   if (length(warmup)>0){
