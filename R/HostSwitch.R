@@ -161,12 +161,12 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
   set.seed(seed)
 
 
-  pRes_sim_list           = list()#vector(mode = "list", length = (n_sim*n_generations))
-  pRes_new_sim_list       = list()
+  pRes_sim_list           = vector(mode = "list", length = n_sim)
+  pRes_new_sim_list       = vector(mode = "list", length = n_sim)
   pInd_sim_list           = vector(mode = "list", length = n_sim)
-  pInd_jump_sim_list      = list()
-  pInd_whichjump_sim_list = list()
-  pInd_whichsurv_sim_list = list()
+  pInd_jump_sim_list      = vector(mode = "list", length = n_sim)
+  pInd_whichjump_sim_list = vector(mode = "list", length = n_sim)
+  pInd_whichsurv_sim_list = vector(mode = "list", length = n_sim)
 
   for (i in 1:n_sim){
 
@@ -246,13 +246,13 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sig
   pRes_sim     = pRes_sim[!is.na(pRes_sim)]         # remove NA
   pRes_new_sim = pRes_new_sim[!is.na(pRes_new_sim)] # remove NA
 
-# length + 1 for new simlation
-  pRes_sim_list[[length(pRes_sim_list) + 1]]                     = pRes_sim
-  pRes_new_sim_list[[length(pRes_new_sim_list) + 1]]             = pRes_new_sim
-  pInd_sim_list[[i]]                                             = pInd_sim
-  pInd_jump_sim_list[[length(pInd_jump_sim_list) + 1]]           = pInd_jump_sim
-  pInd_whichjump_sim_list[[length(pInd_whichjump_sim_list) + 1]] = pInd_whichjump_sim
-  pInd_whichsurv_sim_list[[length(pInd_whichsurv_sim_list) + 1]] = pInd_whichsurv_sim
+  # assign new simlations to prelocated lists
+  pRes_sim_list[[i]]           = pRes_sim
+  pRes_new_sim_list[[i]]       = pRes_new_sim
+  pInd_sim_list[[i]]           = pInd_sim
+  pInd_jump_sim_list[[i]]      = pInd_jump_sim
+  pInd_whichjump_sim_list[[i]] = pInd_whichjump_sim
+  pInd_whichsurv_sim_list[[i]] = pInd_whichsurv_sim
 
 }
 
