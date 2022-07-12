@@ -1,24 +1,35 @@
 #' Survival probability of the Consumer in a novel Resource
 #'
-#' @param pInd Phenotype of ith Consumer attempting to disperse on the novel Resource
-#' @param pOpt The optimum phenotype the Consumer should have to maximize the colonization success
-#' @param sigma Standard deviation of the survival function (see Details for more explanations)
-#' @details This function calculates the survival probability of individual consumers that attempt dispersal to a new host. It is the core function of \code{\link{simHostSwitch}}.
-#' The probability of survival of each individual of the consumer to a novel Resource follows a normal distribution.
-#' The formula is formalized as follows \deqn{P(pInd,pOpt) = e^{-\frac{(pInd-pOpt)^2}{2\sigma^2}}}
-#' The normalizing constant \deqn{ NC = \frac{1}{\sigma(\sqrt(2\pi))}} is ignored here.\\
-#' "Sigma" the higher the sigma, the lower the selection and the higher the probability of surviving. Ecologically this value may be related to the niche breadth for the Consumer (species).
+#' @param pInd Phenotype of ith Consumer attempting to disperse on the novel
+#' Resource
+#' @param pOpt The optimum phenotype the Consumer should have to maximize the
+#' colonization success
+#' @param sigma Standard deviation of the survival function (see Details for
+#' more explanations)
+#' @details This function calculates the survival probability of individual
+#' consumers that attempt dispersal to a new host. It is the core function
+#' of \code{\link{simHostSwitch}}.
+#' The probability of survival of each individual of the consumer to a novel
+#' Resource follows a normal distribution.
+#' The formula is formalized as follows \deqn{P(pInd,pOpt) =
+#' e^{-\frac{(pInd-pOpt)^2}{2\sigma^2}}}
+#' The normalizing constant \deqn{ NC = \frac{1}{\sigma(\sqrt(2\pi))}} is
+#' ignored here.\\
+#' "Sigma" the higher the sigma, the lower the selection and the higher the
+#' probability of surviving. Ecologically this value may be related to the
+#' niche breadth for the Consumer (species).
 #' @return The survival probability of the consumer
 #' @examples
 #' ## Example 1a - The ith consumer has the phenotype that maximize its
-#' ## colonization success on the new host, then pInd is equal to pOpt (pInd = pOpt),
-#' ## and the survival probability is 1.
+#' ## colonization success on the new host, then pInd is equal to pOpt
+#' ## (pInd = pOpt), and the survival probability is 1.
 #' survivalProbability(pInd=5,pOpt=5,sigma=1)
 #'
 #' ## Example 1b - Increasing |pInd-pOpt| the survival probability decreases
 #' survivalProbability(pInd=5,pOpt=30,sigma=1)
 #'
-#' ## Example 1c - Give a |pInd-pOpt|> 1, increases sigma the survival probability increases
+#' ## Example 1c - Give a |pInd-pOpt|> 1, increases sigma the survival
+#' ## probability increases
 #' survivalProbability(pInd=5,pOpt=30,sigma=1)
 #'
 #'
@@ -29,50 +40,97 @@ survivalProbability = function(pInd,pOpt,sigma){
 }
 
 
-#' Simulates the number of dispersion and successful host switch events by individuals of the Consumer until all individuals die.
-#' @param data A matrix or dataset, the columns may indicate different types of Consumes characterized by a specific set of parameters (rows), see details. Default value: NULL.
-#' @param column Used together with data argument; indicate the column name, string. Default value: NULL.
-#' @param K Carrying capacity, positive integer (min=1, max=1000), default value: 100.
-#' @param b net reproduction rate; average number of offspring that a population of the Consumer produces at each generation, numeric value (min=0), default value: 10.
-#' @param mig define the proportion of successful migrating individuals at each generation, numeric value (min=0, max=1), default value: 0.01.
-#' @param sd Standard deviation for mutation, numeric value (min=0, max=10), default value: 0.2.
-#' @param sigma Standard deviation of the survival function, numeric value (min=0, max=10), default value: 1.
-#' @param pRes_min  smallest optimum phenotype value imposed by the Resource, numeric value (min=1, max=pRes_max), default value: 1.
-#' @param pRes_max highest optimum phenotype value imposed by the Resource, numeric value (min=pRes_min, max=100), default value: 10.
-#' @param n_generations Number of generations, positive integer (min=1, max=50000), default value: 200.
-#' @param jump_back Option for consumers that do not survive on the novel resource. If "yes" the consumer(s) jump back to the current resource and will be considered in the selective pressure and reproduction stage for the n+1 generation, if "no" (default) it dies on the new host.
-#' @param seed a single value useful for creating simulations or random objects that can be reproduced, positive integer (>0), default value: NULL.
-#' @param n_sim Number of simulations, positive integer (min=1, max = 50000), default value: 1.
-#' @param nInitConsumer propagule size (or number of initial individuals) at the generation n = 0, default value: 20.
+#' Simulates the number of dispersion and successful host switch events by
+#' individuals of the Consumer until all individuals die.
+#' @param data A matrix or dataset, the columns may indicate different types
+#' of Consumes characterized by a specific set of parameters (rows),
+#' see details. Default value: NULL.
+#' @param column Used together with data argument; indicate the column name,
+#' string. Default value: NULL.
+#' @param K Carrying capacity, positive integer (min=1, max=1000), default
+#' value: 100.
+#' @param b net reproduction rate; average number of offspring that a
+#' population of the Consumer produces at each generation, numeric value
+#' (min=0), default value: 10.
+#' @param mig define the proportion of successful migrating individuals at
+#' each generation, numeric value (min=0, max=1), default value: 0.01.
+#' @param sd Standard deviation for mutation, numeric value (min=0, max=10),
+#' default value: 0.2.
+#' @param sigma Standard deviation of the survival function, numeric value
+#' (min=0, max=10), default value: 1.
+#' @param pRes_min  smallest optimum phenotype value imposed by the Resource,
+#' numeric value (min=1, max=pRes_max), default value: 1.
+#' @param pRes_max highest optimum phenotype value imposed by the Resource,
+#' numeric value (min=pRes_min, max=100), default value: 10.
+#' @param n_generations Number of generations, positive integer (min=1,
+#' max=50000), default value: 200.
+#' @param jump_back Option for consumers that do not survive on the novel
+#' resource. If "yes" the consumer(s) jump back to the current resource and
+#' will be considered in the selective pressure and reproduction stage for
+#' the n+1 generation, if "no" (default) it dies on the new host.
+#' @param seed a single value useful for creating simulations or random objects
+#' that can be reproduced, positive integer (>0), default value: NULL.
+#' @param n_sim Number of simulations, positive integer (min=1, max = 50000),
+#' default value: 1.
+#' @param nInitConsumer propagule size (or number of initial individuals) at
+#' the generation n = 0, default value: 20.
 #' @details
-#' This function simulates the number of host switches by the population of a consumer.
-#' There are 2 ways to provide parameters to the \code{\link{simHostSwitch}} function:
+#' This function simulates the number of host switches by the population of
+#' a consumer.
+#' There are 2 ways to provide parameters to the \code{\link{simHostSwitch}}
+#' function:
 #' \describe{
-#'   \item{data}{\bold{"data","column"}: Provide names of matrix/dataframe and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
-#'   \item{parameter}{\bold{individual parameter}: e.g. b=5, n_generations=500, etc...}
+#'   \item{data}{\bold{"data","column"}: Provide names of matrix/dataframe
+#'         and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
+#'   \item{parameter}{\bold{individual parameter}: e.g. b=5, n_generations=500,
+#'         etc...}
 #' }
-#'If no data/column or individual parameters are provided, default parameter values are used.
-#'The rownames of the data must match the parameter argument names. You may use one of the \code{\link{parli}}
-#'datasets as a template.\cr\cr
+#' If no data/column or individual parameters are provided, default parameter
+#' values are used.
+#' The rownames of the data must match the parameter argument names. You may
+#' use one of the \code{\link{parli}}
+#' datasets as a template.\cr\cr
 #' Results are stored to an object of class \sQuote{HostSwitch}.
-#' to make use of summary and plotting functions in the \pkg{HostSwitch} package.
-#' Please note that when arguments "data" and "column" are provided, the results are stored to the global environment
-#' using the colname provided to the argument "column" (in our example above Cb.mLxjN).
+#' to make use of summary and plotting functions in the \pkg{HostSwitch}
+#' package.
+#' Please note that when arguments "data" and "column" are provided, the
+#' results are stored to the global environment
+#' using the colname provided to the argument "column" (in our example
+#' above Cb.mLxjN).
 #' \cr\cr
-#' The object of class \sQuote{'HostSwitch} includes the following simulated quantities:
+#' The object of class \sQuote{'HostSwitch} includes the following simulated
+#' quantities:
 #' \describe{
-#'   \item{pRes_sim}{\bold{$pRes_sim}:  a vector of the optimum phenotypes (one for each generation) that Consumers should have to be favored by the current Resource.}
-#'   \item{pRes_new_sim}{\bold{$pRes_new_sim}: a vector of the optimum phenotypes (one for each generation) that Consumers should have to be favored by the novel Resource.}
-#'   \item{pInd_sim}{\bold{$pInd_sim}: list of vectors that includes the individual phenotype values of the Consumers in the population of each generation.}
-#'   \item{pInd_jump_sim}{\bold{$pInd_jump_sim}: vector of number of migrating individuals at each generation. The vector length is always equal to the 'n_generation' parameter, if the simulation ends before the 'n_generation' value then the vector will include a 'NA' by default.}
-#'   \item{pInd_whichjump_sim}{\bold{$pInd_whichjump_sim}: list of vectors that extracts the individual phenotype values of the Consumers who disperse in a novel Resource in each population and generation.}
-#'   \item{pInd_whichsurv_sim}{\bold{$pInd_whichsurv_sim}: list of vectors that extracts the individual phenotype values of the Consumers who successful colonize a novel Resource in each population and generation.}
+#'   \item{pRes_sim}{\bold{$pRes_sim}:  a vector of the optimum phenotypes
+#'   (one for each generation) that Consumers should have to be favored by
+#'   the current Resource.}
+#'   \item{pRes_new_sim}{\bold{$pRes_new_sim}: a vector of the optimum phenotypes
+#'   (one for each generation) that Consumers should have to be favored by the
+#'   novel Resource.}
+#'   \item{pInd_sim}{\bold{$pInd_sim}: list of vectors that includes the
+#'   individual phenotype values of the Consumers in the population of
+#'   each generation.}
+#'   \item{pInd_jump_sim}{\bold{$pInd_jump_sim}: vector of number of migrating
+#'   individuals at each generation. The vector length is always equal to the
+#'   'n_generation' parameter, if the simulation ends before the 'n_generation'
+#'   value then the vector will include a 'NA' by default.}
+#'   \item{pInd_whichjump_sim}{\bold{$pInd_whichjump_sim}: list of vectors that
+#'   extracts the individual phenotype values of the Consumers who disperse in
+#'   a novel Resource in each population and generation.}
+#'   \item{pInd_whichsurv_sim}{\bold{$pInd_whichsurv_sim}: list of vectors that
+#'   extracts the individual phenotype values of the Consumers who successful
+#'   colonize a novel Resource in each population and generation.}
 #' }
-#' These simulated quantities of interest are available for each generation step and can be used for summary statistics and plots using functions \code{\link{summaryHostSwitch}} and \code{\link{plotHostSwitch}}, respectively.\cr
+#' These simulated quantities of interest are available for each generation step
+#' and can be used for summary statistics and plots using functions
+#' \code{\link{summaryHostSwitch}} and \code{\link{plotHostSwitch}},
+#' respectively.\cr
 #'
-#' Note: One important aspect of \emph{simHostswitch} is that it is based on the \code{\link{survivalProbability}} function.
+#' Note: One important aspect of \emph{simHostswitch} is that it is based on
+#' the \code{\link{survivalProbability}} function.
 #'
-#' @seealso \code{\link{survivalProbability}}, \code{\link{summaryHostSwitch}}, \code{\link{plotHostSwitch}}
+#' @seealso \code{\link{survivalProbability}}, \code{\link{summaryHostSwitch}},
+#' \code{\link{plotHostSwitch}}
 #'
 #' @return An object of class \sQuote{HostSwitch}.
 #' @examples
@@ -89,7 +147,9 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' @export
 
 
-simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,sigma=1, pRes_min=1, pRes_max=10,n_generations=200,jump_back='no',seed=NULL, n_sim=1,nInitConsumer=20){
+simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,
+                        sigma=1, pRes_min=1, pRes_max=10,n_generations=200,
+                        jump_back='no',seed=NULL, n_sim=1,nInitConsumer=20){
   fctArgs <- match.call()
 
   if(!is.null(data)){

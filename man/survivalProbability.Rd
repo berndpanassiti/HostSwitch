@@ -7,11 +7,14 @@
 survivalProbability(pInd, pOpt, sigma)
 }
 \arguments{
-\item{pInd}{Phenotype of ith Consumer attempting to disperse on the novel Resource}
+\item{pInd}{Phenotype of ith Consumer attempting to disperse on the novel
+Resource}
 
-\item{pOpt}{The optimum phenotype the Consumer should have to maximize the colonization success}
+\item{pOpt}{The optimum phenotype the Consumer should have to maximize the
+colonization success}
 
-\item{sigma}{Standard deviation of the survival function (see Details for more explanations)}
+\item{sigma}{Standard deviation of the survival function (see Details for
+more explanations)}
 }
 \value{
 The survival probability of the consumer
@@ -20,22 +23,30 @@ The survival probability of the consumer
 Survival probability of the Consumer in a novel Resource
 }
 \details{
-This function calculates the survival probability of individual consumers that attempt dispersal to a new host. It is the core function of \code{\link{simHostSwitch}}.
-The probability of survival of each individual of the consumer to a novel Resource follows a normal distribution.
-The formula is formalized as follows \deqn{P(pInd,pOpt) = e^{-\frac{(pInd-pOpt)^2}{2\sigma^2}}}
-The normalizing constant \deqn{ NC = \frac{1}{\sigma(\sqrt(2\pi))}} is ignored here.\\
-"Sigma" the higher the sigma, the lower the selection and the higher the probability of surviving. Ecologically this value may be related to the niche breadth for the Consumer (species).
+This function calculates the survival probability of individual
+consumers that attempt dispersal to a new host. It is the core function
+of \code{\link{simHostSwitch}}.
+The probability of survival of each individual of the consumer to a novel
+Resource follows a normal distribution.
+The formula is formalized as follows \deqn{P(pInd,pOpt) =
+e^{-\frac{(pInd-pOpt)^2}{2\sigma^2}}}
+The normalizing constant \deqn{ NC = \frac{1}{\sigma(\sqrt(2\pi))}} is
+ignored here.\\
+"Sigma" the higher the sigma, the lower the selection and the higher the
+probability of surviving. Ecologically this value may be related to the
+niche breadth for the Consumer (species).
 }
 \examples{
 ## Example 1a - The ith consumer has the phenotype that maximize its
-## colonization success on the new host, then pInd is equal to pOpt (pInd = pOpt),
-## and the survival probability is 1.
+## colonization success on the new host, then pInd is equal to pOpt
+## (pInd = pOpt), and the survival probability is 1.
 survivalProbability(pInd=5,pOpt=5,sigma=1)
 
 ## Example 1b - Increasing |pInd-pOpt| the survival probability decreases
 survivalProbability(pInd=5,pOpt=30,sigma=1)
 
-## Example 1c - Give a |pInd-pOpt|> 1, increases sigma the survival probability increases
+## Example 1c - Give a |pInd-pOpt|> 1, increases sigma the survival
+## probability increases
 survivalProbability(pInd=5,pOpt=30,sigma=1)
 
 
