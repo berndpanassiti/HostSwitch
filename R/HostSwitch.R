@@ -153,6 +153,7 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,
   fctArgs <- match.call()
 
   if(!is.null(data)){
+    # if data is not null, 1 column needs to be selected
     checkmate::assert(checkmate::checkMatrix(data),checkmate::checkDataFrame(data))
     checkmate::assertCharacter(column)
     checkmate::assertString(column)
@@ -160,47 +161,86 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,
     if (!column %in% colnames(data)) {
       stop(column, " not a colname of data")
     }
-  usedParamters=NULL
-  if('K' %in% names(data[,column])){K = as.numeric(data[,column]['K']);usedParamters=append(usedParamters,"K")}
-  if('b' %in% names(data[,column])){b = as.numeric(data[,column]['b']);usedParamters=append(usedParamters,"b")}
-  if('mig' %in% names(data[,column])){mig = as.numeric(data[,column]['mig']);usedParamters=append(usedParamters,"mig")}
-  if('sd' %in% names(data[,column])){sd = as.numeric(data[,column]['sd']);usedParamters=append(usedParamters,"sd")}
-  if('sigma' %in% names(data[,column])){sigma = as.numeric(data[,column]['sigma']);usedParamters=append(usedParamters,"sigma")}
-  if('pRes_min' %in% names(data[,column])){pRes_min = as.numeric(data[,column]['pRes_min']);usedParamters=append(usedParamters,"pRes_min")}
-  if('pRes_max' %in% names(data[,column])){pRes_max = as.numeric(data[,column]['pRes_max']);usedParamters=append(usedParamters,"pRes_max")}
-  if('n_generations' %in% names(data[,column])){n_generations = as.numeric(data[,column]['n_generations']);usedParamters=append(usedParamters,"n_generations")}
-  if('jump_back' %in% names(data[,column])){jump_back = data[,column]['jump_back'];usedParamters=append(usedParamters,"jump_back")}
-  if('seed' %in% names(data[,column])){seed = as.numeric(data[,column]['seed']);usedParamters=append(usedParamters,"seed")}
-  if('n_sim' %in% names(data[,column])){n_sim = as.numeric(data[,column]['n_sim']);usedParamters=append(usedParamters,"n_sim")}
-  if('nInitConsumer' %in% names(data[,column])){n_sim = as.numeric(data[,column]['nInitConsumer']);usedParamters=append(usedParamters,"nInitConsumer")}
-  #print(paste("Parameters provided from your data are: ",do.call(paste, c(as.list(usedParamters), sep = ",")),sep=""))
 
-   # overwrite if single arguments are provided additionally to dataset
-  if("K" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "K");K = fctArgs[[ArgPosition]]}
-  if("b" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "b");b = fctArgs[[ArgPosition]]}
-  if("mig" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "mig");mig = fctArgs[[ArgPosition]]}
-  if("sd" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "sd");sd = fctArgs[[ArgPosition]]}
-  if("sigma" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "sigma");sigma = fctArgs[[ArgPosition]]}
-  if("pRes_min" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "pRes_min");pRes_min = fctArgs[[ArgPosition]]}
-  if("pRes_max" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "pRes_max");pRes_max = fctArgs[[ArgPosition]]}
-  if("n_generations" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "n_generations");n_generations = fctArgs[[ArgPosition]]}
-  if("jump_back" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "jump_back");jump_back = fctArgs[[ArgPosition]]}
-  if("seed" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "seed");seed = fctArgs[[ArgPosition]]}
-  if("n_sim" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "n_sim");n_sim = fctArgs[[ArgPosition]]}
-  if("nInitConsumer" %in% names(fctArgs)){
-    ArgPosition = which(names(fctArgs) == "nInitConsumer");nInitConsumer = fctArgs[[ArgPosition]]}
-}
+
+    # check if parameter are available in specified column
+    # of provided dataset if yes, overwrite default arguments
+
+    if('K' %in% names(data[,column])){
+      K = as.numeric(data[,column]['K'])}
+
+    if('b' %in% names(data[,column])){
+      b = as.numeric(data[,column]['b'])}
+
+    if('mig' %in% names(data[,column])){
+      mig = as.numeric(data[,column]['mig'])}
+
+    if('sd' %in% names(data[,column])){
+      sd = as.numeric(data[,column]['sd'])}
+
+    if('sigma' %in% names(data[,column])){
+      sigma = as.numeric(data[,column]['sigma'])}
+
+    if('pRes_min' %in% names(data[,column])){
+      pRes_min = as.numeric(data[,column]['pRes_min'])}
+
+    if('pRes_max' %in% names(data[,column])){
+      pRes_max = as.numeric(data[,column]['pRes_max'])}
+
+    if('n_generations' %in% names(data[,column])){
+      n_generations = as.numeric(data[,column]['n_generations'])}
+
+    if('jump_back' %in% names(data[,column])){
+      jump_back = data[,column]['jump_back']}
+
+    if('seed' %in% names(data[,column])){
+      seed = as.numeric(data[,column]['seed'])}
+
+    if('n_sim' %in% names(data[,column])){
+      n_sim = as.numeric(data[,column]['n_sim'])}
+
+    if('nInitConsumer' %in% names(data[,column])){
+      n_sim = as.numeric(data[,column]['nInitConsumer'])}
+
+    # overwrite if single arguments are provided additionally to dataset
+    # in next version include overwrite message to warn user
+    if("K" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "K")
+      K = fctArgs[[ArgPosition]]}
+    if("b" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "b")
+      b = fctArgs[[ArgPosition]]}
+    if("mig" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "mig")
+      mig = fctArgs[[ArgPosition]]}
+    if("sd" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "sd")
+      sd = fctArgs[[ArgPosition]]}
+    if("sigma" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "sigma")
+      sigma = fctArgs[[ArgPosition]]}
+    if("pRes_min" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "pRes_min")
+      pRes_min = fctArgs[[ArgPosition]]}
+    if("pRes_max" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "pRes_max")
+      pRes_max = fctArgs[[ArgPosition]]}
+    if("n_generations" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "n_generations")
+      n_generations = fctArgs[[ArgPosition]]}
+    if("jump_back" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "jump_back")
+      jump_back = fctArgs[[ArgPosition]]}
+    if("seed" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "seed")
+      seed = fctArgs[[ArgPosition]]}
+    if("n_sim" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "n_sim")
+      n_sim = fctArgs[[ArgPosition]]}
+    if("nInitConsumer" %in% names(fctArgs)){
+      ArgPosition = which(names(fctArgs) == "nInitConsumer")
+      nInitConsumer = fctArgs[[ArgPosition]]}
+  }
 
   # check on parameters
   checkmate::assertCount(K,positive=TRUE);checkmate::assertNumeric(K,upper=1000) # K

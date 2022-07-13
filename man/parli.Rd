@@ -55,7 +55,8 @@ The parameters are classified in three groups:
 \itemize{
   \item{Arbitrary varying: mig}
   \item{Arbitrary fixed: K, N-generations, seed, n_sim, pRes_min, pRes_max}
-  \item{From real data: b, sigma, and sd (Kim et al. 2021; van Dorp et al. 2020)}
+  \item{From real data: b, sigma, and sd (Kim et al. 2021;
+        van Dorp et al. 2020)}
 }
 The column name acronyms are assigned after:
 \itemize{
