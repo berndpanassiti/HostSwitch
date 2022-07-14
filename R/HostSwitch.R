@@ -242,21 +242,13 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,
       nInitConsumer = fctArgs[[ArgPosition]]}
   }
 
-  # check on parameters
-  checkmate::assertCount(K,positive=TRUE);checkmate::assertNumeric(K,upper=1000) # K
-  checkmate::assertNumeric(b,lower=0,upper=K) # b
-  checkmate::assertNumeric(mig,lower=0,upper=1) # mig
-  checkmate::assertNumeric(sd,lower=0,upper=10) # sd
-  checkmate::assertNumeric(sigma,lower=0,upper=10) # sigma
-  checkmate::assertNumeric(pRes_min,lower=0,upper=pRes_max) # pRes_min
-  checkmate::assertNumeric(pRes_min,lower=pRes_min,upper=100) # pRes_max
-  checkmate::assertCount(n_generations,positive=TRUE);checkmate::assertNumeric(n_generations,upper=50000) # n_generations
-  checkmate::assertChoice(jump_back, c("no","yes"))
-  checkmate::assertCount(seed,positive=TRUE,null.ok = TRUE) # seed
-  checkmate::assertCount(n_sim,positive=TRUE);checkmate::assertNumeric(n_sim,upper=50000) # n_sim
-  checkmate::assertCount(nInitConsumer,positive=TRUE);checkmate::assertNumeric(nInitConsumer,upper=K) # nInitConsumer
+  # check on parameters calling internal check_valid_parameter fct
+  df_params = list(K=K,b=b,mig=mig,sd=sd,sigma=sigma,pRes_min=pRes_min,
+                   pRes_max=pRes_max,n_generations=n_generations,
+                   jump_back=jump_back,seed=seed,n_sim=n_sim,
+                   nInitConsumer=nInitConsumer)
 
-
+  check_valid_parameters(df_params) # internal function
 
   set.seed(seed)
 
@@ -438,7 +430,7 @@ summaryHostSwitch = function(HostSwitch_simulated_quantities,warmup = 1){
 
   # input checks
   checkmate::assert_class(HostSwitch_simulated_quantities,"HostSwitch") # class HostSwitch
-  checkmate::assertCount(warmup,positive=TRUE,null.ok = TRUE);checkmate::assertNumeric(warmup,upper=50,null.ok = TRUE) # warmup
+  checkmate::assertInt(warmup,lower=1,upper=50,null.ok = TRUE) # warmup
 
   # compute mean for each simulation
   out=list(
