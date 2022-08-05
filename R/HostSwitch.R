@@ -28,8 +28,8 @@
 #' ## Example 1b - Increasing |pInd-pOpt| the survival probability decreases
 #' survivalProbability(pInd=5,pOpt=30,sigma=1)
 #'
-#' ## Example 1c - Give a |pInd-pOpt|> 1, increases sigma the survival
-#' ## probability increases
+#' ## Example 1c - Given a |pInd-pOpt|> 1, increasing sigma results in
+#' ## increased survival probability
 #' survivalProbability(pInd=5,pOpt=30,sigma=1)
 #'
 #'
@@ -501,7 +501,7 @@ if (out$n_sim>1){
     summaryP[3,] = round(as.numeric(plyr::laply(HostSwitch_simulated_quantities$pInd_sim, function(x) mean(unlist(x)))),2)
     out$summaryP=summaryP
 
-    # summary table of jumps and successfult host switches
+    # summary table of jumps and successfull host switches
     summaryHS = data.frame(matrix(NA, ncol = 1, nrow = 2))
     rownames(summaryHS) = c("Total events of dispersion:","Number of successful host switches:")
     colnames(summaryHS) = c("Value (simulation average)")

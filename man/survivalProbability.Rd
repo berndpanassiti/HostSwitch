@@ -45,8 +45,8 @@ survivalProbability(pInd=5,pOpt=5,sigma=1)
 ## Example 1b - Increasing |pInd-pOpt| the survival probability decreases
 survivalProbability(pInd=5,pOpt=30,sigma=1)
 
-## Example 1c - Give a |pInd-pOpt|> 1, increases sigma the survival
-## probability increases
+## Example 1c - Given a |pInd-pOpt|> 1, increasing sigma results in
+## increased survival probability
 survivalProbability(pInd=5,pOpt=30,sigma=1)
 
 

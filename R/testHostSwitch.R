@@ -49,17 +49,25 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,
   checkmate::assert_class(simulated_quantities1,"HostSwitch") #class HostSwitch
   checkmate::assert_class(simulated_quantities2,"HostSwitch") #class HostSwitch
   checkmate::assertChoice(parameter, c("d", "j","s")) # parameter
-  checkmate::assertChoice(test, c("t","w")) # test
+  checkmate::assertChoice(test, c("w","t")) # test
   checkmate::assertChoice(plot, c(TRUE,FALSE)) # plot
   checkmate::assertCount(warmup,positive=TRUE,null.ok = TRUE)
   checkmate::assertNumeric(warmup,upper=50,null.ok = TRUE) # warmup
-
 
 
   values <- NULL # global variables
 
   out=list()
   n_sim1 = simulated_quantities1$n_sim; n_sim2 = simulated_quantities2$n_sim
+
+  if (n_sim1 <2){
+    warning("The number of simulations for 'simulated_quantities1' is < 2. For comparisons, we recommend at least n_sim = 2", call. = F)
+  }
+
+  if (n_sim2 <2){
+    warning("The number of simulations for 'simulated_quantities2' is < 2. For comparisons, we recommend at least n_sim = 2", call. = F)
+  }
+
   n_generations1 = simulated_quantities1$n_generations
   n_generations2 = simulated_quantities2$n_generations
 
