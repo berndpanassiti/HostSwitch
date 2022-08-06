@@ -6,7 +6,6 @@ Authors@R: c(
     person("Valeria", "Trivellone", email = "valeria.trivellone@gmail.com", role = c("aut"),comment=c(ORCID="0000-0003-1415-4097")),
     person(c("Sabrina", "B.L."), "Araujo", email = "araujosbl@gmail.com", role = c("aut"),comment=c(ORCID="0000-0002-8759-8310")),
     person("Bernd", "Panassiti", email = "bernd.panassiti@gmail.com", role = c("cre","aut"),comment=c(ORCID="0000-0002-5899-4584")))
-Maintainer: Bernd Panassiti <bernd.panassiti@gmail.com>
 Description: Using a simulation-based approach, the 'HostSwitch' package provides functions to investigate host switches by consumers.
     The individual-based model is based on the concept of ecological fitting.
     The mockup model is published by Araujo et al. 2015. Understanding Host-Switching by Ecological Fitting (<doi:10.1371/journal.pone.0139225>).
