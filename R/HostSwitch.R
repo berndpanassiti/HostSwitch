@@ -143,7 +143,6 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' \dontrun{
 #' simHostSwitch(sigma=100)}
 #'
-#' @import checkmate
 #' @export
 
 
@@ -419,9 +418,6 @@ methods::setMethod("show",signature = "summaryHostSwitch", definition = function
 #' m1 = simHostSwitch(n_sim=100)
 #'
 #' summaryHostSwitch(m1)
-#' @import checkmate
-#' @import methods
-#' @import plyr
 #' @export
 
 
@@ -467,9 +463,9 @@ if (out$n_sim>1){
   summaryP = data.frame(matrix(NA, ncol = 6, nrow = 3))
   rownames(summaryP) = c("pRes","pRes_new","pInd")
   colnames(summaryP) = c("Min.", "1st Qu.",  "Median" ,   "Mean", "3rd Qu.",    "Max.")
-  summaryP[1,] = round(summary(plyr::laply(HostSwitch_simulated_quantities$pRes_sim,mean)),2)
-  summaryP[2,] = round(summary(as.numeric(na.omit(plyr::laply(HostSwitch_simulated_quantities$pRes_new_sim,mean)))),2)
-  summaryP[3,] = round(summary(as.numeric(na.omit(plyr::laply(HostSwitch_simulated_quantities$pInd_sim, function(x) mean(unlist(x)))))),2)
+  summaryP[1,] = round(summary(unlist(lapply(HostSwitch_simulated_quantities$pRes_sim,mean))),2)
+  summaryP[2,] = round(summary(as.numeric(stats::na.omit(unlist(lapply(HostSwitch_simulated_quantities$pRes_new_sim,mean))))),2)
+  summaryP[3,] = round(summary(as.numeric(stats::na.omit(unlist(lapply(HostSwitch_simulated_quantities$pInd_sim, function(x) mean(unlist(x))))))),2)
   out$summaryP=summaryP
 
   # summary table of jumps and successfult host switches
@@ -477,8 +473,8 @@ if (out$n_sim>1){
   rownames(summaryHS) = c("Total events of dispersion:","Number of successful host switches:")
   colnames(summaryHS) = c("Mean", "Max")
   ## calculate jumps
-  summaryHS[1,] = c(round(mean(plyr::laply(HostSwitch_simulated_quantities$pInd_jump_sim,function(x) length(which(x>0)))),2),
-                    round(max(plyr::laply(HostSwitch_simulated_quantities$pInd_jump_sim,function(x) length(which(x>0)))),2))
+  summaryHS[1,] = c(round(mean(unlist(lapply(HostSwitch_simulated_quantities$pInd_jump_sim,function(x) length(which(x>0))))),2),
+                    round(max(unlist(lapply(HostSwitch_simulated_quantities$pInd_jump_sim,function(x) length(which(x>0))))),2))
 
   ## calculate successful host switches
   sucessfullHS = rep(0,out$n_sim)
@@ -496,9 +492,9 @@ if (out$n_sim>1){
     summaryP = data.frame(matrix(NA, ncol = 1, nrow = 3))
     rownames(summaryP) = c("pRes","pRes_new","pInd")
     colnames(summaryP) = c("Value (simulation average)")
-    summaryP[1,] = round(as.numeric(plyr::laply(HostSwitch_simulated_quantities$pRes_sim,mean)),2)
-    summaryP[2,] = round(as.numeric(plyr::laply(HostSwitch_simulated_quantities$pRes_new_sim,mean)),2)
-    summaryP[3,] = round(as.numeric(plyr::laply(HostSwitch_simulated_quantities$pInd_sim, function(x) mean(unlist(x)))),2)
+    summaryP[1,] = round(as.numeric(unlist(lapply(HostSwitch_simulated_quantities$pRes_sim,mean))),2)
+    summaryP[2,] = round(as.numeric(unlist(lapply(HostSwitch_simulated_quantities$pRes_new_sim,mean))),2)
+    summaryP[3,] = round(as.numeric(unlist(lapply(HostSwitch_simulated_quantities$pInd_sim, function(x) mean(unlist(x))))),2)
     out$summaryP=summaryP
 
     # summary table of jumps and successfull host switches

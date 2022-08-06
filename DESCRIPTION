@@ -23,7 +23,6 @@ Imports:
     utils,
     checkmate (>= 2.1.0),
     methods,
-    plyr,
     purrr,
     tippy
 Suggests: 

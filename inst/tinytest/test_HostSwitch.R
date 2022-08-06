@@ -63,6 +63,7 @@ pRes_min = 10
 pRes_max = 30
 simulatedQuantities = simHostSwitch(pRes_min = pRes_min, pRes_max = pRes_max)
 testValue = as.vector(na.omit(unlist(simulatedQuantities$pInd_whichsurv_sim)))[1]
+
 expect_false(testValue==mean(c(pRes_min,pRes_max)))
 
 
@@ -83,7 +84,7 @@ expect_identical(testValue,expectValue)
 
 
 # Tests for fct summaryHostSwitch
-## Check if phenotypes are within range (1-100)
+## Check if phenotype are within range (1-100)
 simulatedQuantities = simHostSwitch()
 testValue = any(summaryHostSwitch(simulatedQuantities)[[14]]$Value<101)==TRUE
 expect_true(testValue) # phenotypes less than 11
@@ -97,7 +98,7 @@ expect_equal(testValue,c(0,0))
 
 
 # Tests for fct survivalProbability
-# Test behaviour of fct in relation to |pInd-pOpt|
+# Test behavior of fct in relation to |pInd-pOpt|
 ## Check if identical inputs for pInd and pOpt equal 1
 pInd = sample(1:100,1)
 pOpt = pInd

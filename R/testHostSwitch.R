@@ -34,12 +34,6 @@
 #' m2 = simHostSwitch(n_generations=50,n_sim=50)
 #' testHostSwitch(simulated_quantities1=m1,simulated_quantities2=m2,
 #' parameter="j",test="t",plot=TRUE)
-#' @import checkmate
-#' @import stats
-#' @import ggplot2
-#' @importFrom purrr map
-#' @importFrom plyr laply
-#' @importFrom utils head
 #' @export
 
 testHostSwitch = function(simulated_quantities1,simulated_quantities2,
@@ -113,10 +107,10 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,
 ## JUMPS
   if(parameter == "j"){
     title = "Comparison of averages of dispersion events by the Consumer"
-   x = plyr::laply(simulated_quantities1$pInd_jump_sim,
-                   function(x) length(which(x>0)))
-   y = plyr::laply(simulated_quantities2$pInd_jump_sim,
-                   function(x) length(which(x>0)))
+   x = unlist(lapply(simulated_quantities1$pInd_jump_sim,
+                   function(x) length(which(x>0))))
+   y = unlist(lapply(simulated_quantities2$pInd_jump_sim,
+                   function(x) length(which(x>0))))
   }
 ## SUCCESSFUL HOST SWITCHES
   if(parameter == "s"){
@@ -150,7 +144,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,
       dat = simulated_quantities1$pInd_whichsurv_sim[i]
       dat = flatten2(dat)
       survPosition1[[i]] = (which(
-        plyr::laply(dat,function(x) length(which(x>0)))>0))-1
+        unlist(lapply(dat,function(x) length(which(x>0))))>0))-1
     }
 
     ## pRes
@@ -186,7 +180,7 @@ testHostSwitch = function(simulated_quantities1,simulated_quantities2,
       # for each simulation, records position (=generation) of survived individuals
       dat = simulated_quantities2$pInd_whichsurv_sim[i]
       dat = flatten2(dat)
-      survPosition2[[i]] = (which(plyr::laply(dat,function(x) length(which(x>0)))>0))-1
+      survPosition2[[i]] = (which(unlist(lapply(dat,function(x) length(which(x>0))))>0))-1
     }
 
     ## pRes
@@ -249,7 +243,6 @@ methods::new("testHostSwitch", out$result)
 #' the package on CRAN.
 #'
 #' @keywords internal
-#' @importFrom methods setClass setMethod
 #' @export
 #'
 methods::setClass("testHostSwitch", representation=representation("list"))

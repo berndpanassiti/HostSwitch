@@ -77,6 +77,14 @@ This package will be expanded with further scenarios of biological interactions.
 
 ## Installing, loading and citing the package
 
+Install the  HostSwitch package from CRAN
+
+```{r, eval=FALSE}
+install.packages("HostSwitch")
+```
+
+
+
 Install the recent release of HostSwitch package using GitHub
 
 ```{r, eval=FALSE}

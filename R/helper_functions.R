@@ -25,7 +25,7 @@ flatten2 <- function(x) {
 createPlotInput_Ind_sim <- function(x) {
   xx        = flatten2(x)
   # "-1" need to start from generation 0!
-  parasites = utils::stack(setNames(xx, seq_along(xx) - 1))
+  parasites = utils::stack(stats::setNames(xx, seq_along(xx) - 1))
   colnames(parasites)   = c("y", "x")
   parasites$x           = as.numeric(as.character(parasites$x))
   return(parasites)
