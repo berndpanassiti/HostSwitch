@@ -58,13 +58,23 @@ if(length(flatten2(simulatedQuantities$pInd_sim))<n_generations+1){ # less
 expect_error(simHostSwitch(jump_back = "Yeees"))
 expect_error(simHostSwitch(pRes_min = 0))
 
-## First individuals that survives has penology different than mean(c(pRes_min,pRes_max))
-pRes_min = 10
-pRes_max = 30
-simulatedQuantities = simHostSwitch(pRes_min = pRes_min, pRes_max = pRes_max)
-testValue = as.vector(na.omit(unlist(simulatedQuantities$pInd_whichsurv_sim)))[1]
+## nInitConsumer <= K
+# Initial number of individuals (nInitConsumer) always lower or
+# equal than K (Carrying Capacity) otherwise error message
+expect_error(simHostSwitch(nInitConsumer = 1000,K=100))
 
-expect_false(testValue==mean(c(pRes_min,pRes_max)))
+
+# Check migration is working properly
+## mig = 0 should result in not jumped individuals
+m1 = simHostSwitch(mig=0)
+testValue = sum(unlist(m1$pInd_jump_sim)[-1])
+expectedValue = 0
+expect_equal(testValue,expectedValue)
+
+# initial individual should never jump
+m1 = simHostSwitch()
+testValue = unlist(m1$pInd_jump_sim)[1]
+expect_scalar_na(testValue)
 
 
 ## Number of matches between pRes_sim and pRes_new_sim is equal to number of successful colonization

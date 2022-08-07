@@ -295,7 +295,7 @@ simHostSwitch=function (data=NULL, column=NULL, K=100,b=10, mig=0.01, sd=0.2,
 
     if(length(pInd_new)>0){ # Host switch successful, at least 1 individual jumped & survived
       pRes=pRes_new
-      pInd=pInd_new                         # survivded individuals on new plant
+      pInd=pInd_new                         # survived individuals on new plant
       pInd_whichsurv_sim[[n+1]] = pInd_new  # record which individuals survived
     }
     else{
