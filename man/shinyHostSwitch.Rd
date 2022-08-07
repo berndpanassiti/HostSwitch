@@ -18,7 +18,7 @@ The function creates an interactive web-based front-end using
 Shiny App. The Shiny-Plot simulates dispersal and colonization events of
 a consumer on novel hosts.
 
-The parameter values included in the function \code{\link{simHostSwitch}}
+The parameter values included in the function \code{\link[=simHostSwitch]{simHostSwitch()}}
 can be modified by the slider bars. The refresh button on the top left
 (Refresh simulation) plots the new simulation.
 

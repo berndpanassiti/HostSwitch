@@ -9,61 +9,61 @@ An object of class "list". The list contains three matrices:
 $Cephaloleia, $Cacopsylla, and $SarsMers.
 \enumerate{
 \item{\emph{parli$Cephaloleia} is a data frame with 11 rows (parameters)
-      and 8 columns (variables).}
+and 8 columns (variables).}
 
 The parameters are classified in three groups:
 \itemize{
-  \item{Arbitrary varying: mig (probability of migration) and jump_back
-        (to the original Resource).}
-  \item{Arbitrary fixed: K (carrying capacity), N-generations, seed,
-        n_sim, pRes_min, pRes_max, sd (standard deviation of mutation),
-        and sigma (standard deviation of survival).}
-  \item{From real data: b (net reproduction rate) (Garcia-Robledo and
-        Horvitz, 2011).}
+\item{Arbitrary varying: mig (probability of migration) and jump_back
+(to the original Resource).}
+\item{Arbitrary fixed: K (carrying capacity), N-generations, seed,
+n_sim, pRes_min, pRes_max, sd (standard deviation of mutation),
+and sigma (standard deviation of survival).}
+\item{From real data: b (net reproduction rate) (Garcia-Robledo and
+Horvitz, 2011).}
 }
- The column name acronyms are assigned after:
+The column name acronyms are assigned after:
 \itemize{
-  \item{two \emph{Cephaloleia} species: \bold{Cb} for \emph{C. belti} and
-        \bold{Cp} for \emph{C. placida}.}
-  \item{two levels of variation for mig: \bold{mL} for low and \bold{mH}
-        for high migration.}
-  \item{two levels for jump_back: \bold{jY} for jumping back and \bold{jN}
-        for no jumping back individuals.}
+\item{two \emph{Cephaloleia} species: \strong{Cb} for \emph{C. belti} and
+\strong{Cp} for \emph{C. placida}.}
+\item{two levels of variation for mig: \strong{mL} for low and \strong{mH}
+for high migration.}
+\item{two levels for jump_back: \strong{jY} for jumping back and \strong{jN}
+for no jumping back individuals.}
 }
 
 \item{\emph{parli$Cacopsylla} is a data frame with 11 rows and 8 columns.}
 The parameters are classified in three groups:
 \itemize{
-  \item{Arbitrary varying: sd and jump_back.}
-  \item{Arbitrary fixed: K, N-generations, seed, n_sim, pRes_min, pRes_max}
-  \item{From real data: b, sigma and mig (Malagnini et al. 2010, 2011;
-        Mayer et al. 2013).}
+\item{Arbitrary varying: sd and jump_back.}
+\item{Arbitrary fixed: K, N-generations, seed, n_sim, pRes_min, pRes_max}
+\item{From real data: b, sigma and mig (Malagnini et al. 2010, 2011;
+Mayer et al. 2013).}
 }
 The column name acronyms are assigned after:
 \itemize{
-  \item{two \emph{Cacopsylla melanoneura} populations: \bold{CmA} for
-        \emph{C. melanoneura} adapted to Apple and \bold{CmH} for
-        \emph{C. melanoneura} adapted to hawthorn.}
-  \item{two levels of variation for sd: \bold{sdL} for low and \bold{sdH}
-       for high standard deviation of mutation.}
-  \item{two levels for jump_back: \bold{jY} for jumping
-        back and \bold{jN} for no jumping back individuals.}
+\item{two \emph{Cacopsylla melanoneura} populations: \strong{CmA} for
+\emph{C. melanoneura} adapted to Apple and \strong{CmH} for
+\emph{C. melanoneura} adapted to hawthorn.}
+\item{two levels of variation for sd: \strong{sdL} for low and \strong{sdH}
+for high standard deviation of mutation.}
+\item{two levels for jump_back: \strong{jY} for jumping
+back and \strong{jN} for no jumping back individuals.}
 }
 
 \item{\emph{parli$SarsMers}is a data frame with 11 rows and 8 columns.}
 The parameters are classified in three groups:
 \itemize{
-  \item{Arbitrary varying: mig}
-  \item{Arbitrary fixed: K, N-generations, seed, n_sim, pRes_min, pRes_max}
-  \item{From real data: b, sigma, and sd (Kim et al. 2021;
-        van Dorp et al. 2020)}
+\item{Arbitrary varying: mig}
+\item{Arbitrary fixed: K, N-generations, seed, n_sim, pRes_min, pRes_max}
+\item{From real data: b, sigma, and sd (Kim et al. 2021;
+van Dorp et al. 2020)}
 }
 The column name acronyms are assigned after:
 \itemize{
-  \item{two coronaviruses: \bold{Sars} for \emph{Sarbecovirus} sp. and
-        \bold{Mers} for \emph{Merbacovirus} sp.}
-  \item{three levels of variation for mig: \bold{migL} for low, \bold{migM}
-        for medium and \bold{migH} for high probability of migration.}
+\item{two coronaviruses: \strong{Sars} for \emph{Sarbecovirus} sp. and
+\strong{Mers} for \emph{Merbacovirus} sp.}
+\item{three levels of variation for mig: \strong{migL} for low, \strong{migM}
+for medium and \strong{migH} for high probability of migration.}
 }
 }
 }
@@ -109,7 +109,7 @@ data(parli)
 Data derived from real world experiments (see sources). Data includes
 life cycle parameters for a wildlife ecology, agricultural
 and biomedical arena  to simulate host switches.\cr
-Semantics of parli = \bold{par}ameter of \bold{li}fe cycle
+Semantics of parli = \strong{par}ameter of \strong{li}fe cycle
 }
 \examples{
 data(parli)

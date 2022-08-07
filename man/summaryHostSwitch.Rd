@@ -7,7 +7,7 @@
 summaryHostSwitch(HostSwitch_simulated_quantities, warmup = 1)
 }
 \arguments{
-\item{HostSwitch_simulated_quantities}{An object created by \code{\link{simHostSwitch}}}
+\item{HostSwitch_simulated_quantities}{An object created by \code{\link[=simHostSwitch]{simHostSwitch()}}}
 
 \item{warmup}{warmup is the number of initial generations to be excluded from summary statistics, see details. Possible value are NULL or positive integer (min=1, max=50), default value = 1}
 }

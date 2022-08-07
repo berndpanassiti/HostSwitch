@@ -79,18 +79,18 @@ individuals of the Consumer until all individuals die.
 \details{
 This function simulates the number of host switches by the population of
 a consumer.
-There are 2 ways to provide parameters to the \code{\link{simHostSwitch}}
+There are 2 ways to provide parameters to the \code{\link[=simHostSwitch]{simHostSwitch()}}
 function:
 \describe{
-  \item{data}{\bold{"data","column"}: Provide names of matrix/dataframe
-        and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
-  \item{parameter}{\bold{individual parameter}: e.g. b=5, n_generations=500,
-        etc...}
+\item{data}{\strong{"data","column"}: Provide names of matrix/dataframe
+and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
+\item{parameter}{\strong{individual parameter}: e.g. b=5, n_generations=500,
+etc...}
 }
 If no data/column or individual parameters are provided, default parameter
 values are used.
 The rownames of the data must match the parameter argument names. You may
-use one of the \code{\link{parli}}
+use one of the \code{\link[=parli]{parli()}}
 datasets as a template.\cr\cr
 Results are stored to an object of class \sQuote{HostSwitch}.
 to make use of summary and plotting functions in the \pkg{HostSwitch}
@@ -103,33 +103,33 @@ above Cb.mLxjN).
 The object of class \sQuote{'HostSwitch} includes the following simulated
 quantities:
 \describe{
-  \item{pRes_sim}{\bold{$pRes_sim}:  a vector of the optimum phenotypes
-  (one for each generation) that Consumers should have to be favored by
-  the current Resource.}
-  \item{pRes_new_sim}{\bold{$pRes_new_sim}: a vector of the optimum phenotypes
-  (one for each generation) that Consumers should have to be favored by the
-  novel Resource.}
-  \item{pInd_sim}{\bold{$pInd_sim}: list of vectors that includes the
-  individual phenotype values of the Consumers in the population of
-  each generation.}
-  \item{pInd_jump_sim}{\bold{$pInd_jump_sim}: vector of number of migrating
-  individuals at each generation. The vector length is always equal to the
-  'n_generation' parameter, if the simulation ends before the 'n_generation'
-  value then the vector will include a 'NA' by default.}
-  \item{pInd_whichjump_sim}{\bold{$pInd_whichjump_sim}: list of vectors that
-  extracts the individual phenotype values of the Consumers who disperse in
-  a novel Resource in each population and generation.}
-  \item{pInd_whichsurv_sim}{\bold{$pInd_whichsurv_sim}: list of vectors that
-  extracts the individual phenotype values of the Consumers who successful
-  colonize a novel Resource in each population and generation.}
+\item{pRes_sim}{\strong{$pRes_sim}:  a vector of the optimum phenotypes
+(one for each generation) that Consumers should have to be favored by
+the current Resource.}
+\item{pRes_new_sim}{\strong{$pRes_new_sim}: a vector of the optimum phenotypes
+(one for each generation) that Consumers should have to be favored by the
+novel Resource.}
+\item{pInd_sim}{\strong{$pInd_sim}: list of vectors that includes the
+individual phenotype values of the Consumers in the population of
+each generation.}
+\item{pInd_jump_sim}{\strong{$pInd_jump_sim}: vector of number of migrating
+individuals at each generation. The vector length is always equal to the
+'n_generation' parameter, if the simulation ends before the 'n_generation'
+value then the vector will include a 'NA' by default.}
+\item{pInd_whichjump_sim}{\strong{$pInd_whichjump_sim}: list of vectors that
+extracts the individual phenotype values of the Consumers who disperse in
+a novel Resource in each population and generation.}
+\item{pInd_whichsurv_sim}{\strong{$pInd_whichsurv_sim}: list of vectors that
+extracts the individual phenotype values of the Consumers who successful
+colonize a novel Resource in each population and generation.}
 }
 These simulated quantities of interest are available for each generation step
 and can be used for summary statistics and plots using functions
-\code{\link{summaryHostSwitch}} and \code{\link{plotHostSwitch}},
+\code{\link[=summaryHostSwitch]{summaryHostSwitch()}} and \code{\link[=plotHostSwitch]{plotHostSwitch()}},
 respectively.\cr
 
 Note: One important aspect of \emph{simHostswitch} is that it is based on
-the \code{\link{survivalProbability}} function.
+the \code{\link[=survivalProbability]{survivalProbability()}} function.
 }
 \examples{
 m1 = simHostSwitch() # using default values for arguments
@@ -143,6 +143,6 @@ simHostSwitch(sigma=100)}
 
 }
 \seealso{
-\code{\link{survivalProbability}}, \code{\link{summaryHostSwitch}},
-\code{\link{plotHostSwitch}}
+\code{\link[=survivalProbability]{survivalProbability()}}, \code{\link[=summaryHostSwitch]{summaryHostSwitch()}},
+\code{\link[=plotHostSwitch]{plotHostSwitch()}}
 }

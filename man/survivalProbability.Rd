@@ -25,7 +25,7 @@ Survival probability of the Consumer in a novel Resource
 \details{
 This function calculates the survival probability of individual
 consumers that attempt dispersal to a new host. It is the core function
-of \code{\link{simHostSwitch}}.
+of \code{\link[=simHostSwitch]{simHostSwitch()}}.
 The probability of survival of each individual of the consumer to a novel
 Resource follows a normal distribution.
 The formula is formalized as follows \deqn{P(pInd,pOpt) =

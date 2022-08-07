@@ -74,7 +74,7 @@ expect_equal(testValue,expectedValue)
 # initial individual should never jump
 m1 = simHostSwitch()
 testValue = unlist(m1$pInd_jump_sim)[1]
-expect_scalar_na(testValue)
+expect_true(is.na(testValue))
 
 
 ## Number of matches between pRes_sim and pRes_new_sim is equal to number of successful colonization

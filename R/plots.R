@@ -2,8 +2,8 @@
 #'
 #' This function creates a standard plot for the simulated host switches
 #'
-#' @param HostSwitch_simulated_quantities The object HostSwitch created by \code{\link{simHostSwitch}}
-#' @param sim_n for HostSwitch object including more than 1 simulation saved, "sim_n" specifies which simulation have to be plotted. The plot from the first simulation is shown as default (sim_n = 1). If the called simulation number is not present in the HostSwitch object, the error message "Error in FUN(X[[i]], ...) : subscript out of bounds" will be returned.
+#' @param HostSwitch_simulated_quantities The object HostSwitch created by [simHostSwitch()]
+#' @param sim_n for HostSwitch object including more than 1 simulation saved, "sim_n" specifies which simulation have to be plotted. The plot from the first simulation is shown as default (sim_n = 1). If the called simulation number is not present in the HostSwitch object, an error message will be returned.
 #'
 #' @details The function plots dispersal and colonization (host-switching events) of Consumers on a novel host offered at each generation given the values of parameters related to carrying capacity, fitness space, migration, reproduction, selection, and biological model. The X-axis shows the total number of possible generations defined in the object HostSwitch, the Y-axis the phenotype values of the Consumer.
 #'

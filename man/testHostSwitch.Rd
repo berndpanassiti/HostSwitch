@@ -15,22 +15,22 @@ testHostSwitch(
 )
 }
 \arguments{
-\item{simulated_quantities1}{An object created by \code{\link{simHostSwitch}}}
+\item{simulated_quantities1}{An object created by \code{\link[=simHostSwitch]{simHostSwitch()}}}
 
-\item{simulated_quantities2}{An object created by \code{\link{simHostSwitch}}}
+\item{simulated_quantities2}{An object created by \code{\link[=simHostSwitch]{simHostSwitch()}}}
 
 \item{parameter}{Quantity of interest, possible values are:
 \itemize{
-  \item "j" for total number of dispersing events (or \strong{j}umps)
-  \item "s" for total number of \strong{s}uccessful host switch events
-  \item "d" for \strong{d}istance between the pRes_sim and pRes_new_sim in
-        case of host switch
+\item "j" for total number of dispersing events (or \strong{j}umps)
+\item "s" for total number of \strong{s}uccessful host switch events
+\item "d" for \strong{d}istance between the pRes_sim and pRes_new_sim in
+case of host switch
 }}
 
 \item{test}{Statistical test, available tests are:
 \itemize{
-  \item ''t'' for \strong{t}-test (parametric)
-  \item ''w'' for \strong{W}ilcoxon-test (non-parametric)
+\item ''t'' for \strong{t}-test (parametric)
+\item ''w'' for \strong{W}ilcoxon-test (non-parametric)
 }}
 
 \item{warmup}{Number of warmup steps to be excluded when comparing models,

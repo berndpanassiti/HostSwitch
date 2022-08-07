@@ -3,7 +3,7 @@
 #' Data derived from real world experiments (see sources). Data includes
 #' life cycle parameters for a wildlife ecology, agricultural
 #' and biomedical arena  to simulate host switches.\cr
-#' Semantics of parli = \bold{par}ameter of \bold{li}fe cycle
+#' Semantics of parli = **par**ameter of **li**fe cycle
 #'
 #' @docType data
 #'
@@ -12,7 +12,7 @@
 #' @format An object of class "list". The list contains three matrices:
 #' $Cephaloleia, $Cacopsylla, and $SarsMers.
 #'\enumerate{
-#' \item{\emph{parli$Cephaloleia} is a data frame with 11 rows (parameters)
+#' \item{*parli$Cephaloleia* is a data frame with 11 rows (parameters)
 #'       and 8 columns (variables).}
 #'
 #' The parameters are classified in three groups:
@@ -27,15 +27,15 @@
 #'}
 #'  The column name acronyms are assigned after:
 #'\itemize{
-#'   \item{two \emph{Cephaloleia} species: \bold{Cb} for \emph{C. belti} and
-#'         \bold{Cp} for \emph{C. placida}.}
-#'   \item{two levels of variation for mig: \bold{mL} for low and \bold{mH}
+#'   \item{two *Cephaloleia* species: **Cb** for *C. belti* and
+#'         **Cp** for *C. placida*.}
+#'   \item{two levels of variation for mig: **mL** for low and **mH**
 #'         for high migration.}
-#'   \item{two levels for jump_back: \bold{jY} for jumping back and \bold{jN}
+#'   \item{two levels for jump_back: **jY** for jumping back and **jN**
 #'         for no jumping back individuals.}
 #'}
 #'
-#' \item{\emph{parli$Cacopsylla} is a data frame with 11 rows and 8 columns.}
+#' \item{*parli$Cacopsylla* is a data frame with 11 rows and 8 columns.}
 #' The parameters are classified in three groups:
 #'\itemize{
 #'   \item{Arbitrary varying: sd and jump_back.}
@@ -45,16 +45,16 @@
 #'}
 #' The column name acronyms are assigned after:
 #'\itemize{
-#'   \item{two \emph{Cacopsylla melanoneura} populations: \bold{CmA} for
-#'         \emph{C. melanoneura} adapted to Apple and \bold{CmH} for
-#'         \emph{C. melanoneura} adapted to hawthorn.}
-#'   \item{two levels of variation for sd: \bold{sdL} for low and \bold{sdH}
+#'   \item{two *Cacopsylla melanoneura* populations: **CmA** for
+#'         *C. melanoneura* adapted to Apple and **CmH** for
+#'         *C. melanoneura* adapted to hawthorn.}
+#'   \item{two levels of variation for sd: **sdL** for low and **sdH**
 #'        for high standard deviation of mutation.}
-#'   \item{two levels for jump_back: \bold{jY} for jumping
-#'         back and \bold{jN} for no jumping back individuals.}
+#'   \item{two levels for jump_back: **jY** for jumping
+#'         back and **jN** for no jumping back individuals.}
 #'}
 #'
-#' \item{\emph{parli$SarsMers}is a data frame with 11 rows and 8 columns.}
+#' \item{*parli$SarsMers*is a data frame with 11 rows and 8 columns.}
 #' The parameters are classified in three groups:
 #'\itemize{
 #'   \item{Arbitrary varying: mig}
@@ -64,10 +64,10 @@
 #'}
 #' The column name acronyms are assigned after:
 #'\itemize{
-#'   \item{two coronaviruses: \bold{Sars} for \emph{Sarbecovirus} sp. and
-#'         \bold{Mers} for \emph{Merbacovirus} sp.}
-#'   \item{three levels of variation for mig: \bold{migL} for low, \bold{migM}
-#'         for medium and \bold{migH} for high probability of migration.}
+#'   \item{two coronaviruses: **Sars** for *Sarbecovirus* sp. and
+#'         **Mers** for *Merbacovirus* sp.}
+#'   \item{three levels of variation for mig: **migL** for low, **migM**
+#'         for medium and **migH** for high probability of migration.}
 #'}
 #' }
 #'

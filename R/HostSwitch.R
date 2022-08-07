@@ -8,7 +8,7 @@
 #' more explanations)
 #' @details This function calculates the survival probability of individual
 #' consumers that attempt dispersal to a new host. It is the core function
-#' of \code{\link{simHostSwitch}}.
+#' of [simHostSwitch()].
 #' The probability of survival of each individual of the consumer to a novel
 #' Resource follows a normal distribution.
 #' The formula is formalized as follows \deqn{P(pInd,pOpt) =
@@ -77,18 +77,18 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' @details
 #' This function simulates the number of host switches by the population of
 #' a consumer.
-#' There are 2 ways to provide parameters to the \code{\link{simHostSwitch}}
+#' There are 2 ways to provide parameters to the [simHostSwitch()]
 #' function:
 #' \describe{
-#'   \item{data}{\bold{"data","column"}: Provide names of matrix/dataframe
+#'   \item{data}{**"data","column"**: Provide names of matrix/dataframe
 #'         and column, e.g. data= "parli$Cephaloleia", column = "Cb.mLxjN"}
-#'   \item{parameter}{\bold{individual parameter}: e.g. b=5, n_generations=500,
+#'   \item{parameter}{**individual parameter**: e.g. b=5, n_generations=500,
 #'         etc...}
 #' }
 #' If no data/column or individual parameters are provided, default parameter
 #' values are used.
 #' The rownames of the data must match the parameter argument names. You may
-#' use one of the \code{\link{parli}}
+#' use one of the [parli()]
 #' datasets as a template.\cr\cr
 #' Results are stored to an object of class \sQuote{HostSwitch}.
 #' to make use of summary and plotting functions in the \pkg{HostSwitch}
@@ -101,36 +101,36 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' The object of class \sQuote{'HostSwitch} includes the following simulated
 #' quantities:
 #' \describe{
-#'   \item{pRes_sim}{\bold{$pRes_sim}:  a vector of the optimum phenotypes
+#'   \item{pRes_sim}{**$pRes_sim**:  a vector of the optimum phenotypes
 #'   (one for each generation) that Consumers should have to be favored by
 #'   the current Resource.}
-#'   \item{pRes_new_sim}{\bold{$pRes_new_sim}: a vector of the optimum phenotypes
+#'   \item{pRes_new_sim}{**$pRes_new_sim**: a vector of the optimum phenotypes
 #'   (one for each generation) that Consumers should have to be favored by the
 #'   novel Resource.}
-#'   \item{pInd_sim}{\bold{$pInd_sim}: list of vectors that includes the
+#'   \item{pInd_sim}{**$pInd_sim**: list of vectors that includes the
 #'   individual phenotype values of the Consumers in the population of
 #'   each generation.}
-#'   \item{pInd_jump_sim}{\bold{$pInd_jump_sim}: vector of number of migrating
+#'   \item{pInd_jump_sim}{**$pInd_jump_sim**: vector of number of migrating
 #'   individuals at each generation. The vector length is always equal to the
 #'   'n_generation' parameter, if the simulation ends before the 'n_generation'
 #'   value then the vector will include a 'NA' by default.}
-#'   \item{pInd_whichjump_sim}{\bold{$pInd_whichjump_sim}: list of vectors that
+#'   \item{pInd_whichjump_sim}{**$pInd_whichjump_sim**: list of vectors that
 #'   extracts the individual phenotype values of the Consumers who disperse in
 #'   a novel Resource in each population and generation.}
-#'   \item{pInd_whichsurv_sim}{\bold{$pInd_whichsurv_sim}: list of vectors that
+#'   \item{pInd_whichsurv_sim}{**$pInd_whichsurv_sim**: list of vectors that
 #'   extracts the individual phenotype values of the Consumers who successful
 #'   colonize a novel Resource in each population and generation.}
 #' }
 #' These simulated quantities of interest are available for each generation step
 #' and can be used for summary statistics and plots using functions
-#' \code{\link{summaryHostSwitch}} and \code{\link{plotHostSwitch}},
+#' [summaryHostSwitch()] and [plotHostSwitch()],
 #' respectively.\cr
 #'
-#' Note: One important aspect of \emph{simHostswitch} is that it is based on
-#' the \code{\link{survivalProbability}} function.
+#' Note: One important aspect of *simHostswitch* is that it is based on
+#' the [survivalProbability()] function.
 #'
-#' @seealso \code{\link{survivalProbability}}, \code{\link{summaryHostSwitch}},
-#' \code{\link{plotHostSwitch}}
+#' @seealso [survivalProbability()], [summaryHostSwitch()],
+#' [plotHostSwitch()]
 #'
 #' @return An object of class \sQuote{HostSwitch}.
 #' @examples
@@ -404,11 +404,11 @@ methods::setMethod("show",signature = "summaryHostSwitch", definition = function
 
 #' Summary statistics of HostSwitch simulation
 #'
-#' @param HostSwitch_simulated_quantities An object created by \code{\link{simHostSwitch}}
+#' @param HostSwitch_simulated_quantities An object created by [simHostSwitch()]
 #' @param warmup warmup is the number of initial generations to be excluded from summary statistics, see details. Possible value are NULL or positive integer (min=1, max=50), default value = 1
 #' @details This function generates summary statistics for HostSwitch simulations.
-#' Quantities of interest for each simulation are averaged. If \emph{n_sim = 1}, these averages for this single simulation are shown. If \emph{n_sim > 1}, summary statistics are applied on the simulation averages.\cr\cr
-#' \strong{Warmup} represents the initial condition for the simulation, the users may defined it as an adaptation stage of the simulation model.
+#' Quantities of interest for each simulation are averaged. If *n_sim = 1*, these averages for this single simulation are shown. If *n_sim > 1*, summary statistics are applied on the simulation averages.\cr\cr
+#' **Warmup** represents the initial condition for the simulation, the users may defined it as an adaptation stage of the simulation model.
 #' If warmup = 1 the generation at time 0 is excluded from summary, if warmup = 2 the generations at times 0 and 1 are excluded and so on.
 #' If warmup = NULL all generations are considered for summary statistics.
 #'
