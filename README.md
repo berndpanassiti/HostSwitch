@@ -3,24 +3,24 @@ HostSwitch: An R Package to simulate host switching by a parasite
 
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/HostSwitch)](https://cran.r-project.org/package=HostSwitch)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/HostSwitch?color=green)](https://cran.r-project.org/package=HostSwitch)
-[![](http://cranlogs.r-pkg.org/badges/last-month/HostSwitch?color=green)](https://cran.r-project.org/package=HostSwitch)
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/HostSwitch?color=green)](https://cran.r-project.org/package=HostSwitch)
+[![](https://cranlogs.r-pkg.org/badges/last-month/HostSwitch?color=green)](https://cran.r-project.org/package=HostSwitch)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/berndpanassiti/HostSwitch/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/berndpanassiti/HostSwitch/actions/workflows/R-CMD-check.yaml)
 [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.5.0-blue)](https://cran.r-project.org/)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 
-#### Trivellone, V. <a itemprop="sameAs" content="https://orcid.org/0000-0003-1415-4097" href="https://orcid.org/0000-0003-1415-4097" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon"></a>; Araujo B.L., S. <a itemprop="sameAs" content="https://orcid.org/0000-0002-8759-8310" href="https://orcid.org/0000-0002-8759-8310" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon"></a>; Panassiti B.  <a itemprop="sameAs" content="https://orcid.org/0000-0002-5899-4584" href="https://orcid.org/0000-0002-5899-4584" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon"></a>
+#### Trivellone, V. <a itemprop="sameAs" content="https://orcid.org/0000-0003-1415-4097" href="https://orcid.org/0000-0003-1415-4097" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon"></a>; Araujo B.L., S. <a itemprop="sameAs" content="https://orcid.org/0000-0002-8759-8310" href="https://orcid.org/0000-0002-8759-8310" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon"></a>; Panassiti, B.  <a itemprop="sameAs" content="https://orcid.org/0000-0002-5899-4584" href="https://orcid.org/0000-0002-5899-4584" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon"></a>
 
 
 
-[R/HostSwitch](https://cran.r-project.org/web/packages/HostSwitch/index.html) is an [R](https://www.r-project.org) package that uses an individual-based model to simulate dispersion and host switch events by a consumer. The host-consumer association refers to any type of symbiotic (<i>sensu lato</i>) biological interaction.
+[R/HostSwitch](https://cran.r-project.org/package=HostSwitch) is an [R](https://www.r-project.org) package that uses an individual-based model to simulate dispersion and host switch events by a consumer. The host-consumer association refers to any type of symbiotic (<i>sensu lato</i>) biological interaction.
 
 
 #### Installation
 
-Install [R/HostSwitch](https://cran.r-project.org/web/packages/HostSwitch/index.html) from [CRAN](https://cran.r-project.org) using:
+Install [R/HostSwitch](https://cran.r-project.org/package=HostSwitch) from [CRAN](https://cran.r-project.org) using:
 
 
 ```{r}
@@ -39,7 +39,7 @@ devtools::install_github(repo <- "berndpanassiti/HostSwitch",build_vignettes = T
 
 Try the following example to simulate dispersal and host switch events by a consumer. You can set up a maximum of 20 generations and 3 simulations:
 ```{r}
-library (HostSwitch)
+library(HostSwitch)
 simulated_quantities <- simHostSwitch(seed=123,n_sim=3,n_generation=20)
 ```
 
@@ -68,5 +68,5 @@ shinyHostSwitch()
 
 #### License
 
-The [R/HostSwitch](https://cran.r-project.org/web/packages/HostSwitch/index.html) package as a whole is distributed under [GPL-3](https://www.gnu.org/licenses/gpl-3.0.en.html) (GNU General Public License version 3).
+The [R/HostSwitch](https://cran.r-project.org/package=HostSwitch) package as a whole is distributed under [GPL-3](https://www.gnu.org/licenses/gpl-3.0.en.html) (GNU General Public License version 3).
 
