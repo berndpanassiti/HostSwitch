@@ -50,7 +50,7 @@ survivalProbability = function(pInd,pOpt,sigma){
 #' @param K Carrying capacity, positive integer (min=1, max=1000), default
 #' value: 100.
 #' @param b net reproduction rate; average number of offspring that a
-#' population of the Consumer produces at each generation, numeric value
+#' population of the Consumer produces at each generation, integer value
 #' (min=0), default value: 10.
 #' @param mig define the proportion of successful migrating individuals at
 #' each generation, numeric value (min=0, max=1), default value: 0.01.

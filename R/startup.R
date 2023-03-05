@@ -5,7 +5,7 @@ print.HostSwitch.startupInfo <- function()
                  '.\n', "For overview type vignette('HostSwitch',
                  package='HostSwitch').\nNote: For an interactive plot,
                  see ?shinyHostSwitch for details." ,sep="")
-  packageStartupMessage(cat(hello))
+  packageStartupMessage(hello)
 }
 
 .onLoad <- function(...) {
